@@ -3,6 +3,7 @@
     <img alt="Vue logo" src="../assets/img/logo.png">
     <HelloWorld msg="Welcome to FireFinch R1 App" />
     <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
     <i class="fa-glass fa"></i>
   </div>
 </template>
