@@ -5,7 +5,6 @@ import apiList from './apiList';
 import loopRequest from './loopRequest';
 // import specialHandler from './specialHandler';
 
-console.log(axios);
 const commonParam = {};
 let errorHandler = () => {};
 
@@ -39,9 +38,9 @@ const ResponseHandler = (response, responseHandler) => {
 };
 
 const DataPacketHandler = (dataPacket, dataPacketHandler) => { // error_code 处理层
-  const errorCode = dataPacket.error_code;
+  const errorCode = dataPacket.code;
   const packet = dataPacket.data;
-
+  console.log(dataPacket);
   if (typeof dataPacketHandler === 'function') {
     dataPacketHandler(dataPacket);
   }
@@ -49,7 +48,7 @@ const DataPacketHandler = (dataPacket, dataPacketHandler) => { // error_code 处
   if (typeof errorHandler === 'function') {
     errorHandler(dataPacket);
   }
-  if (dataPacket && errorCode === '0') { // 修复 complete bug
+  if (dataPacket && errorCode === 0) { // 修复 complete bug
     return packet;
   }
   return false;
@@ -78,16 +77,9 @@ baseUtil.each(ajaxMethod, (method) => {
    */
   http[method] = (url, options) => {
     const {
-      param, responseHandler, dataPacketHandler, dataHandler,
+      params, responseHandler, dataPacketHandler, dataHandler,
     } = options;
-    /*
-    const param = options.param || {};
-    const responseHandler = options.responseHandler;
-    const dataPacketHandler = options.dataPacketHandler;
-    const dataHandler = options.dataHandler;
-    */
-
-    axiosInstance[method](url, param)
+    axiosInstance[method](url, { params })
       .then(response => ResponseHandler(response, responseHandler))
       .then(dataPacket => DataPacketHandler(dataPacket, dataPacketHandler))
       .then(data => DataHandler(data, dataHandler))
@@ -106,7 +98,7 @@ baseUtil.each(apiList, (url) => {
     const responseHandler = response => respond(response);
     const dataPacketHandler = (dataPacket) => {
       complete(dataPacket);
-      if (dataPacket.error_code !== '0') {
+      if (dataPacket.code !== '0') {
         fail(dataPacket);
       }
     };
@@ -118,10 +110,10 @@ baseUtil.each(apiList, (url) => {
       */
       success(data);
     };
-    const param = baseUtil.copy(commonParam);
-    baseUtil.merge(param, options.param, true);
+    const params = baseUtil.copy(commonParam);
+    baseUtil.merge(params, options.params, true);
     const postOptions = {
-      param,
+      params,
       responseHandler,
       dataPacketHandler,
       dataHandler,
@@ -166,7 +158,22 @@ http.loop = (api, opts, channel = loopRequest.channel.HALF_MINUTE) => {
   const loop = loopRequest.add(() => {
     http.api[api](opts);
   }, channel);
-  return [loop, channel];
+  return [loop, channel];// 此处返回值用于remove对应的循环请求
+  /*
+  * 示例：
+  * httpLoop = http.loop(httpList.TEST, {
+        method: 'get',
+        params: {
+          ip: '63.223.108.42',
+        },
+        success(response) {
+          console.log(response);
+          vm.ip = response;
+        },
+      }, http.loop.channel.ONE_MINUTE);
+      //remove 操作
+      http.loop.remove(...httpLoop);
+  * */
 };
 http.loop.channel = loopRequest.channel;
 http.loop.remove = (item, channel) => {

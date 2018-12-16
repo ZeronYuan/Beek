@@ -1,5 +1,5 @@
-//import apiList from './apiList';
-import baseUtil from '../../util/baseUtil';
+// import apiList from './apiList';
+// import baseUtil from '../../util/baseUtil';
 
 // 新闻链接过滤
 /*
@@ -23,7 +23,8 @@ const newsFilter = (data) => {
            * 实时解盘是：<a href="#/stock/600340" target="_blank"><b><u>华夏幸福</u></b></a>
            * 所以实时解盘的内容过滤后stock为'null'，直接return原来的tag就可以。
            * */
-          /*if (stock === null || stock === 'null') {
+/*
+          if (stock === null || stock === 'null') {
             return tag;
           }
           const stockCode = ycjUtil.formatCode(stock);
@@ -38,7 +39,8 @@ const newsFilter = (data) => {
 };
 */
 const specialHandler = {
-  /*[apiList.LOGIN]() {},
+  /*
+  [apiList.LOGIN]() {},
   [apiList.GET_NEWS_INFO](data) {
     newsFilter(data);
   },
@@ -73,6 +75,7 @@ const specialHandler = {
     baseUtil.each(news6, (item) => {
       newsFilter(item);
     });
-  },*/
+  },
+  */
 };
 export default specialHandler;

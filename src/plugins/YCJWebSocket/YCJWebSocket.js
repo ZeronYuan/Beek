@@ -108,6 +108,7 @@ class YCJWebSocket extends Event {
       quotations.send(sender(cmd, code));
     }
   }
+
   unSubscribe(code, cmdType = 'base') {
     if (!code) {
       return this;
@@ -162,6 +163,7 @@ class YCJWebSocket extends Event {
     quotations.reconnect();
     return this;
   }
+
   messageHandler(data) {
     const trigger = (strData) => {
       let handlerData;
@@ -216,11 +218,11 @@ class YCJWebSocket extends Event {
 class ColumnSocket extends Event {
   constructor() {
     super();
-    this.liveOn = false;      // 实时解盘
+    this.liveOn = false; // 实时解盘
     this.seriveOnMarker = {}; // 选股首页股票池
-    this.chatOn = false;      // 问股
+    this.chatOn = false; // 问股
     this.referenceOn = false; // 内参
-    this.tendencyOn = false;  // 大势
+    this.tendencyOn = false; // 大势
     this.firmtrackOn = false; // 实盘追踪
     return this;
   }
@@ -252,6 +254,7 @@ class ColumnSocket extends Event {
    * cmdData附加信息：systemCode
    * systemCode - 服务代码
    */
+
   service(systemCode) {
     if (this.seriveOnMarker[systemCode]) {
       return this;
@@ -265,6 +268,7 @@ class ColumnSocket extends Event {
    * 实时解盘
    * cmdData附加信息：systemCode
    */
+
   live(systemCode) {
     if (this.liveOn) {
       return;
@@ -276,6 +280,7 @@ class ColumnSocket extends Event {
    * 内参
    * 无附加信息
    */
+
   reference() {
     if (this.referenceOn) {
       return;
@@ -288,6 +293,7 @@ class ColumnSocket extends Event {
    * cmdData附加信息：navigator_push
    * 是否附加信息由前端后端商议决定
    */
+
   tendency() {
     if (this.tendencyOn) {
       return;
@@ -300,6 +306,7 @@ class ColumnSocket extends Event {
    * cmdData附加信息，systemCode从livePushHandler传入参数
    * 是否附加信息由前端后端商议决定
    */
+
   firmTracking(systemCode) {
     if (this.firmtrackOn) {
       return;
@@ -307,6 +314,7 @@ class ColumnSocket extends Event {
     column.send(sender(CMD.FIRMTRACKING, systemCode));
     this.firmtrackOn = true;
   }
+
   closeWs() {
     column.close();
     return this;

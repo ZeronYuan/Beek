@@ -1,31 +1,58 @@
 <template>
   <div>
-    1234567
-    <div>55</div>
-    <i></i>
-    <audio controls="controls" autoplay="autoplay" src="./../media/song.ogg">
-    </audio>
+    <p>{{ ip.ip }}</p>
+    <p>{{ ip.country }}</p>
+    <p>{{ ip.region }}</p>
+    <p>{{ ip.city }}</p>
   </div>
 </template>
 
 <script>
+import http from '../plugins/http/http';
+
+let httpLoop;
 export default {
   name: 'Test',
+  data() {
+    return {
+      ip: {},
+    };
+  },
+  created() {
+    // `this` 指向 vm 实例
+    this.init();
+  },
+  methods: {
+    init() {
+      const vm = this;
+      const httpList = http.apiList;
+      http.api[httpList.TEST2]({
+        method: 'get',
+        params: {
+          name: '李白',
+        },
+        success(response) {
+          console.log(response);
+        },
+      });
+      httpLoop = http.loop(httpList.TEST1, {
+        method: 'get',
+        params: {
+          ip: '63.223.108.42',
+        },
+        success(response) {
+          console.log(response);
+          vm.ip = response;
+        },
+      }, http.loop.channel.TWO_MINUTE);
+    },
+  },
+  destroyed() {
+    http.loop.remove(...httpLoop);
+  },
 };
 </script>
 
-<style scoped lang="scss">
-  div{
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    box-sizing: border-box;
-    transform: rotate(5deg);
-    i{
-      display: inline-block;
-      height: 40px;
-      width: 40px;
-      background: url("./../assets/img/fingerprint.jpg");
-    }
-  }
+<style scoped>
+
 </style>

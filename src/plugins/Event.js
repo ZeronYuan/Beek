@@ -34,7 +34,7 @@ class Event {
     const l = stack.length;
 
     for (i; i < l; i += 1) {
-      const isOnce = stack[i].isOnce;
+      const [isOnce] = stack[i].isOnce;
       stack[i].call(this, data);
       if (isOnce) {
         this.trigger(type, data);

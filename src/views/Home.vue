@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import http from '../plugins/http/http';
+// import http from '../plugins/http/http';
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue';
 
@@ -19,18 +19,7 @@ export default {
   },
   created() {
     // `this` 指向 vm 实例
-    console.log('a');
-    this.init();
   },
-  methods: {
-    init() {
-      const httpList = http.apiList;
-      http[httpList.GETNODE]({
-        success(response) {
-          console.log(response);
-        },
-      });
-    },
-  },
+  methods: {},
 };
 </script>

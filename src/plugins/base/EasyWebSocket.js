@@ -53,7 +53,7 @@ class EasyWebSocket extends Event {
     if (!this.wsInstance) {
       this.connect(this.adress);
     }
-    const wsInstance = this.wsInstance;
+    const [wsInstance] = this.wsInstance;
     const send = () => {
       if (baseUtil.isObject(param)) {
         wsInstance.send(JSON.stringify(param));
@@ -75,7 +75,7 @@ class EasyWebSocket extends Event {
   }
 
   close() {
-    const wsInstance = this.wsInstance;
+    const [wsInstance] = this.wsInstance;
     if (wsInstance && wsInstance.readyState === 1) {
       this.once('close', () => logger.log('ws has close'));
       wsInstance.close();
@@ -86,7 +86,6 @@ class EasyWebSocket extends Event {
     this.close();
     this.connect();
   }
-
 }
 
 export default WebSocket ? EasyWebSocket : false;

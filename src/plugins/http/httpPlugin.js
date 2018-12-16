@@ -5,7 +5,7 @@ const $http = {};
 $http.install = function install(vue) {
   const Vue = vue;
 
-  Vue.prototype.$http = http;
+  Vue.prototype.$FFhttp = http;
 };
 
 export default $http;

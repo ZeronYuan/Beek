@@ -8,12 +8,15 @@ class Audio {
       this.dom.type = type;
     }
   }
+
   play() {
     this.dom.play();
   }
+
   pasue() {
     this.dom.pause();
   }
+
   replay() {
     this.dom.currentTime = 0;
     this.play();

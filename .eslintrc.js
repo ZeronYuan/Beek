@@ -14,6 +14,7 @@ module.exports = {
     'no-console': 'off',
     'no-debugger': 'off',
     'no-else-return': 'off',
+    "linebreak-style": [0,"error", "windows"],
     'vue/max-attributes-per-line':'0',
     'vue/singleline-html-element-content-newline':'0',
     'vue/html-self-closing':'0',
