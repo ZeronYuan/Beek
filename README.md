@@ -1,4 +1,4 @@
-# beek
+# FireFinch
 
 ## Project setup
 ```
