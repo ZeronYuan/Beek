@@ -9,7 +9,6 @@
   </div>
 </template>
 
-<style  src="./assets/font/iconfont.css"></style>
 <style lang="scss">
  @import "assets/sass/common";
   #app {
