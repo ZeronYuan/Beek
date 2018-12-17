@@ -4,7 +4,7 @@
     <HelloWorld msg="Welcome to FireFinch R1 App" />
     <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
     <br />
-    <i class="fa-glass fa"></i>
+    <i class="iconfont icon-19"></i>
   </div>
 </template>
 
