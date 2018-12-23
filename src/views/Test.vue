@@ -21,11 +21,35 @@ export default {
   created() {
     // `this` 指向 vm 实例
     this.init();
+    http.setErrorHandler((dataPacket) => {
+      const errorCode = dataPacket.code;
+      switch (errorCode) {
+        case 200:
+          console.log(dataPacket);
+          break;
+        case 0:
+          console.log(dataPacket);
+          break;
+        default:
+          console.log('***********');
+          break;
+      }
+    });
   },
   methods: {
     init() {
       const vm = this;
       const httpList = http.apiList;
+      http.api[httpList.GETNODELISTINFO]({
+        method: 'get',
+        params: {
+          action: 'getNodeListInfo',
+          busID: 0,
+        },
+        success(response) {
+          console.log(response);
+        },
+      });
       http.api[httpList.TEST2]({
         method: 'get',
         params: {

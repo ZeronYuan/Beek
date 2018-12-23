@@ -20,6 +20,16 @@ module.exports = {
         ws: true,
         changeOrigin: true,
       },
+      '/firefinch-api': {
+        target: 'http://192.168.10.188:22080',
+        ws: true,
+        changeOrigin: true,
+      },
+      '/images': {
+        target: 'http://192.168.10.188:22080',
+        ws: true,
+        changeOrigin: true,
+      },
     },
   },
   chainWebpack: (config) => {

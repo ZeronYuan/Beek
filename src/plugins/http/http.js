@@ -40,7 +40,6 @@ const ResponseHandler = (response, responseHandler) => {
 const DataPacketHandler = (dataPacket, dataPacketHandler) => { // error_code 处理层
   const errorCode = dataPacket.code;
   const packet = dataPacket.data;
-  console.log(dataPacket);
   if (typeof dataPacketHandler === 'function') {
     dataPacketHandler(dataPacket);
   }
@@ -48,7 +47,7 @@ const DataPacketHandler = (dataPacket, dataPacketHandler) => { // error_code 处
   if (typeof errorHandler === 'function') {
     errorHandler(dataPacket);
   }
-  if (dataPacket && errorCode === 0) { // 修复 complete bug
+  if (dataPacket && errorCode === '0') { // 修复 complete bug
     return packet;
   }
   return false;

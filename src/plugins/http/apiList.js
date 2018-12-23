@@ -4,4 +4,5 @@ export default {
    */
   TEST1: '/service/getIpInfo.php', // IP ip: '63.223.108.42'
   TEST2: '/likePoetry', // 搜索古诗词作者 name: '李白'
+  GETNODELISTINFO: '/firefinch-api/devicemanager/can', // 3-412-01 节点列表展示
 };
