@@ -1,16 +1,20 @@
 <template>
   <div id="app">
     <div id="nav">
-      <RouterLink to="/">Home</RouterLink> |
-      <RouterLink to="/about">About</RouterLink> |
-      <RouterLink to="/test">Test</RouterLink>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link> |
+      <router-link to="/test">Test</router-link>
     </div>
-    <RouterView></RouterView>
+    <transition name="fade" appear mode="out-in">
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
 <style lang="scss">
- @import "assets/sass/common";
+ @import "assets/sass/FUI";
   #app {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
