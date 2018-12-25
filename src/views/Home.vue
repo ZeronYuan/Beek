@@ -1,25 +1,28 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/img/logo.png">
-    <HelloWorld msg="Welcome to FireFinch R1 APP" />
+    <br />
     <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
     <br />
     <el-button @click="changeEn">EN</el-button>
     <el-button type="primary" @click="changeZh">中文</el-button>
-    <IconFont v-for="n in 10" :key="n" :name="(n - 1).toString()" size="58px" color="#42b983">
-    </IconFont>
+    <br />
+    <br />
     <div class="block">
       <span class="demonstration">{{ $t('ff.test') }}</span>
       <el-date-picker
+        v-model="value6"
         type="datetimerange"
-        start-placeholder="开始111日期"
+        start-placeholder="开始日期"
         end-placeholder="结束日期"
         :default-time="['12:00:00']">
       </el-date-picker>
     </div>
+    <br />
     <div class="block">
-      <span class="demonstration">121zx</span>
+      <span class="demonstration">起始时间</span>
       <el-date-picker
+        v-model="value7"
         type="datetimerange"
         align="right"
         start-placeholder="开始日期"
@@ -27,6 +30,29 @@
         :default-time="['12:00:00', '08:00:00']">
       </el-date-picker>
     </div>
+    <IconFont v-for="n in 20" :key="n" :name="(n - 1).toString()" size="58px" color="#cf1c1c">
+    </IconFont>
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
+    <img alt="Vue logo" src="../assets/img/fingerprint.jpg">
+    <br />
   </div>
 </template>
 
@@ -34,7 +60,6 @@
 // import http from '../plugins/http/http';
 // @ is an alias to /src
 import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue';
 import IconFont from '@/components/base/IconFont.vue';
 
 
@@ -43,10 +68,11 @@ export default {
   data() {
     return {
       radio: '1',
+      value6: '',
+      value7: '',
     };
   },
   components: {
-    HelloWorld,
     IconFont,
   },
   created() {

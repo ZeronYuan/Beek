@@ -21,20 +21,6 @@ export default {
   created() {
     // `this` 指向 vm 实例
     this.init();
-    http.setErrorHandler((dataPacket) => {
-      const errorCode = dataPacket.code;
-      switch (errorCode) {
-        case 200:
-          console.log(dataPacket);
-          break;
-        case 0:
-          console.log(dataPacket);
-          break;
-        default:
-          console.log('***********');
-          break;
-      }
-    });
   },
   methods: {
     init() {

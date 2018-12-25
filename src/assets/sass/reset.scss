@@ -4,7 +4,7 @@
 	Level:			Global
 	Explain:		重定义浏览器默认样式
 */
-*{word-wrap:break-word}
+*{box-sizing: border-box}
 html,body,h1,h2,h3,h4,h5,h6,hr,p,iframe,dl,dt,dd,ul,ol,li,pre,form,button,input,textarea,th,td,fieldset{margin:0;padding:0}
 ul,ol,dl{list-style-type:none}
 html,body{*position:static}
@@ -25,9 +25,6 @@ sub,sup{vertical-align:baseline}
 /*img*/
 img{border:0;vertical-align:middle}
 a img,img{-ms-interpolation-mode:bicubic}
-.img-responsive{max-width: 100%;height: auto}
-/*IE下a:hover 背景闪烁*/
-//html{overflow:-moz-scrollbars-vertical;zoom:expression(function(ele){ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true)}(this))}
 html, body, div, span, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 abbr, address, cite, code,
@@ -44,10 +41,9 @@ time, mark, audio, video {
   padding:0;
   border:0;
   outline:0;
-  font-size:100%;
-  //vertical-align:baseline;
+  font-size:14px;
   background:transparent;
-  font-family:PingFang SC,"Microsoft Yahei","Hiragino Sans GB","Helvetica Neue",Helvetica,tahoma,arial,Verdana,sans-serif,"WenQuanYi Micro Hei","\5B8B\4F53";
+  font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Microsoft Yahei","Helvetica Neue","Helvetica","Arial",sans-serif,"Hiragino Sans GB",Helvetica,tahoma,arial,Verdana,sans-serif,"WenQuanYi Micro Hei","\5B8B\4F53";
 }
 h1,h2,h3,h4,h5,h6,em,i {
   font-weight: 100;

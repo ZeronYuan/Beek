@@ -103,6 +103,7 @@ baseUtil.each(apiList, (url) => {
     };
     const dataHandler = (data) => {
       /*
+      // 需要对数据进行特殊处理的接口，会经过这一层
         if (specialHandler[url]) {
           specialHandler[url](data);
       }
@@ -135,32 +136,14 @@ http.all = (requests, callback) => {
     }));
 };
 http.loop = (api, opts, channel = loopRequest.channel.HALF_MINUTE) => {
-  /*
-  isBreak = true,
-  if (isBreak) {
-    if (ycjUtil.isEnd()) {
-      http.api[api](opts);
-    } else {
-      loop = loopRequest.add(() => {
-        http.api[api](opts);
-        if (ycjUtil.isEnd()) {
-          loopRequest.remove(loop, channel);
-        }
-      }, channel);
-    }
-  } else {
-    loop = loopRequest.add(() => {
-      http.api[api](opts);
-    }, channel);
-  }
-  */
   const loop = loopRequest.add(() => {
     http.api[api](opts);
   }, channel);
   return [loop, channel];// 此处返回值用于remove对应的循环请求
   /*
   * 示例：
-  * httpLoop = http.loop(httpList.TEST, {
+  // 发起循环请求
+  httpLoop = http.loop(httpList.TEST, {
         method: 'get',
         params: {
           ip: '63.223.108.42',
@@ -170,7 +153,7 @@ http.loop = (api, opts, channel = loopRequest.channel.HALF_MINUTE) => {
           vm.ip = response;
         },
       }, http.loop.channel.ONE_MINUTE);
-      //remove 操作
+      //remove 操作（停止循环请求）
       http.loop.remove(...httpLoop);
   * */
 };

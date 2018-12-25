@@ -1,6 +1,6 @@
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity .5s
+  transition: opacity .1s
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
@@ -8,7 +8,7 @@
 
 .fade-top-enter-active,
 .fade-top-leave-active {
-  transition:all 0.5s;
+  transition:all 0.1s;
 }
 .fade-top-enter, .fade-top-leave-active {
   transform: translateY(-10px);
@@ -17,7 +17,7 @@
 
 .fade-scale-enter-active,
 .fade-scale-leave-active {
-  transition:all 0.4s;
+  transition:all 0.1s;
 }
 .fade-scale-enter, .fade-scale-leave-active {
   transform: scale(1.1);
