@@ -1,3 +1,4 @@
+/* eslint-disable */
 const hexcase = 0;
 // const b64pad = '';
 const chrsz = 8;

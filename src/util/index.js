@@ -4,9 +4,9 @@ import baseUtil from './baseUtil';
 import logger from './logger';
 import http from '../plugins/http/http';
 import uid from './uid';
-import ycjUtil from './ycjUtil';
+// import ycjUtil from './ycjUtil';
 import base64 from './base64';
-import md5 from '../assets/dep/md5';
+// import md5 from '../assets/dep/md5';
 
 export {
   position,
@@ -14,8 +14,6 @@ export {
   baseUtil,
   logger,
   http,
-  uid,
-  ycjUtil,
-  base64,
-  md5,
+  uid, // ycjUtil,
+  base64, // md5,
 };

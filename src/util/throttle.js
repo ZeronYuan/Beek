@@ -32,7 +32,7 @@ timerWorker.addEventListener(timerWorker.chanel.ZERO_TWO, () => {
   const removeList = [];
   baseUtil.each(throttleCache, (item, fnString) => {
     const $item = item;
-    const status = item.status;
+    const [status] = [item.status];
     const fnStr = item.fn.toString();
     if (status === READY) {
       logger.tryCatch(() => {

@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="Firefinch">
     <div id="nav">
       <router-link to="/">{{ $t('ff.test') }}</router-link> |
       <router-link to="/about">About</router-link> |
@@ -13,17 +13,17 @@
 
 <style lang="scss">
  @import "assets/sass/FUI";
-  #app {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  #Firefinch {
+    //font-family: 'Avenir', Helvetica, Arial, sans-serif;
+    //-webkit-font-smoothing: antialiased;
+    //-moz-osx-font-smoothing: grayscale;
     text-align: center;
-    color: #2c3e50;
+    color: #ccc;
   }
   #nav {
     padding: 30px;
     a {
-      font-weight: bold;
+      font-weight: 400;
       color: #2c3e50;
       &.router-link-exact-active {
         color: #cf1c1c;

@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ $t('ff.test') }}
     <p>{{ ip.ip }}</p>
     <p>{{ ip.country }}</p>
     <p>{{ ip.region }}</p>

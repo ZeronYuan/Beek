@@ -45,9 +45,9 @@ http.setErrorHandler((dataPacket) => {
       break;
   }
 });
-console.log(zhLocale);
+// console.log(zhLocale);
 new Vue({
   router,
   store,
   render: h => h(App),
-}).$mount('#app');
+}).$mount('#Firefinch');

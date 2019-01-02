@@ -1,3 +1,4 @@
+/* eslint-disable */
 // private property
 const keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 const Base64 = {};
