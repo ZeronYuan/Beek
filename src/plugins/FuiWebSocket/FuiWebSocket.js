@@ -64,7 +64,7 @@ const sender = (type, code) => {
  * unSubscribe():取消订阅；从订阅队列中删除请求，停止连接。
  * resubscribe():重新订阅；为订阅队列中所有请求建立连接。
  */
-class YCJWebSocket extends Event {
+class FuiWebSocket extends Event {
   constructor() {
     super();
     this.subscriptionList = {};
@@ -326,5 +326,5 @@ export {
   EVENT,
 };
 export const extra = obj => baseUtil.merge(extraParam, obj, true); // 添加额外传参数
-export const YCJSocket = quotations ? new YCJWebSocket() : quotations;
+export const FuiSocket = quotations ? new FuiWebSocket() : quotations;
 export const columnSocket = new ColumnSocket();

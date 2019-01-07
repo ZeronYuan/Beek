@@ -19,8 +19,8 @@
       </el-date-picker>
     </div>
     <br />
-    <IconFont v-for="n in 20" :key="n" :name="(n - 1).toString()" size="88px" color="#cf1c1c">
-    </IconFont>
+    <!--<IconFont v-for="n in 20" :key="n" :name="(n - 1).toString()" size="88px" color="#cf1c1c"></IconFont>-->
+    <!--<img alt="Vue logo" src="../assets/img/fingerprint.jpg">-->
   </div>
 </template>
 
@@ -28,7 +28,7 @@
 // import http from '../plugins/http/http';
 // @ is an alias to /src
 import Vue from 'vue';
-import IconFont from '@/components/base/IconFont.vue';
+// import IconFont from '@/components/base/IconFont.vue';
 
 
 export default {
@@ -40,7 +40,7 @@ export default {
     };
   },
   components: {
-    IconFont,
+    // IconFont,
   },
   created() {
     // `this` 指向 vm 实例

@@ -1,11 +1,11 @@
 import http from './http';
 
-const $http = {};
+const $Fuihttp = {};
 
-$http.install = function install(vue) {
+$Fuihttp.install = function install(vue) {
   const Vue = vue;
 
-  Vue.prototype.$FFhttp = http;
+  Vue.prototype.$Fuihttp = http;
 };
 
-export default $http;
+export default $Fuihttp;

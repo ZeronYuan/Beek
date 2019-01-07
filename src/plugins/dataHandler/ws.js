@@ -1,6 +1,6 @@
 import {
   EVENT,
-} from '../YCJWebSocket/YCJWebSocket';
+} from '../FuiWebSocket/FuiWebSocket';
 import {
   baseUtil,
 } from '../../util';

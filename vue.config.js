@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
   runtimeCompiler: true,
@@ -10,7 +11,7 @@ module.exports = {
     hot: true,
     open: true,
     host: '127.0.0.1',
-    port: 9696,
+    port: 9080,
     proxy: {
       '/service': {
         target: 'http://ip.taobao.com',
@@ -40,7 +41,7 @@ module.exports = {
       .rule('images')
       .use('url-loader')
       .loader('url-loader')
-      .tap(options => Object.assign(options, { limit: 6144 }))
+      .tap(options => Object.assign(options, { limit: 5120 }))
       .end();
     module
       .rule('fonts')
