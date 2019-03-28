@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import axios from 'axios';
 import baseUtil from '../../util/baseUtil';
 import logger from '../../util/logger';
@@ -58,7 +59,14 @@ const DataHandler = (data, dataHandler) => { // 数据处理层
   }
 };
 const CatchHandler = (error) => {
+  const VueInit = Vue.prototype;
   logger.error(error);
+  console.log(error.response);
+  VueInit.$notify.error({
+    title: error.response.statusText,
+    message: '接口请求失败，请联系管理员',
+    duration: 0,
+  });
 };
 
 const axiosInstance = axios.create(axiosConfig);
@@ -118,6 +126,7 @@ baseUtil.each(apiList, (url) => {
       dataPacketHandler,
       dataHandler,
     };
+    console.log(Vue.prototype);
     if (method === 'post') {
       http.post(url, postOptions);
     } else if (method === 'get') {

@@ -30,15 +30,24 @@ Vue.use(Element);
 Vue.config.lang = 'zh-cn';
 Vue.locale('en', baseUtil.merge(enLocale, ffEn));
 Vue.locale('zh-cn', baseUtil.merge(zhLocale, ffZh));
-
+console.log(Vue.constructor);
+const VueInit = Vue.prototype;
 http.setErrorHandler((dataPacket) => {
   const errorCode = dataPacket.code;
   switch (errorCode) {
     case 200:
       console.log(dataPacket);
+      VueInit.$message({
+        message: 'succ',
+        type: 'success',
+      });
       break;
     case 0:
       console.log(dataPacket);
+      VueInit.$message({
+        message: 'succ',
+        type: 'success',
+      });
       break;
     default:
       console.log('***********');

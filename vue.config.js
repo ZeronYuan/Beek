@@ -24,12 +24,12 @@ module.exports = {
         changeOrigin: true,
       },
       '/firefinch-api': {
-        target: 'http://192.168.10.190:22080',
+        target: 'http://192.168.10.190:80',
         ws: true,
         changeOrigin: true,
       },
       '/images': {
-        target: 'http://192.168.10.190:22080',
+        target: 'http://192.168.10.190:80',
         ws: true,
         changeOrigin: true,
       },
@@ -49,6 +49,13 @@ module.exports = {
       .use('url-loader')
       .loader('url-loader')
       .end();
+    // config.externals({
+    //   'vue': 'Vue',
+    //   'vue-router': 'VueRouter',
+    //   'vuex': 'Vuex',
+    //   'axios': 'axios',
+    //   'element-ui': 'ELEMENT'
+    // })
   },
   css: {
     modules: false,
