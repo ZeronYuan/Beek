@@ -1,33 +1,46 @@
 <template>
   <div id="Firefinch">
-    <div id="nav">
-      <router-link to="/">{{ $t('ff.test') }}</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/test">Test</router-link>
+    <Head></Head>
+    <div class="main">
+      <transition name="fade" appear mode="out-in">
+        <keep-alive>
+          <router-view></router-view>
+        </keep-alive>
+      </transition>
     </div>
-    <transition name="fade" appear mode="out-in">
-      <router-view></router-view>
-    </transition>
   </div>
 </template>
+
+<script>
+import Head from './views/head/Head.vue';
+
+export default {
+  name: 'FirefinchInit',
+  data() {
+    return {
+      isInit: false,
+    };
+  },
+  components: {
+    Head,
+  },
+};
+</script>
 
 <style lang="scss">
  @import "assets/sass/FUI";
   #Firefinch {
-    //font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    //-webkit-font-smoothing: antialiased;
-    //-moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #ccc;
-  }
-  #nav {
-    padding: 30px;
-    a {
-      font-weight: 400;
-      color: #2c3e50;
-      &.router-link-exact-active {
-        color: #cf1c1c;
-      }
+    position: relative;
+    .main{
+      position: fixed;
+      left: 0;
+      top: 50px;
+      right: 0;
+      bottom: 0;
+      margin: 0 auto;
+      background: #f2f2f2;
     }
   }
 </style>

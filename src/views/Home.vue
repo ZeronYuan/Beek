@@ -1,26 +1,11 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/img/logo.png">
-    <br />
-    <!--<img alt="Vue logo" src="../assets/img/fingerprint.jpg">-->
-    <br />
-    <el-button @click="changeEn">EN</el-button>
-    <el-button type="primary" @click="changeZh">中文</el-button>
-    <br />
-    <br />
-    <div class="block">
-      <span class="demonstration">{{ $t('ff.test') }}</span>
-      <el-date-picker
-        v-model="value6"
-        type="datetimerange"
-        start-placeholder="开始日期"
-        end-placeholder="结束日期"
-        :default-time="['12:00:00']">
-      </el-date-picker>
-    </div>
-    <br />
-    <!--<IconFont v-for="n in 20" :key="n" :name="(n - 1).toString()" size="88px" color="#cf1c1c"></IconFont>-->
-    <!--<img alt="Vue logo" src="../assets/img/fingerprint.jpg">-->
+    GOOD
+    <!--<transition name="fade" appear mode="out-in">
+      <div id="view">
+        <router-view></router-view>
+      </div>
+    </transition>-->
   </div>
 </template>
 
@@ -48,16 +33,16 @@ export default {
   },
   methods: {
     changeZh() {
-      Vue.config.lang = 'zh-cn';
+      Vue.config.lang = 'zh_CN';
       this.$message({
-        message: this.$t('ff.test'),
+        message: this.$t('lang'),
         type: 'success',
       });
     },
     changeEn() {
-      Vue.config.lang = 'en';
+      Vue.config.lang = 'en_US';
       this.$message({
-        message: this.$t('ff.test'),
+        message: this.$t('lang'),
         type: 'warning',
       });
     },
@@ -66,4 +51,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#view{
+  position: absolute;
+  top: 50px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+}
 </style>

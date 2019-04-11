@@ -10,26 +10,16 @@ module.exports = {
     },
     hot: true,
     open: true,
-    host: '127.0.0.1',
-    port: 9080,
+    host: '192.168.200.5',
+    port: 6969,
     proxy: {
-      '/service': {
-        target: 'http://ip.taobao.com',
-        ws: true,
-        changeOrigin: true,
-      },
-      '/likePoetry': {
-        target: 'https://api.apiopen.top',
-        ws: true,
-        changeOrigin: true,
-      },
       '/firefinch-api': {
-        target: 'http://192.168.10.190:80',
+        target: 'http://192.168.200.191:80',
         ws: true,
         changeOrigin: true,
       },
       '/images': {
-        target: 'http://192.168.10.190:80',
+        target: 'http://192.168.200.191:80',
         ws: true,
         changeOrigin: true,
       },
