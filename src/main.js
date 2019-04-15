@@ -22,7 +22,7 @@ Vue.config.lang = store.state.lang || 'zh_CN';
 Vue.locale('en_US', baseUtil.merge(elementEn, en_US));
 Vue.locale('zh_CN', baseUtil.merge(elementCn, zh_CN));
 const VueInit = Vue.prototype;
-store.dispatch('GetUnit');
+store.dispatch('GET_UNIT');
 http.setErrorHandler((dataPacket) => {
   const errorCode = dataPacket.code;
   const code = errorCode.charAt(0);

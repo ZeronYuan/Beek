@@ -7,25 +7,25 @@
       @select="handleSelect"
       background-color="#1b2744"
       text-color="#fff"
-      :router=index
+      :router="true"
       active-text-color="#f88311">
       <div class="logo"><img src="../../assets/img/logo.png" alt="FireFinch"></div>
       <el-menu-item index="/">主页</el-menu-item>
       <el-menu-item index="/about">设备管理</el-menu-item>
       <el-menu-item index="/test">模板管理</el-menu-item>
       <el-menu-item index="/login">系统设置</el-menu-item>
-      <el-submenu index="/about">
-        <template slot="title">Admin</template>
-        <el-menu-item index="2-1">选项1</el-menu-item>
-        <el-menu-item index="2-2">选项2</el-menu-item>
-        <el-menu-item index="2-3">选项3</el-menu-item>
-        <el-submenu index="2-4">
-          <template slot="title">选项4</template>
-          <el-menu-item index="2-4-1">选项1</el-menu-item>
-          <el-menu-item index="2-4-2">选项2</el-menu-item>
-          <el-menu-item index="2-4-3">选项3</el-menu-item>
-        </el-submenu>
-      </el-submenu>
+      <el-dropdown>
+        <span class="el-dropdown-link">
+          下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item>黄金糕</el-dropdown-item>
+          <el-dropdown-item>狮子头</el-dropdown-item>
+          <el-dropdown-item>螺蛳粉</el-dropdown-item>
+          <el-dropdown-item disabled>双皮奶</el-dropdown-item>
+          <el-dropdown-item divided>蚵仔煎</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </el-menu>
   </div>
 </template>
@@ -35,7 +35,6 @@ export default {
   name: 'Head',
   data() {
     return {
-      index: true,
       activeIndex: '/',
     };
   },

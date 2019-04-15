@@ -7,7 +7,7 @@ const common = {
     unit: {},
   },
   actions: {
-    GetUnit({ commit }) {
+    GET_UNIT({ commit }) {
       http.api[httpList.getAvaiableUnits]({
         method: 'post',
         success(response) {
