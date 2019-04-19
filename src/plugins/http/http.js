@@ -14,7 +14,6 @@ const http = {
 };
 
 const env = process.env.NODE_ENV;
-
 const axiosConfig = {
   method: 'get',
   baseURL: env === 'production' ? '' : '',
