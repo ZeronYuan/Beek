@@ -9,12 +9,12 @@ const mime = require('mime');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 const app = express();
-
+const t_url = 'http://192.168.200.202:80';
 /*反向代理服务*/
 const api_list = [{
     api:'/firefinch-api',
     option:{
-        target: 'http://192.168.200.191:80', // 目标主机
+        target: t_url, // 目标主机
         changeOrigin: true,                    // 需要虚拟主机站点
         ws: true                               // 是否代理websocket
     }
@@ -22,7 +22,7 @@ const api_list = [{
   {
     api:'/images',
     option:{
-        target: 'http://192.168.200.191:80',
+        target: t_url,
         changeOrigin: true,
         ws: true
     }
@@ -30,7 +30,7 @@ const api_list = [{
   {
     api: '/defalut',
     option: {
-        target: 'http://192.168.200.191:80',
+        target: t_url,
         changeOrigin: true,
         ws: true
     }

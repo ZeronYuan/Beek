@@ -48,7 +48,7 @@ window.onload = () => {
   const loadDom = document.querySelector('#loading');
   setTimeout(() => {
     loadDom.className = 'fadeOutDown animated';// flipOutY
-  }, 3000);
+  }, 2000);
 };
 new Vue({
   router,

@@ -49,7 +49,7 @@ const router = new Router({
   ],
 });
 router.beforeEach((to, from, next) => {
-  // ...
+  // todo Permission redirection for router
   console.log(store);
   console.log(to, from);
   next();

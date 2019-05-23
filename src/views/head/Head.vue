@@ -15,7 +15,7 @@
       <el-menu-item index="/test">模板管理</el-menu-item>
       <el-menu-item index="/login">系统设置</el-menu-item>
     </el-menu>
-    <el-dropdown placement="bottom" class="user-info">
+    <el-dropdown placement="bottom-end" class="user-info" :hide-timeout=600>
       <span class="el-dropdown-link">
         Admin<i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
