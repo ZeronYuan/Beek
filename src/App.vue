@@ -28,7 +28,6 @@ export default {
 </script>
 
 <style lang="scss">
- @import "assets/sass/FUI";
   #Firefinch {
     text-align: center;
     color: #ccc;

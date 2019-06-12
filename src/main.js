@@ -7,6 +7,7 @@ import elementEn from 'element-ui/lib/locale/lang/en';
 import elementCn from 'element-ui/lib/locale/lang/zh-CN';
 import zh_CN from './local/zh_CN';
 import en_US from './local/en_US';
+import './assets/sass/FUI.scss';
 // import 'element-ui/lib/theme-chalk/index.css';
 import App from './App.vue';
 import router from './router/router';
@@ -48,6 +49,7 @@ window.onload = () => {
   const loadDom = document.querySelector('#loading');
   setTimeout(() => {
     loadDom.className = 'fadeOutDown animated';// flipOutY
+    loadDom.remove();
   }, 2000);
 };
 new Vue({
