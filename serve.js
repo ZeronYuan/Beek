@@ -12,9 +12,9 @@ const app = express();
 const t_url = 'http://192.168.200.202:80';
 /*反向代理服务*/
 const api_list = [{
-    api:'/firefinch-api',
+    api:'/firefinch-api',                      // 代理接口
     option:{
-        target: t_url, // 目标主机
+        target: t_url,                         // 目标主机
         changeOrigin: true,                    // 需要虚拟主机站点
         ws: true                               // 是否代理websocket
     }
