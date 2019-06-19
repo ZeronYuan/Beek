@@ -1,7 +1,7 @@
 <template>
   <div id="Firefinch">
     <Head></Head>
-    <div class="main">
+    <div class="ff-main">
       <transition name="fade" appear mode="out-in">
         <keep-alive>
           <router-view></router-view>
@@ -27,12 +27,11 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   #Firefinch {
     text-align: center;
-    color: #ccc;
     position: relative;
-    .main{
+    .ff-main{
       position: fixed;
       left: 0;
       top: 50px;

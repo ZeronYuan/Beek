@@ -1,23 +1,23 @@
 <template>
-  <div class="head">
+  <div class="ff-head">
     <div class="logo"><img src="../../assets/img/logo.png" alt="FireFinch"></div>
     <el-menu
       :default-active="activeIndex"
-      class="ff-head"
+      class="router-list"
       mode="horizontal"
       @select="handleSelect"
       background-color="#1b2744"
       text-color="#fff"
       :router="true"
       active-text-color="#f88311">
-      <el-menu-item index="/">主页</el-menu-item>
-      <el-menu-item index="/device">设备管理</el-menu-item>
-      <el-menu-item index="/test">模板管理</el-menu-item>
-      <el-menu-item index="/login">系统设置</el-menu-item>
+      <el-menu-item index="/"><i class="el-icon-s-home"></i>主页</el-menu-item>
+      <el-menu-item index="/device"><i class="el-icon-s-help"></i>设备管理</el-menu-item>
+      <el-menu-item index="/test"><i class="el-icon-s-grid"></i>设备库</el-menu-item>
+      <el-menu-item index="/login"><i class="el-icon-s-tools"></i>系统</el-menu-item>
     </el-menu>
     <el-dropdown placement="bottom-end" class="user-info" :hide-timeout=600>
       <span class="el-dropdown-link">
-        Admin<i class="el-icon-caret-bottom el-icon--right"></i>
+        <i class="el-icon-s-custom"></i>&nbsp;&nbsp;Admin&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>退出登录</el-dropdown-item>
@@ -56,7 +56,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .head{
+  .ff-head{
     height: 51px;
     background-color: #1b2744;
     color: #fff;
@@ -69,9 +69,10 @@ export default {
       margin-right: 10px;
       img{
         display: inline-block;
+        width: 80%;
       }
     }
-    .ff-head{
+    .router-list{
       height: 51px;
       float: left;
       >li{

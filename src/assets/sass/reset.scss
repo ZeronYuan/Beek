@@ -8,7 +8,7 @@
 html,body,h1,h2,h3,h4,h5,h6,hr,p,iframe,dl,dt,dd,ul,ol,li,pre,form,button,input,textarea,th,td,fieldset{margin:0;padding:0}
 ul,ol,dl{list-style-type:none}
 html,body{*position:static;}
-html{font-family: sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%}
 address,caption,cite,code,dfn,em,th,var{font-style:normal;font-weight:normal}
 input,button,textarea,select,optgroup,option{font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit}
 input,button{overflow: visible;vertical-align:middle;outline:none}
@@ -43,7 +43,7 @@ time, mark, audio, video {
   outline:0;
   font-size:14px;
   background:transparent;
-  //font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Microsoft Yahei","Helvetica Neue","Helvetica","Arial",sans-serif,"Hiragino Sans GB",Helvetica,tahoma,arial,Verdana,sans-serif,"WenQuanYi Micro Hei","\5B8B\4F53";
+  font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Microsoft Yahei","Helvetica Neue","Helvetica","Arial",sans-serif,"Hiragino Sans GB",Helvetica,tahoma,arial,Verdana,sans-serif,"WenQuanYi Micro Hei","\5B8B\4F53";
 }
 h1,h2,h3,h4,h5,h6,em,i {
   font-weight: 100;
