@@ -73,7 +73,7 @@ app.use(express.static(path.join(__dirname, 'dist')), function (request, respons
 });
 
 /*监听端口服务*/
-app.listen(9696, function () {
-    console.log('Server running at http://192.168.200.5:9696');
-    child_process.exec('start http://192.168.200.5:9696');
+app.listen(9090, function () {
+    console.log('Server running at http://192.168.200.5:9090');
+    child_process.exec('start http://192.168.200.5:9090');
 });

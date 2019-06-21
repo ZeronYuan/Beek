@@ -12,7 +12,7 @@ module.exports = {
     hot: true,
     open: true,
     host: '192.168.200.5',
-    port: 6969,
+    port: 8080,
     proxy: {
       '/firefinch-api': {
         target: t_url,
@@ -34,6 +34,19 @@ module.exports = {
     //   'axios': 'axios',
     //   'element-ui': 'ELEMENT'
     // });
+    // 移除 prefetch 插件
+    config.plugins.delete('prefetch')
+    // 移除 preload 插件
+    config.plugins.delete('preload');
+    /* 添加分析工具*/
+    if (process.env.NODE_ENV === 'production') {
+      if (process.env.npm_config_report) {
+        config.plugin('webpack-bundle-analyzer')
+          .use(require('webpack-bundle-analyzer').BundleAnalyzerPlugin)
+          .end();
+      }
+    }
+    /*添加loader*/
     const module = config.module;
     module
       .rule('images')
@@ -49,8 +62,9 @@ module.exports = {
       .end();
   },
   css: {
+    extract: false,
     modules: false,
+    sourceMap: false,
   },
   productionSourceMap: false,
-  //cssSourceMap: false,
 };
