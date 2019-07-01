@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import store from '../store/index';
+// import store from '../store/index';
 import Home from '../views/Home.vue';
 
 Vue.use(Router);
@@ -50,8 +50,8 @@ const router = new Router({
 });
 router.beforeEach((to, from, next) => {
   // todo Permission redirection for router
-  console.log(store);
-  console.log(to, from);
+  // console.log(store);
+  // console.log(to, from);
   next();
 });
 export default router;

@@ -12,9 +12,11 @@ module.exports = {
 
   rules: {
     'no-console': 'off',
+    'no-plusplus': 'off',
     'no-debugger': 'off',
     'no-param-reassign': 'off',
     'vue/html-quotes': 'off',
+    'func-names': 'off',
     'camelcase': 'off',
     'no-else-return': 'off',
     "linebreak-style": [0,"error", "windows"],

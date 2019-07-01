@@ -1,5 +1,5 @@
 /* eslint-disable */
-const t_url = 'http://192.168.200.202:80';
+const proxy_url = 'http://192.168.200.202:80';
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
   runtimeCompiler: true,
@@ -15,12 +15,12 @@ module.exports = {
     port: 8080,
     proxy: {
       '/firefinch-api': {
-        target: t_url,
+        target: proxy_url,
         ws: true,
         changeOrigin: true,
       },
       '/images': {
-        target: t_url,
+        target: proxy_url,
         ws: true,
         changeOrigin: true,
       },
@@ -62,7 +62,7 @@ module.exports = {
       .end();
   },
   css: {
-    extract: false,
+    extract: true,
     modules: false,
     sourceMap: false,
   },

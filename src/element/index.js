@@ -1,8 +1,8 @@
-// import Vue from 'vue';
+/*
+* 按需加载Element-UI
+* */
+import '../assets/sass/FFUI.scss';
 import {
-  // Pagination,
-  // Dialog,
-  // Autocomplete,
   Dropdown,
   DropdownMenu,
   DropdownItem,
@@ -10,20 +10,30 @@ import {
   Submenu,
   MenuItem,
   MenuItemGroup,
-  // Input,
-  // InputNumber,
-  // Radio,
-  // RadioGroup,
-  // RadioButton,
-  // Checkbox,
-  // CheckboxButton,
-  // CheckboxGroup,
-  // Switch,
-  // Select,
-  // Option,
-  // OptionGroup,
-  // Button,
-  // ButtonGroup,
+  Input,
+  InputNumber,
+  Radio,
+  RadioGroup,
+  RadioButton,
+  Checkbox,
+  CheckboxButton,
+  CheckboxGroup,
+  Switch,
+  Select,
+  Option,
+  OptionGroup,
+  Button,
+  ButtonGroup,
+  Loading,
+  MessageBox,
+  Message,
+  Notification,
+  Form,
+  FormItem,
+  // Pagination,
+  // Dialog,
+  // Autocomplete,
+  // Avatar,
   // Table,
   // TableColumn,
   // DatePicker,
@@ -33,8 +43,6 @@ import {
   // Tooltip,
   // Breadcrumb,
   // BreadcrumbItem,
-  // Form,
-  // FormItem,
   // Tabs,
   // TabPane,
   // Tag,
@@ -63,18 +71,12 @@ import {
   // Aside,
   // Main,
   // Footer,
-  Loading,
-  MessageBox,
-  Message,
-  Notification,
 } from 'element-ui';
-import '../assets/sass/FFUI.scss';
 
-export default (vm) => {
-  const Vue = vm;
-  // Vue.use(Pagination);
-  // Vue.use(Dialog);
-  // Vue.use(Autocomplete);
+const $element = {};
+
+$element.install = function install(vue) {
+  const Vue = vue;
   Vue.use(Dropdown);
   Vue.use(DropdownMenu);
   Vue.use(DropdownItem);
@@ -82,20 +84,26 @@ export default (vm) => {
   Vue.use(Submenu);
   Vue.use(MenuItem);
   Vue.use(MenuItemGroup);
-  // Vue.use(Input);
-  // Vue.use(InputNumber);
-  // Vue.use(Radio);
-  // Vue.use(RadioGroup);
-  // Vue.use(RadioButton);
-  // Vue.use(Checkbox);
-  // Vue.use(CheckboxButton);
-  // Vue.use(CheckboxGroup);
-  // Vue.use(Switch);
-  // Vue.use(Select);
-  // Vue.use(Option);
-  // Vue.use(OptionGroup);
-  // Vue.use(Button);
-  // Vue.use(ButtonGroup);
+  Vue.use(Input);
+  Vue.use(InputNumber);
+  Vue.use(Radio);
+  Vue.use(RadioGroup);
+  Vue.use(RadioButton);
+  Vue.use(Checkbox);
+  Vue.use(CheckboxButton);
+  Vue.use(CheckboxGroup);
+  Vue.use(Switch);
+  Vue.use(Select);
+  Vue.use(Option);
+  Vue.use(OptionGroup);
+  Vue.use(Button);
+  Vue.use(ButtonGroup);
+  Vue.use(Form);
+  Vue.use(FormItem);
+  // Vue.use(Pagination);
+  // Vue.use(Dialog);
+  // Vue.use(Autocomplete);
+  // Vue.use(Avatar);
   // Vue.use(Table);
   // Vue.use(TableColumn);
   // Vue.use(DatePicker);
@@ -105,8 +113,6 @@ export default (vm) => {
   // Vue.use(Tooltip);
   // Vue.use(Breadcrumb);
   // Vue.use(BreadcrumbItem);
-  // Vue.use(Form);
-  // Vue.use(FormItem);
   // Vue.use(Tabs);
   // Vue.use(TabPane);
   // Vue.use(Tag);
@@ -146,3 +152,5 @@ export default (vm) => {
   Vue.prototype.$notify = Notification;
   Vue.prototype.$message = Message;
 };
+
+export default $element;

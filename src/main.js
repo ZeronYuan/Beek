@@ -2,24 +2,23 @@ import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import VueI18n from 'vue-i18n';
-// import Element from 'element-ui';
 import elementEn from 'element-ui/lib/locale/lang/en';
 import elementCn from 'element-ui/lib/locale/lang/zh-CN';
 import zh_CN from './local/zh_CN';
 import en_US from './local/en_US';
-import demandElement from './demand-element/demand';
+import Element from './element/index';
 import App from './App.vue';
 import router from './router/router';
 import store from './store/index';
 import baseUtil from './util/baseUtil';
 import http from './plugins/http/http';
+import httpPlugin from './plugins/http/httpPlugin';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(VueI18n);
-// Vue.use(Element);
-console.log(Vue);
-demandElement(Vue);
+Vue.use(httpPlugin);
+Vue.use(Element); // 按需加载element-ui组件
 Vue.config.lang = store.state.lang || 'zh_CN';
 Vue.locale('en_US', baseUtil.merge(elementEn, en_US));
 Vue.locale('zh_CN', baseUtil.merge(elementCn, zh_CN));
