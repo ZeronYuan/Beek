@@ -17,23 +17,23 @@ module.exports = {
     'no-param-reassign': 'off',
     'vue/html-quotes': 'off',
     'func-names': 'off',
-    'camelcase': 'off',
+    camelcase: 'off',
     'no-else-return': 'off',
-    "linebreak-style": [0,"error", "windows"],
+    'linebreak-style': [0, 'error', 'windows'],
     'max-len': 'off',
-    'vue/max-attributes-per-line':'0',
+    'vue/max-attributes-per-line': '0',
     'vue/component-name-in-template-casing': '0',
-    'vue/singleline-html-element-content-newline':'0',
+    'vue/singleline-html-element-content-newline': '0',
     'vue/html-closing-bracket-newline': '0',
-    'vue/html-self-closing':'0',
+    'vue/html-self-closing': '0',
   },
 
   parserOptions: {
     parser: 'babel-eslint',
   },
 
-  'extends': [
+  extends: [
     'plugin:vue/strongly-recommended',
-    '@vue/airbnb'
-  ]
+    '@vue/airbnb',
+  ],
 };

@@ -48,7 +48,7 @@ http.setErrorHandler((dataPacket) => {
 window.onload = () => {
   const loadDom = document.querySelector('#loading');
   setTimeout(() => {
-    // loadDom.className = 'fadeOutDown animated';// flipOutY
+    loadDom.className = 'fadeOutDown animated';// flipOutY
     loadDom.remove();
   }, 2000);
 };

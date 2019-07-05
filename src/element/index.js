@@ -1,7 +1,6 @@
 /*
 * 按需加载Element-UI
 * */
-import '../assets/sass/FFUI.scss';
 import {
   Dropdown,
   DropdownMenu,
@@ -72,6 +71,7 @@ import {
   // Main,
   // Footer,
 } from 'element-ui';
+import '../assets/sass/FFUI.scss';
 
 const $element = {};
 

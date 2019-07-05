@@ -62,7 +62,7 @@ module.exports = {
       .end();
   },
   css: {
-    extract: true,
+    extract: false, // 开发时设为false，大抱歉设为true
     modules: false,
     sourceMap: false,
   },

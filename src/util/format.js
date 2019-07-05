@@ -27,7 +27,8 @@ format.date = (date, dateFormat) => {
     if (new RegExp(`(${k})`).test(fmt)) {
       fmt = fmt.replace(
         RegExp.$1,
-        (RegExp.$1.length === 1) ? (o[k]) : ((`00${v}`).substr(v.toString().length)));
+        (RegExp.$1.length === 1) ? (o[k]) : ((`00${v}`).substr(v.toString().length)),
+      );
     }
   });
   return fmt;

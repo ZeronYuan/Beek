@@ -15,12 +15,12 @@
       <el-menu-item index="/test"><i class="el-icon-s-grid"></i>设备库</el-menu-item>
       <el-menu-item index="/login"><i class="el-icon-s-tools"></i>系统</el-menu-item>
     </el-menu>
-    <el-dropdown placement="bottom-end" class="user-info" :hide-timeout=600>
+    <el-dropdown placement="bottom-end" class="user-info" :hide-timeout=600 @command="exitOut">
       <span class="el-dropdown-link">
         <i class="el-icon-s-custom"></i>&nbsp;&nbsp;Admin&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>退出登录</el-dropdown-item>
+        <el-dropdown-item command="exitOut">退出登录 Exit Out</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -50,6 +50,13 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
       // console.log(this.$route);
+    },
+    exitOut(command) {
+      const vm = this;
+      if (command === 'exitOut') {
+        vm.$router.push('/login');
+        console.log(vm);
+      }
     },
   },
 };

@@ -1,16 +1,22 @@
 <template>
-  <div class="login">
+  <div class="ff-login">
+    <canvas id="bubbles"></canvas>
     <div class="form-warp">
-      <p class="title">Firefinch R1 系统</p>
-      <el-form ref="form" :model="form" label-width="0">
-        <el-form-item label="">
-          <el-input v-model="form.name"></el-input>
+      <p class="title"><img src="../../assets/img/login/Firefinch_logo2.png" alt=""> R1 系统</p>
+      <el-form :model="form" status-icon :rules="rules" ref="ruleForm" label-width="0">
+        <img class="angular" src="../../assets/img/login/LeftUp.png" alt="">
+        <img class="angular" src="../../assets/img/login/LeftDown.png" alt="">
+        <img class="angular" src="../../assets/img/login/RightUp.png" alt="">
+        <img class="angular" src="../../assets/img/login/RightDown.png" alt="">
+        <img class="form-logo" src="../../assets/img/login/LoginLogo2.png" alt="">
+        <el-form-item label="" prop="name">
+          <el-input prefix-icon="el-icon-user" v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="">
-          <el-input prefix-icon="el-icon-search" type="password" v-model="form.password"></el-input>
+        <el-form-item label="" prop="password">
+          <el-input prefix-icon="el-icon-lock" type="password" v-model="form.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button class="sub" type="primary" @click="onSubmit">登&nbsp;&nbsp;录</el-button>
+          <el-button class="sub" type="primary" :loading="loading" @click="onSubmit('ruleForm')">登&nbsp;&nbsp;录</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -25,6 +31,21 @@ export default {
   name: 'Login',
   data() {
     return {
+      loading: false,
+      rules: {
+        name: [
+          { required: true, message: '请输账户名', trigger: 'blur' },
+          {
+            min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur',
+          },
+        ],
+        password: [
+          { required: true, message: '请输入密码', trigger: 'blur' },
+          {
+            min: 5, message: '密码有误', trigger: 'blur',
+          },
+        ],
+      },
       form: {
         name: '',
         password: '',
@@ -32,17 +53,90 @@ export default {
     };
   },
   methods: {
-    onSubmit() {
-      console.log('submit!');
+    onSubmit(formName) {
+      const vm = this;
+      vm.$refs[formName].validate((valid) => {
+        if (valid) {
+          vm.loading = true;
+          vm.$router.push('/');
+        }
+      });
     },
   },
   mounted() {
+  // Canvas Init
+    const c = document.getElementById('bubbles');
+    const ctx = c.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    const particles = 36; // 气泡数量
+    const minRadius = 2; // 气泡最小半径
+    const maxRadius = 18; // 气泡最大半径
+    const speed = 0.01; // 初始速度累加
+    const x = width / particles;
+
+    // Bubbles
+    const Bubbles = [];
+
+    for (let i = 0; i < particles; i++) {
+      Bubbles.push({
+        x: i * x,
+        y: height * Math.random(),
+        r: minRadius + Math.random() * (maxRadius - minRadius),
+        speed: 5 * Math.random(),
+      });
+    }
+
+    function bubble() {
+      c.width = width;
+      c.height = height;
+      for (let i = 0; i < Bubbles.length; i++) {
+        const b = Bubbles[i];
+        ctx.beginPath();
+        ctx.arc(b.x, b.y, b.r, 0, 2 * Math.PI);
+
+        b.alpha = 0.5 * (b.y / height);
+        b.speed += speed;
+
+        ctx.strokeStyle = 'rgba(255, 255, 255, .5)';
+        ctx.stroke();
+        ctx.fillStyle = `hsla(203, 75%, 69%,${b.alpha})`;
+        ctx.fill();
+        b.y -= b.speed;
+        if (b.y < 0) {
+          b.y = height;
+          b.speed = Math.random() * 2;
+        }
+      }
+    }
+
+    // Draw
+    function draw() {
+      bubble();
+      window.requestAnimationFrame(draw);
+    }
+
+    // Resize Canvas
+    function resizeCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      c.width = width;
+      c.height = height;
+      draw();
+    }
+    resizeCanvas();
+    // window.addEventListener('resize', resizeCanvas, false);
+  },
+  activated() {
+    const vm = this;
+    vm.loading = false;
+    vm.$refs.ruleForm.resetFields();
   },
 };
 </script>
 
-<style scoped lang="scss">
-  .login{
+<style lang="scss">
+  .ff-login{
     background: url("../../assets/img/login/LoginBj.png") no-repeat center;
     background-size: cover;
     height: 100%;
@@ -53,33 +147,95 @@ export default {
     left: 0;
     right: 0;
     margin: 0 auto;
-    .canvas{
-      background: rgba(0,0,0,0);
-    }
-    #bg{
+    #bubbles{
       height: 100%;
       width: 100%;
+      background: rgba(0,0,0,0);
     }
     .form-warp{
-      width: 356px;
+      width: 400px;
       padding: 0 20px;
       position: absolute;
-      top: 50%;
-      left: 60%;
+      top: 45%;
+      left: 66%;
       transform: translate(-50%,-50%);
+      user-select:none;
       .title{
+        height: 60px;
         text-align: center;
-        font-size: 36px;
-        font-weight: 600;
-        letter-spacing: 1px;
+        font-size: 32px;
+        line-height: 60px;
         color: #fff;
-        margin-bottom: 30px;
-        text-shadow: #dadfe9 0 0 5px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        img{
+          width: 160px;
+          display: inline-block;
+          transform: translateY(-7px);
+        }
       }
-      .sub{
-        width: 100%;
-        >span{
-          font-size: 20px;
+      .el-form{
+        background-color: rgba(7,23,59,.8);
+        border: 1px solid #406086;
+        padding: 0 34px 46px 34px;
+        position: relative;
+        .form-logo{
+          max-width: 100%;
+          margin: 30px auto;
+        }
+        .angular{
+          position: absolute;
+          z-index: 1;
+          &:nth-child(1){
+            right: 0;
+            top: 0;
+          }
+          &:nth-child(2){
+            right: 0;
+            bottom: 0;
+          }
+          &:nth-child(3){
+            left: 0;
+            top: 0;
+          }
+          &:nth-child(4){
+            left: 0;
+            bottom: 0;
+          }
+        }
+        .el-form-item{
+          &:last-child{
+            margin-bottom: 0;
+          }
+          .el-form-item__content{
+            .el-input{
+              input{
+                background-color: #0b2850;
+                border-radius: 3px;
+                border: 1px solid #406086;
+                color: #fff;
+                padding-left: 34px;
+                &:focus{
+                  box-shadow: #406086 0 0 16px;
+                }
+              }
+              .el-input__prefix{
+                color: #4da7f5;
+                i{
+                  font-size: 18px;
+                }
+              }
+            }
+            .sub{
+              width: 100%;
+              background: #4da7f5;
+              border: 0;
+              //font-size: 18px;
+              span{
+                font-size: 18px;
+              }
+            }
+          }
         }
       }
     }
