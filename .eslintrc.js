@@ -21,6 +21,7 @@ module.exports = {
     'no-else-return': 'off',
     'linebreak-style': [0, 'error', 'windows'],
     'max-len': 'off',
+    //'vue/require-v-for-key': '0',
     'vue/max-attributes-per-line': '0',
     'vue/component-name-in-template-casing': '0',
     'vue/singleline-html-element-content-newline': '0',

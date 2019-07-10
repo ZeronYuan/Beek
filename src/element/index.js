@@ -29,6 +29,7 @@ import {
   Notification,
   Form,
   FormItem,
+  Tooltip,
   // Pagination,
   // Dialog,
   // Autocomplete,
@@ -100,6 +101,7 @@ $element.install = function install(vue) {
   Vue.use(ButtonGroup);
   Vue.use(Form);
   Vue.use(FormItem);
+  Vue.use(Tooltip);
   // Vue.use(Pagination);
   // Vue.use(Dialog);
   // Vue.use(Autocomplete);

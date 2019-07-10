@@ -1,29 +1,33 @@
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
-import VueI18n from 'vue-i18n';
-import elementEn from 'element-ui/lib/locale/lang/en';
-import elementCn from 'element-ui/lib/locale/lang/zh-CN';
-import zh_CN from './local/zh_CN';
-import en_US from './local/en_US';
+// import VueI18n from 'vue-i18n';
+// import elementEn from 'element-ui/lib/locale/lang/en';
+// import elementCn from 'element-ui/lib/locale/lang/zh-CN';
+// import zh_CN from './local/zh_CN';
+// import en_US from './local/en_US';
+import ECharts from 'vue-echarts';
+import baseUtil from './util/baseUtil';
 import Element from './element/index';
 import App from './App.vue';
 import router from './router/router';
 import store from './store/index';
-import baseUtil from './util/baseUtil';
 import http from './plugins/http/http';
 import httpPlugin from './plugins/http/httpPlugin';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
-Vue.use(VueI18n);
 Vue.use(httpPlugin);
 Vue.use(Element); // 按需加载element-ui组件
-Vue.config.lang = store.state.lang || 'zh_CN';
-Vue.locale('en_US', baseUtil.merge(elementEn, en_US));
-Vue.locale('zh_CN', baseUtil.merge(elementCn, zh_CN));
+Vue.component('v-chart', ECharts); // 注册ECharts组件
+// Vue.use(VueI18n);
+// Vue.config.lang = store.state.lang || 'zh_CN';
+// Vue.locale('en_US', baseUtil.merge(elementEn, en_US));
+// Vue.locale('zh_CN', baseUtil.merge(elementCn, zh_CN));
 const VueInit = Vue.prototype;
+// 获取单位
 store.dispatch('GET_UNIT');
+// 请求状态码处理提示
 http.setErrorHandler((dataPacket) => {
   const errorCode = dataPacket.code;
   const code = errorCode.charAt(0);
@@ -41,16 +45,25 @@ http.setErrorHandler((dataPacket) => {
       VueInit.$message.error(dataPacket.msg);
       break;
     default:
-      // console.log('***********');
+      // 默认code为零请求成功，数据无异常状态
       break;
   }
 });
 window.onload = () => {
+  // loading界面关闭
   const loadDom = document.querySelector('#loading');
+  const browser = baseUtil.browser();
   setTimeout(() => {
-    loadDom.className = 'fadeOutDown animated';// flipOutY
-    loadDom.remove();
-  }, 2000);
+    loadDom.className = 'flipOutY animated';// flipOutY zoomOutUp
+    loadDom.addEventListener('animationend', () => {
+      if (browser === 'IE') {
+        loadDom.parentNode.removeChild(loadDom);
+        loadDom.removeNode(true);
+      } else {
+        loadDom.remove();
+      }
+    });
+  }, 2333);
 };
 new Vue({
   router,

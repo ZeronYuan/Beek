@@ -59,11 +59,13 @@ const DataHandler = (data, dataHandler) => { // 数据处理层
 };
 const CatchHandler = (error) => {
   const VueInit = Vue.prototype;
+  const { response } = error;
   logger.error(error);
-  console.log(error.response);
+  // console.log(response);
   VueInit.$notify.error({
-    title: error.response.statusText,
-    message: '接口请求失败，请联系管理员',
+    title: response.statusText,
+    dangerouslyUseHTMLString: true,
+    message: `<span style="display:inline-block;color: #C20000;font-size: 14px;word-wrap:break-word;">${response.config.url}</span><br><p>接口请求失败，请联系管理员</p>`,
     duration: 0,
   });
 };
@@ -125,7 +127,7 @@ baseUtil.each(apiList, (url) => {
       dataPacketHandler,
       dataHandler,
     };
-    console.log(Vue.prototype);
+    // console.log(Vue.prototype);
     if (method === 'post') {
       http.post(url, postOptions);
     } else if (method === 'get') {

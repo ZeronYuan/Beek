@@ -1,7 +1,7 @@
 <template>
   <div class="ff-login">
     <canvas id="bubbles"></canvas>
-    <div class="form-warp">
+    <div class="form-warp" @keyup.enter="onSubmit('ruleForm')">
       <p class="title"><img src="../../assets/img/login/Firefinch_logo2.png" alt=""> R1 系统</p>
       <el-form :model="form" status-icon :rules="rules" ref="ruleForm" label-width="0">
         <img class="angular" src="../../assets/img/login/LeftUp.png" alt="">
@@ -21,7 +21,7 @@
       </el-form>
     </div>
     <div class="footer">
-      Copyright&nbsp;©&nbsp;<span class="time">2019</span>&nbsp;shenzhen&nbsp;Cybertron&nbsp;Technology&nbsp;Co.,Ltd&nbsp;深圳市思博创科技有限公司&nbsp;版权所有
+      Copyright©<span class="time">2010-Present</span>&nbsp;Shenzhen&nbsp;Cybertron&nbsp;Technology&nbsp;Co.,Ltd&nbsp;  深圳市思博创科技有限公司&nbsp;版权所有
     </div>
   </div>
 </template>
@@ -36,13 +36,13 @@ export default {
         name: [
           { required: true, message: '请输账户名', trigger: 'blur' },
           {
-            min: 3, max: 8, message: '长度在 3 到 8 个字符', trigger: 'blur',
+            min: 3, max: 12, message: '长度在 3 到 12 个字符', trigger: 'blur',
           },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           {
-            min: 5, message: '密码有误', trigger: 'blur',
+            min: 5, message: '请输入至少 5 个字符密码', trigger: 'blur',
           },
         ],
       },
@@ -122,6 +122,7 @@ export default {
       height = window.innerHeight;
       c.width = width;
       c.height = height;
+      ctx.clearRect(100, 100, width, height);
       draw();
     }
     resizeCanvas();
@@ -152,7 +153,7 @@ export default {
       width: 100%;
       background: rgba(0,0,0,0);
     }
-    .form-warp{
+    >.form-warp{
       width: 400px;
       padding: 0 20px;
       position: absolute;
@@ -174,7 +175,7 @@ export default {
           transform: translateY(-7px);
         }
       }
-      .el-form{
+      >.el-form{
         background-color: rgba(7,23,59,.8);
         border: 1px solid #406086;
         padding: 0 34px 46px 34px;
@@ -207,9 +208,9 @@ export default {
           &:last-child{
             margin-bottom: 0;
           }
-          .el-form-item__content{
+          >.el-form-item__content{
             .el-input{
-              input{
+              .el-input__inner{
                 background-color: #0b2850;
                 border-radius: 3px;
                 border: 1px solid #406086;
@@ -223,6 +224,7 @@ export default {
                 color: #4da7f5;
                 i{
                   font-size: 18px;
+                  margin-top: 3px\0;
                 }
               }
             }
@@ -250,6 +252,9 @@ export default {
       font-size: 12px;
       color: #4da7f5;
       text-align: center;
+      .time{
+        font-weight: 600;
+      }
     }
   }
 </style>

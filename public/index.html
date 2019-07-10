@@ -16,41 +16,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
     <link rel="icon" href="<%= BASE_URL %>favicon.ico">
     <link rel="stylesheet" href="<%= BASE_URL %>cdn/css/animate.css">
-    <style>
+    <style type="text/css">
+      /*loading页面样式*/
       /*html,body{cursor:url(<%= BASE_URL %>cdn/img/mouse.cur),url(<%= BASE_URL %>cdn/img/mouse.cur),auto;}*/
-      #loading{width:100%;height:100%;overflow:hidden;background:#2B3134;position:fixed;top:0;left:0;z-index:20190404;}#loading > svg{position:absolute;top:50%;left:50%;margin-left:-12px;margin-top:-15px;}#loading > svg path,#loading > svg rect{fill:#FF6700;}#loading  > .loading-logo{position:absolute;top:50%;left:50%;margin-left: -65px;margin-top: -183px;width: 127px;height: 147px;}#loading  > .loading-logo img{display:block;width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none;}
+      #loading{width:100%;height:100%;overflow:hidden;background:#2B3134;position:fixed;top:0;left:0;z-index:20190404}#loading > svg{position:absolute;top:50%;left:50%;margin-left:-20px;margin-top:-10px}#loading > svg path,#loading > svg rect{fill:#FF6700}#loading  > .loading-logo{position:absolute;top:50%;left:50%;margin-left:-65px;margin-top:-183px;width:127px;height:147px}#loading  > .loading-logo img{display:block;width:100%;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;-o-user-select:none;user-select:none}#cube{/*开启GPU加速*/width:0;height:0;display:block;-webkit-transform:translateZ(0);-moz-transform:translateZ(0);-ms-transform:translateZ(0);-o-transform:translateZ(0);transform:translateZ(0);-webkit-backface-visibility:hidden;-moz-backface-visibility:hidden;-ms-backface-visibility:hidden;backface-visibility:hidden;-webkit-perspective:1000;-moz-perspective:1000;-ms-perspective:1000;perspective:1000}
     </style>
   </head>
   <body>
   	<script type="text/javascript" charset="utf-8">
-		console.log('%c深圳市思博创科技有限公司 版权所有\nCopyright © Shenzhen Cybertron Technology Co.,Ltd', "color:#f88311;font-size:16px;font-weight:600");
+		console.log('%c深圳市思博创科技有限公司 版权所有\nCopyright © 2010-Present Shenzhen Cybertron Technology Co.,Ltd', "color:#f88311;font-size:16px;font-weight:600");
   	</script>
-    <noscript>
-      <strong style="font-size: 16px;color: #f88311;">很抱歉，如果浏览器没有启用Javascript，Firefinch R1无法正常工作。 </strong>
-      <br />
-      <strong style="font-size: 14px;color: #f88311;">We're sorry but FireFinch R1 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
-      <br />
-      <strong style="font-size: 14px;color: #f88311;">(深圳市思博创科技有限公司 版权所有 Copyright © Shenzhen Cybertron Technology Co.,Ltd)</strong>
-    </noscript>
+    <div id="cube"></div>
     <div id="loading">
-      <div class="loading-logo"><img src="<%= BASE_URL %>cdn/img/20190522141339.png" alt=""></div>
-      <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-            width="24px" height="30px" viewBox="0 0 24 30" style="enable-background:new 0 0 50 50;" xml:space="preserve">
-        <rect x="0" y="10" width="4" height="10" fill="#333" opacity="0.2">
-          <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0s" dur="0.6s" repeatCount="indefinite"></animate>
-          <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0s" dur="0.6s" repeatCount="indefinite"></animate>
-          <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0s" dur="0.6s" repeatCount="indefinite"></animate>
-        </rect>
-          <rect x="8" y="10" width="4" height="10" fill="#333"  opacity="0.2">
-          <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate>
-            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate>
-            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.15s" dur="0.6s" repeatCount="indefinite"></animate>
-        </rect>
-          <rect x="16" y="10" width="4" height="10" fill="#333"  opacity="0.2">
-          <animate attributeName="opacity" attributeType="XML" values="0.2; 1; .2" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate>
-            <animate attributeName="height" attributeType="XML" values="10; 20; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate>
-            <animate attributeName="y" attributeType="XML" values="10; 5; 10" begin="0.3s" dur="0.6s" repeatCount="indefinite"></animate>
-        </rect>
+      <noscript>
+        <br />
+        <strong style="font-size: 16px;color: #f88311;">   很抱歉，如果浏览器没有启用Javascript，Firefinch R1无法正常工作。 </strong>
+        <br />
+        <br />
+        <strong style="font-size: 14px;color: #f88311;">   We're sorry but FireFinch R1 doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        <br />
+        <br />
+        <strong style="font-size: 14px;color: #f88311;">深圳市思博创科技有限公司 版权所有 Copyright © 2010-Present Shenzhen Cybertron Technology Co.,Ltd</strong>
+      </noscript>
+        <div class="loading-logo"><img src="<%= BASE_URL %>cdn/img/20190522141339.png" alt=""></div>
+        <svg version="1.1" id="L7" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="36px" height="36px" viewBox="0 0 100 100" enable-background="new 0 0 100 100" xml:space="preserve">
+         <path fill="#fff" d="M31.6,3.5C5.9,13.6-6.6,42.7,3.5,68.4c10.1,25.7,39.2,38.3,64.9,28.1l-3.1-7.9c-21.3,8.4-45.4-2-53.8-23.3
+          c-8.4-21.3,2-45.4,23.3-53.8L31.6,3.5z" transform="rotate(308.829 50 50)">
+              <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="2s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform>
+          </path>
+                <path fill="#fff" d="M42.3,39.6c5.7-4.3,13.9-3.1,18.1,2.7c4.3,5.7,3.1,13.9-2.7,18.1l4.1,5.5c8.8-6.5,10.6-19,4.1-27.7
+          c-6.5-8.8-19-10.6-27.7-4.1L42.3,39.6z" transform="rotate(-257.658 50 50)">
+              <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="1s" from="0 50 50" to="-360 50 50" repeatCount="indefinite"></animateTransform>
+          </path>
+                <path fill="#fff" d="M82,35.7C74.1,18,53.4,10.1,35.7,18S10.1,46.6,18,64.3l7.6-3.4c-6-13.5,0-29.3,13.5-35.3s29.3,0,35.3,13.5
+          L82,35.7z" transform="rotate(308.829 50 50)">
+              <animateTransform attributeName="transform" attributeType="XML" type="rotate" dur="2s" from="0 50 50" to="360 50 50" repeatCount="indefinite"></animateTransform>
+          </path>
       </svg>
     </div>
     <div id="Firefinch"></div>

@@ -2,6 +2,10 @@
 const proxy_url = 'http://192.168.200.202:80';
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
+  transpileDependencies: [
+    'vue-echarts',
+    'resize-detector'
+  ],
   runtimeCompiler: true,
   devServer: {
     disableHostCheck: true,
@@ -62,7 +66,7 @@ module.exports = {
       .end();
   },
   css: {
-    extract: false, // 开发时设为false，大抱歉设为true
+    extract: false, // 开发时设为false，打包前设为true
     modules: false,
     sourceMap: false,
   },

@@ -1,11 +1,9 @@
 <template>
   <div id="Firefinch">
-    <Head></Head>
+    <Head><title></title></Head>
     <div class="ff-main">
       <transition name="fade" appear mode="out-in">
-        <keep-alive>
-          <router-view></router-view>
-        </keep-alive>
+        <router-view></router-view>
       </transition>
     </div>
   </div>

@@ -1,10 +1,10 @@
 <template>
   <div class="test">
-    {{ $t('lang') }}
-    <p>{{ ip.ip }}</p>
-    <p>{{ ip.country }}</p>
-    <p>{{ ip.region }}</p>
-    <p>{{ ip.city }}</p>
+    <div class="ip" v-for="item in ip" :key="item.id">
+      <p>{{ item.alisa }}</p>
+      <p>{{ item.uuid }}</p>
+      <p>{{ item.softVersion }}</p>
+    </div>
   </div>
 </template>
 
@@ -24,6 +24,7 @@ export default {
   },
   methods: {
     init() {
+      const vm = this;
       const httpList = http.apiList;
       http.api[httpList.GETNODELISTINFO]({
         method: 'get',
@@ -33,6 +34,7 @@ export default {
         },
         success(response) {
           console.log(response);
+          vm.ip = response;
         },
       });
     },
@@ -44,6 +46,9 @@ export default {
 
 <style lang="scss" scoped>
 .test{
-  background: #4d4d4d;
+  // background: #4d4d4d;
+  .ip{
+    border-bottom: #4d4d4d 1px solid;
+  }
 }
 </style>
