@@ -10,7 +10,7 @@
       text-color="#fff"
       :router="true"
       active-text-color="#f88311">
-      <el-menu-item index="/"><i class="el-icon-s-grid"></i>主页</el-menu-item>
+      <el-menu-item index="/Dashboard"><i class="el-icon-s-grid"></i>主页</el-menu-item>
       <el-menu-item index="/ToPo"><i class="el-icon-share"></i>设备拓扑</el-menu-item>
       <el-menu-item index="/Device"><i class="el-icon-s-help"></i>设备库</el-menu-item>
     </el-menu>
@@ -19,7 +19,7 @@
         <i class="el-icon-s-custom"></i>&nbsp;&nbsp;Admin&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="exitOut">退&nbsp;&nbsp;&nbsp;出</el-dropdown-item>
+        <el-dropdown-item command="exitOut">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
     <div class="full-screen" @click="openFull">
@@ -47,12 +47,7 @@ export default {
   watch: {
     $route() {
       const vm = this;
-      const full_path = vm.$route.fullPath;
-      if (full_path === 'Dashboard') {
-        vm.activeIndex = '/';
-      } else {
-        vm.activeIndex = full_path;
-      }
+      vm.activeIndex = vm.$route.fullPath;
     },
   },
   mounted() {

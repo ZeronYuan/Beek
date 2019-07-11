@@ -1,5 +1,6 @@
 /* eslint-disable */
 const proxy_url = 'http://192.168.200.202:80';
+// const CompressionPlugin = require("compression-webpack-plugin");
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
   transpileDependencies: [
@@ -31,13 +32,14 @@ module.exports = {
     },
   },
   chainWebpack: (config) => {
-    // config.externals({
-    //   'vue': 'Vue',
-    //   'vue-router': 'VueRouter',
-    //   'vuex': 'Vuex',
-    //   'axios': 'axios',
-    //   'element-ui': 'ELEMENT'
-    // });
+    config.externals({
+      // 'vue': 'Vue',
+      // 'vue-router': 'VueRouter',
+      // 'vuex': 'Vuex',
+      // 'axios': 'axios',
+      // 'element-ui': 'ELEMENT',
+      'ECharts': 'vue-echarts',
+    });
     // 移除 prefetch 插件
     config.plugins.delete('prefetch')
     // 移除 preload 插件
@@ -66,9 +68,25 @@ module.exports = {
       .end();
   },
   css: {
-    extract: false, // 开发时设为false，打包前设为true
+    extract: true, // 开发时设为false，打包前设为true
     modules: false,
     sourceMap: false,
   },
+  // configureWebpack:config=>{
+  //   if(progress.env.NODE_ENV === 'production'){
+  //     return{
+  //       plugins: [
+  //
+  //         new CompressionPlugin({
+  //           test:/\.js$|\.html$|.\css/, //匹配文件名
+  //           threshold: 10240,//对超过10k的数据压缩
+  //           deleteOriginalAssets: false //不删除源文件
+  //         })
+  //       ]
+  //     }
+  //   }
+  //
+  // },
+  // productionGzip: true,
   productionSourceMap: false,
 };

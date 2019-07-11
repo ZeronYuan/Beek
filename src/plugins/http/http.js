@@ -65,7 +65,7 @@ const CatchHandler = (error) => {
   VueInit.$notify.error({
     title: response.statusText,
     dangerouslyUseHTMLString: true,
-    message: `<span style="display:inline-block;color: #C20000;font-size: 14px;word-wrap:break-word;">${response.config.url}</span><br><p>接口请求失败，请联系管理员</p>`,
+    message: `<p style="width:250px;display:inline-block;color: #C20000;font-size: 14px;word-wrap:break-word;">${response.config.url}</p><br><p>接口请求失败，请联系管理员</p>`,
     duration: 0,
   });
 };

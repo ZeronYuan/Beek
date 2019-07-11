@@ -6,7 +6,7 @@ import VueAxios from 'vue-axios';
 // import elementCn from 'element-ui/lib/locale/lang/zh-CN';
 // import zh_CN from './local/zh_CN';
 // import en_US from './local/en_US';
-import ECharts from 'vue-echarts';
+// import ECharts from 'vue-echarts';
 import baseUtil from './util/baseUtil';
 import Element from './element/index';
 import App from './App.vue';
@@ -15,6 +15,7 @@ import store from './store/index';
 import http from './plugins/http/http';
 import httpPlugin from './plugins/http/httpPlugin';
 
+const ECharts = window.VueECharts;
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(httpPlugin);
