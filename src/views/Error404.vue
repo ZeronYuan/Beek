@@ -11,7 +11,7 @@
 export default {
   name: 'Error404',
   methods: {
-    back() {
+    back: function () {
       const vm = this;
       vm.$router.back();
     },

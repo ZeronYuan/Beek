@@ -1,3 +1,5 @@
+import 'babel-polyfill'; // ES6转换
+import './assets/sass/FFUI.scss'; // FIREFINCH主题样式
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -6,7 +8,6 @@ import VueAxios from 'vue-axios';
 // import elementCn from 'element-ui/lib/locale/lang/zh-CN';
 // import zh_CN from './local/zh_CN';
 // import en_US from './local/en_US';
-// import ECharts from 'vue-echarts';
 import baseUtil from './util/baseUtil';
 import Element from './element/index';
 import App from './App.vue';

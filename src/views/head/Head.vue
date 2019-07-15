@@ -54,16 +54,16 @@ export default {
     // console.log(this.$route);
   },
   methods: {
-    handleSelect(key, keyPath) {
+    handleSelect: function (key, keyPath) {
       console.log(key, keyPath);
     },
-    exitOut(command) {
+    exitOut: function (command) {
       const vm = this;
       if (command === 'exitOut') {
         vm.$router.push('/Login');
       }
     },
-    openFull() {
+    openFull: function () {
       const vm = this;
       const el = document.documentElement;
       const rfs = el.requestFullScreen || el.webkitRequestFullScreen
@@ -71,7 +71,6 @@ export default {
       const el_document = document;
       const cfs = el_document.cancelFullScreen || el_document.webkitCancelFullScreen
         || el_document.mozCancelFullScreen || el_document.exitFullScreen; // 关闭全屏对象
-      console.log(typeof window.ActiveXObject);
       if (rfs && !vm.isFull) { // typeof rfs != "undefined" && rfs
         rfs.call(el);
         vm.isFull = true;

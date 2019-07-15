@@ -20,7 +20,7 @@
                  :h="item.h"
                  :i="item.i"
                  :key="item.i">
-        <v-chart :autoresize="true" :options="polar" />
+        <v-chart ref="vchart" :autoresize="true" :options="option" />
       </grid-item>
     </grid-layout>
   </div>
@@ -28,72 +28,108 @@
 
 <script>
 import VueGridLayout from 'vue-grid-layout';
+// import ECharts from 'vue-echarts';
+// import 'echarts/lib/chart/bar';
+// import 'echarts/lib/chart/line';
+// import 'echarts/lib/component/tooltip';
+// import 'echarts/lib/component/grid';
 /* eslint-disable */
-const testLayout = [{"x":0,"y":0,"w":6,"h":10,"i":"0","moved":false},{"x":0,"y":10,"w":6,"h":8,"i":"1","moved":false},{"x":0,"y":18,"w":12,"h":7,"i":"2","moved":false},{"x":6,"y":0,"w":4,"h":8,"i":"3","moved":false},{"x":8,"y":8,"w":4,"h":6,"i":"4","moved":false},{"x":10,"y":0,"w":2,"h":8,"i":"5","moved":false},{"x":6,"y":8,"w":2,"h":10,"i":"9","moved":false},{"x":8,"y":14,"w":4,"h":4,"i":"10","moved":false}];
+const testLayout = [{"x":0,"y":0,"w":6,"h":10,"i":"0","moved":false},{"x":0,"y":10,"w":6,"h":12,"i":"1","moved":false},{"x":0,"y":22,"w":12,"h":7,"i":"2","moved":false},{"x":6,"y":0,"w":4,"h":8,"i":"3","moved":false},{"x":6,"y":8,"w":4,"h":6,"i":"4","moved":false},{"x":10,"y":0,"w":2,"h":8,"i":"5","moved":false},{"x":10,"y":8,"w":2,"h":14,"i":"9","moved":false},{"x":6,"y":14,"w":4,"h":8,"i":"10","moved":false}];
+const color = [ '#418AB3','#A6B727', '#F88311', '#DF5327', '#FEC360', '#5E5E5E', '#1394F8', '#FF5733', '#3BC464', '#8042DF', '#40E0D0', '#8B008B', '#F08080', '#8B4513', '#51D9B5','#D95B5B', '#318C80', '#F2CF61', '#A6E582', '#1394F8', '#BFBFBF'];
 /* eslint-disable */
 export default {
   name: 'Dashboard',
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
+    // 'v-chart': ECharts,
   },
   data() {
-    let data = [];
-    for (let i = 0; i <= 360; i++) {
-      let t = i / 180 * Math.PI;
-      let r = Math.sin(2 * t) * Math.cos(2 * t);
-      data.push([r, i])
-    }
     return {
       layout: testLayout,
-      polar: {
+      option: {
         title: {
-          text: '数值轴',
+          text: 'Dashboard',
           top: 10,
           left: 10,
+          textStyle: {
+            fontSize: 16,
+            fontWeight: 'lighter'
+          }
+        },
+        legend: {
+          top: 10,
+          right: 30,
+          icon: "roundRect",   //  字段控制形状  类型包括 circle，rect,line，roundRect，triangle，diamond，pin，arrow，none
+          itemWidth: 15,  // 设置宽度
+          itemHeight: 10, // 设置高度
+          itemGap: 10, // 设置间距
+          textStyle: {
+            padding: [3, 0, 0, 0],
+          }
+        },
+        toolbox: {
           show: true,
         },
-        color: ['#1394F8', '#F88311', '#3BC464', '#F53566', '#8042DF'],
-        legend: {
-          show: false,
-          data: ['OUY']
-        },
-        polar: {
-          center: ['50%', '50%'],
-          radius: '80%',
+        color: color,
+        backgroundColor: '#ffffff',
+        grid: {
+          top: 50,
+          bottom: 36,
+          left: 60,
+          right: 30,
         },
         tooltip: {
-          trigger: 'item',
+          trigger: 'axis',
           show: true,
-          confine: true,
-          axisPointer: {
-            type: 'cross'
+          showContent: true
+        },
+       animation: false,
+       // animationDuration: 0,
+        dataset: {
+          source: [
+            ['years', '2012', '2013', '2014', '2015', '2016', '2017'],
+            ['A', 11.1, 30.4, 65.1, 53.3, 83.8, 98.7],
+            // ['B', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+            // ['C', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+            // ['D', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+          ]
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          axisLabel: {
+            align: 'center',
+          },
+          axisTick: {
+            inside: true,
+            alignWithLabel: true,
           }
         },
-        grid: {
-          // show: true,
-          // top: '20%',
-          // left: '20%',
-          // bottom: '20%',
-          // right: '20%',
-        },
-        angleAxis: {
-          type: 'value',
-          startAngle: 0
-        },
-        radiusAxis: {
-          min: 0
+        yAxis: {
+          gridIndex: 0,
+          nameLocation: 'end',
         },
         series: [
-          {
-            coordinateSystem: 'polar',
-            name: 'OUY',
-            type: 'line',
-            showSymbol: false,
-            data: data,
-          }
+          {type: 'line', smooth: true, seriesLayoutBy: 'row', symbol: 'none', lineStyle: { width: 1, }},
+          // {type: 'line', smooth: false, seriesLayoutBy: 'row', symbol: 'none'},
+          // {type: 'line', smooth: false, seriesLayoutBy: 'row', symbol: 'none'},
+          // {type: 'line', smooth: false, seriesLayoutBy: 'row', symbol: 'none'},
+          // {
+          //   type: 'pie',
+          //   id: 'pie',
+          //   radius: '30%',
+          //   center: ['50%', '25%'],
+          //   label: {
+          //     formatter: '{b}: {@2012} ({d}%)'
+          //   },
+          //   encode: {
+          //     itemName: 'product',
+          //     value: '2012',
+          //     tooltip: '2012'
+          //   }
+          // }
         ],
-        animationDuration: 2000
       },
     };
   },
@@ -107,8 +143,33 @@ export default {
     // vm.polar = polar;
   },
   created() {
-    // const vm = this;
-    // vm.polar = polar;
+    const vm = this;
+    const source = vm.option.dataset.source;
+    setInterval(function(){
+      source.forEach(function (el, index) {
+        // el.hideLoading();
+        if (el.length >= 200) {
+          el.splice(1,1);
+        }
+        if (index === 0) {
+          el.push(Number(el[el.length - 1]) + 1);
+        } else {
+          el.push(Math.random() * (100));
+        }
+      });
+    }, 0);
+    // vm.$refs.vchart.showLoading();
+    setTimeout(function(){
+      // vm.$refs.vchart.forEach(function(el){
+      //   el.showLoading({
+      //     text: 'Loading',
+      //     textColor: '#333',
+      //     color: '#DF5327',
+      //     maskColor: '#fff'
+      //   });
+      // });
+      // console.log(vm.$refs);
+    });
   }
 };
 </script>
@@ -132,9 +193,9 @@ export default {
 <style lang="scss">
   .vue-grid-layout{
     .vue-grid-placeholder{
-      background: #F88311;
+      background: #F88311!important;
       border: 0;
-      opacity: 0.6;
+      opacity: 0.7;
       border-radius: 4px;
     }
     .vue-grid-item{

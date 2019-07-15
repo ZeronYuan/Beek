@@ -38,8 +38,15 @@ module.exports = {
       // 'vuex': 'Vuex',
       // 'axios': 'axios',
       // 'element-ui': 'ELEMENT',
-      'ECharts': 'vue-echarts',
+      'vue-echarts': 'Echarts',
     });
+    const entry = config.entry('app');
+    entry
+      .add('babel-polyfill')
+      .end();
+    // entry
+    //   .add('classlist-polyfill')
+    //   .end();
     // 移除 prefetch 插件
     config.plugins.delete('prefetch')
     // 移除 preload 插件

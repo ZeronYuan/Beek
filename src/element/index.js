@@ -72,7 +72,6 @@ import {
   // Main,
   // Footer,
 } from 'element-ui';
-import '../assets/sass/FFUI.scss';
 
 const $element = {};
 

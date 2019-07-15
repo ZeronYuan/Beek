@@ -11,7 +11,7 @@ const common = {
       http.api[httpList.getAvaiableUnits]({
         method: 'post',
         success(response) {
-          console.log(response);
+          // console.log(response);
           commit('SET_UNIT', response);
         },
       });
