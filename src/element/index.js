@@ -72,6 +72,7 @@ import {
   // Main,
   // Footer,
 } from 'element-ui';
+import '../assets/sass/FFUI.scss'; // FIREFINCH主题样式
 
 const $element = {};
 

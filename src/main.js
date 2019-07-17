@@ -1,5 +1,5 @@
-import 'babel-polyfill'; // ES6转换
-import './assets/sass/FFUI.scss'; // FIREFINCH主题样式
+// import '@babel/polyfill';
+// import 'babel-polyfill'; // ES6转换
 import Vue from 'vue';
 import axios from 'axios';
 import VueAxios from 'vue-axios';
@@ -16,12 +16,12 @@ import store from './store/index';
 import http from './plugins/http/http';
 import httpPlugin from './plugins/http/httpPlugin';
 
-const ECharts = window.VueECharts;
 Vue.config.productionTip = false;
+const ECharts = window.VueECharts; // ECharts方法
+Vue.component('v-chart', ECharts); // 注册ECharts组件
 Vue.use(VueAxios, axios);
 Vue.use(httpPlugin);
 Vue.use(Element); // 按需加载element-ui组件
-Vue.component('v-chart', ECharts); // 注册ECharts组件
 // Vue.use(VueI18n);
 // Vue.config.lang = store.state.lang || 'zh_CN';
 // Vue.locale('en_US', baseUtil.merge(elementEn, en_US));

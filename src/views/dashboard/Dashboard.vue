@@ -148,7 +148,7 @@ export default {
     setInterval(function(){
       source.forEach(function (el, index) {
         // el.hideLoading();
-        if (el.length >= 200) {
+        if (el.length >= 500) {
           el.splice(1,1);
         }
         if (index === 0) {

@@ -5,7 +5,7 @@ module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
   transpileDependencies: [
     'vue-echarts',
-    'resize-detector'
+    'resize-detector',
   ],
   runtimeCompiler: true,
   devServer: {
@@ -16,7 +16,8 @@ module.exports = {
     },
     hot: true,
     open: true,
-    host: '192.168.200.5',
+    // host: '192.168.200.5',
+    host: '127.0.0.1',
     port: 8080,
     proxy: {
       '/firefinch-api': {
@@ -41,14 +42,14 @@ module.exports = {
       'vue-echarts': 'Echarts',
     });
     const entry = config.entry('app');
-    entry
-      .add('babel-polyfill')
-      .end();
+    // entry
+    //   .add('@babel/polyfill')
+    //   .end();
     // entry
     //   .add('classlist-polyfill')
     //   .end();
     // 移除 prefetch 插件
-    config.plugins.delete('prefetch')
+    config.plugins.delete('prefetch');
     // 移除 preload 插件
     config.plugins.delete('preload');
     /* 添加分析工具*/
@@ -75,7 +76,7 @@ module.exports = {
       .end();
   },
   css: {
-    extract: true, // 开发时设为false，打包前设为true
+    extract: false, // 开发时设为false，打包前设为true
     modules: false,
     sourceMap: false,
   },
