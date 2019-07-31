@@ -157,7 +157,7 @@ export default {
           el.push(Math.random() * (100));
         }
       });
-    }, 0);
+    }, 100);
     // vm.$refs.vchart.showLoading();
     setTimeout(function(){
       // vm.$refs.vchart.forEach(function(el){

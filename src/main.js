@@ -29,25 +29,26 @@ Vue.use(Element); // 按需加载element-ui组件
 const VueInit = Vue.prototype;
 // 获取单位
 store.dispatch('GET_UNIT');
-// 请求状态码处理提示
+// 请求code状态码处理提示
 http.setErrorHandler((dataPacket) => {
   const errorCode = dataPacket.code;
   const code = errorCode.charAt(0);
   switch (code) {
-    case '1':
+    case '1': // 消息
       VueInit.$message(dataPacket.msg);
       break;
-    case '2':
+    case '2': // 警告
       VueInit.$message({
         message: dataPacket.msg,
         type: 'warning',
       });
       break;
-    case '3':
+    case '3': // 错误
       VueInit.$message.error(dataPacket.msg);
       break;
     default:
-      // 默认code为零请求成功，数据无异常状态
+      // 默认code为0请求成功，数据无异常状态
+      // 这里只处理HTTP状态码为200时的请求，其它状态码都会提示请求错误
       break;
   }
 });
@@ -56,7 +57,7 @@ window.onload = () => {
   const loadDom = document.querySelector('#loading');
   const browser = baseUtil.browser();
   setTimeout(() => {
-    loadDom.className = 'flipOutY animated';// flipOutY zoomOutUp
+    loadDom.className = 'fadeOutDown animated';// flipOutY zoomOutUp
     loadDom.addEventListener('animationend', () => {
       if (browser === 'IE') {
         loadDom.parentNode.removeChild(loadDom);

@@ -3,8 +3,8 @@
 const fs = require('fs');
 const url = require('url');
 const path = require('path');
-/*npm  安装这4个依赖包*/
 const child_process = require("child_process");
+/*npm  安装这3个依赖包*/
 const mime = require('mime');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
