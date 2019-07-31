@@ -4,12 +4,24 @@ const fs = require('fs');
 const url = require('url');
 const path = require('path');
 const child_process = require("child_process");
+const os = require('os');
 /*npm  安装这3个依赖包*/
 const mime = require('mime');
 const express = require('express');
 const proxy = require('http-proxy-middleware');
 const app = express();
-const t_url = 'http://192.168.200.202:80';
+const t_url = 'http://192.168.200.202:80'; // 代理目标服务器地址
+const interfaces = os.networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
+let IPAdress = '';
+for(let devName in interfaces){
+  let iface = interfaces[devName];
+  for(let i=0;i<iface.length;i++){
+    var alias = iface[i];
+    if(alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
+      IPAdress = alias.address;
+    }
+  }
+}
 /*反向代理服务*/
 const api_list = [{
     api:'/firefinch-api',                      // 代理接口
@@ -74,6 +86,6 @@ app.use(express.static(path.join(__dirname, 'dist')), function (request, respons
 
 /*监听端口服务*/
 app.listen(9090, function () {
-    console.log('Server running at http://192.168.200.5:9090');
-    child_process.exec('start http://192.168.200.5:9090');
+    console.log(`Server running at ${IPAdress}:9090`);
+    child_process.exec(`start ${IPAdress}:9090`);
 });

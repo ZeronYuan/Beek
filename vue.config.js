@@ -1,6 +1,18 @@
 /* eslint-disable */
-const proxy_url = 'http://192.168.200.202:80';
+const os = require('os');
 // const CompressionPlugin = require("compression-webpack-plugin");
+const proxy_url = 'http://192.168.200.202:80'; // 代理目标服务器地址
+const interfaces = os.networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
+let IPAdress = '';
+for(let devName in interfaces){
+  let iface = interfaces[devName];
+  for(let i=0;i<iface.length;i++){
+    var alias = iface[i];
+    if(alias.family === 'IPv4' && alias.address !== '127.0.0.1' && !alias.internal){
+      IPAdress = alias.address;
+    }
+  }
+}
 module.exports = {
   lintOnSave: process.env.NODE_ENV !== 'production',
   transpileDependencies: [
@@ -16,8 +28,7 @@ module.exports = {
     },
     hot: true,
     open: true,
-    host: '192.168.200.5',
-    //host: '127.0.0.1',
+    host: IPAdress,
     port: 8080,
     proxy: {
       '/firefinch-api': {
