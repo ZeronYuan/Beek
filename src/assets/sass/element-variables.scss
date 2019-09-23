@@ -9,3 +9,18 @@ $--color-text-primary: #333333;
 $--font-path: '~element-ui/lib/theme-chalk/fonts';
 
 @import "~element-ui/packages/theme-chalk/src/index";
+
+.el-scrollbar{
+  height: 100%;
+  .el-scrollbar__wrap{
+    overflow-x: hidden;
+  }
+  .is-vertical{
+    right: 1px;
+  }
+  .el-scrollbar__bar{
+    .el-scrollbar__thumb{
+      // background-color: rgba(144, 147, 153, 0.9);
+    }
+  }
+}

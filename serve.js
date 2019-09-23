@@ -87,5 +87,5 @@ app.use(express.static(path.join(__dirname, 'dist')), function (request, respons
 /*监听端口服务*/
 app.listen(9090, function () {
     console.log(`Server running at ${IPAdress}:9090`);
-    child_process.exec(`start ${IPAdress}:9090`);
+    child_process.exec(`start http://${IPAdress}:9090`);
 });

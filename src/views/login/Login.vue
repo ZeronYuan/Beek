@@ -21,7 +21,7 @@
       </el-form>
     </div>
     <div class="footer">
-      Copyright©<span class="time">2010-Present</span>&nbsp;Shenzhen&nbsp;Cybertron&nbsp;Technology&nbsp;Co.,Ltd&nbsp;  深圳市思博创科技有限公司&nbsp;版权所有
+      Copyright&nbsp;©&nbsp;<span class="time">2010-Present</span>&nbsp;Shenzhen&nbsp;Cybertron&nbsp;Technology&nbsp;Co.,Ltd&nbsp;  深圳市思博创科技有限公司&nbsp;版权所有
     </div>
   </div>
 </template>

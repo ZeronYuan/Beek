@@ -1,38 +1,34 @@
 <template>
   <div class="dashboard">
-    <grid-layout
-      :layout.sync="layout"
-      :col-num="12"
-      :row-height="30"
-      :is-draggable="true"
-      :is-resizable="true"
-      :is-mirrored="false"
-      :vertical-compact="true"
-      :responsive="true"
-      :margin="[5, 5]"
-      :use-css-transforms="true"
-    >
-      <grid-item v-for="item in layout"
-                 @moved="movedEvent"
-                 :x="item.x"
-                 :y="item.y"
-                 :w="item.w"
-                 :h="item.h"
-                 :i="item.i"
-                 :key="item.i">
-        <v-chart ref="vchart" :autoresize="true" :options="option" />
-      </grid-item>
-    </grid-layout>
+    <el-scrollbar :native=false :noresize=false tag="section">
+      <grid-layout
+        :layout.sync="layout"
+        :col-num="12"
+        :row-height="30"
+        :is-draggable="true"
+        :is-resizable="true"
+        :is-mirrored="false"
+        :vertical-compact="true"
+        :responsive="true"
+        :margin="[8, 8]"
+        :use-css-transforms="true">
+        <grid-item v-for="item in layout"
+                   @moved="movedEvent"
+                   :x="item.x"
+                   :y="item.y"
+                   :w="item.w"
+                   :h="item.h"
+                   :i="item.i"
+                   :key="item.i">
+          <v-chart ref="vchart" :autoresize="true" :options="option" />
+        </grid-item>
+      </grid-layout>
+    </el-scrollbar>
   </div>
 </template>
 
 <script>
 import VueGridLayout from 'vue-grid-layout';
-// import ECharts from 'vue-echarts';
-// import 'echarts/lib/chart/bar';
-// import 'echarts/lib/chart/line';
-// import 'echarts/lib/component/tooltip';
-// import 'echarts/lib/component/grid';
 /* eslint-disable */
 const testLayout = [{"x":0,"y":0,"w":6,"h":10,"i":"0","moved":false},{"x":0,"y":10,"w":6,"h":12,"i":"1","moved":false},{"x":0,"y":22,"w":12,"h":7,"i":"2","moved":false},{"x":6,"y":0,"w":4,"h":8,"i":"3","moved":false},{"x":6,"y":8,"w":4,"h":6,"i":"4","moved":false},{"x":10,"y":0,"w":2,"h":8,"i":"5","moved":false},{"x":10,"y":8,"w":2,"h":14,"i":"9","moved":false},{"x":6,"y":14,"w":4,"h":8,"i":"10","moved":false}];
 const color = [ '#418AB3','#A6B727', '#F88311', '#DF5327', '#FEC360', '#5E5E5E', '#1394F8', '#FF5733', '#3BC464', '#8042DF', '#40E0D0', '#8B008B', '#F08080', '#8B4513', '#51D9B5','#D95B5B', '#318C80', '#F2CF61', '#A6E582', '#1394F8', '#BFBFBF'];
@@ -42,7 +38,6 @@ export default {
   components: {
     GridLayout: VueGridLayout.GridLayout,
     GridItem: VueGridLayout.GridItem,
-    // 'v-chart': ECharts,
   },
   data() {
     return {
@@ -157,7 +152,7 @@ export default {
           el.push(Math.random() * (100));
         }
       });
-    }, 100);
+    }, 1000);
     // vm.$refs.vchart.showLoading();
     setTimeout(function(){
       // vm.$refs.vchart.forEach(function(el){

@@ -17,8 +17,8 @@ import http from './plugins/http/http';
 import httpPlugin from './plugins/http/httpPlugin';
 
 Vue.config.productionTip = false;
-const ECharts = window.VueECharts; // ECharts方法
-Vue.component('v-chart', ECharts); // 注册ECharts组件
+const { VueECharts } = window; // ECharts方法
+Vue.component('v-chart', VueECharts); // 注册ECharts组件
 Vue.use(VueAxios, axios);
 Vue.use(httpPlugin);
 Vue.use(Element); // 按需加载element-ui组件
@@ -66,7 +66,7 @@ window.onload = () => {
         loadDom.remove();
       }
     });
-  }, 2333);
+  }, 0);
 };
 new Vue({
   router,

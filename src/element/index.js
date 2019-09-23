@@ -30,22 +30,23 @@ import {
   Form,
   FormItem,
   Tooltip,
-  // Pagination,
+  Scrollbar,
+  Pagination,
   // Dialog,
   // Autocomplete,
   // Avatar,
-  // Table,
-  // TableColumn,
+  Table,
+  TableColumn,
   // DatePicker,
   // TimeSelect,
   // TimePicker,
-  // Popover,
+  Popover,
   // Tooltip,
   // Breadcrumb,
   // BreadcrumbItem,
   // Tabs,
   // TabPane,
-  // Tag,
+  Tag,
   // Tree,
   // Alert,
   // Slider,
@@ -72,7 +73,8 @@ import {
   // Main,
   // Footer,
 } from 'element-ui';
-import '../assets/sass/FFUI.scss'; // FIREFINCH主题样式
+// import plTable from 'pl-table';
+import '../assets/sass/FUI.scss'; // FIREFINCH主题样式
 
 const $element = {};
 
@@ -102,22 +104,23 @@ $element.install = function install(vue) {
   Vue.use(Form);
   Vue.use(FormItem);
   Vue.use(Tooltip);
-  // Vue.use(Pagination);
+  Vue.use(Scrollbar);
+  Vue.use(Pagination);
   // Vue.use(Dialog);
   // Vue.use(Autocomplete);
   // Vue.use(Avatar);
-  // Vue.use(Table);
-  // Vue.use(TableColumn);
+  Vue.use(Table);
+  Vue.use(TableColumn);
   // Vue.use(DatePicker);
   // Vue.use(TimeSelect);
   // Vue.use(TimePicker);
-  // Vue.use(Popover);
+  Vue.use(Popover);
   // Vue.use(Tooltip);
   // Vue.use(Breadcrumb);
   // Vue.use(BreadcrumbItem);
   // Vue.use(Tabs);
   // Vue.use(TabPane);
-  // Vue.use(Tag);
+  Vue.use(Tag);
   // Vue.use(Tree);
   // Vue.use(Alert);
   // Vue.use(Slider);
@@ -143,7 +146,7 @@ $element.install = function install(vue) {
   // Vue.use(Aside);
   // Vue.use(Main);
   // Vue.use(Footer);
-
+  // Vue.use(plTable);
   Vue.use(Loading.directive);
 
   Vue.prototype.$loading = Loading.service;

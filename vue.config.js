@@ -1,7 +1,7 @@
 /* eslint-disable */
 const os = require('os');
 // const CompressionPlugin = require("compression-webpack-plugin");
-const proxy_url = 'http://192.168.200.202:80'; // 代理目标服务器地址
+const proxy_url = 'http://192.168.10.80:80'; // 代理目标服务器地址
 const interfaces = os.networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
 let IPAdress = '';
 for(let devName in interfaces){
@@ -18,6 +18,7 @@ module.exports = {
   transpileDependencies: [
     'vue-echarts',
     'resize-detector',
+    // 'pl-table'
   ],
   runtimeCompiler: true,
   devServer: {
