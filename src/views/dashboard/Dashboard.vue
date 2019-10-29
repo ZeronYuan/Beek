@@ -152,7 +152,7 @@ export default {
           el.push(Math.random() * (100));
         }
       });
-    }, 1000);
+    }, 100);
     // vm.$refs.vchart.showLoading();
     setTimeout(function(){
       // vm.$refs.vchart.forEach(function(el){
@@ -183,6 +183,11 @@ export default {
       box-shadow: 0 0 4px rgba(0,0,0,.2);
     }
   }
+  .el-scrollbar{
+    .el-scrollbar__wrap{
+      overflow-x: hidden;
+    }
+  }
 }
 </style>
 <style lang="scss">
@@ -197,6 +202,13 @@ export default {
       .echarts{
         width: 100%;
         height: 100%;
+      }
+    }
+  }
+  .dashboard{
+    >.el-scrollbar{
+      .el-scrollbar__wrap{
+        overflow-x: hidden;
       }
     }
   }

@@ -148,6 +148,7 @@ export default {
     left: 0;
     right: 0;
     margin: 0 auto;
+    z-index: 20201010;
     #bubbles{
       height: 100%;
       width: 100%;

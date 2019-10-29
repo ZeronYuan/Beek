@@ -3,3 +3,21 @@
 */
 @import "reset";
 @import "common";
+
+.ff-bubble{
+  >.el-drawer__header{
+    padding-top: 0;
+    background-color: #1b2744;
+    color: #fff;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    margin-bottom: 0;
+    .el-drawer__close-btn{
+      font-size: 14px;
+    }
+  }
+}
+.el-dialog__wrapper{
+  overflow-x: hidden;
+}

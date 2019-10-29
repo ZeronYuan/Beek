@@ -20,6 +20,7 @@
 </template>
 
 <script>
+/* eslint-disable */
 let { Raphael } = window; // SVG插件Raphael
 let scale = 1;// 缩放尺寸
 let speed = 0.05;// 缩放速度

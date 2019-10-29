@@ -1,5 +1,5 @@
 <template>
-  <div class="ff-head">
+  <header class="ff-head">
     <div class="logo"><img src="../../assets/img/logo.png" alt="FireFinch"></div>
     <el-menu
       :default-active="activeIndex"
@@ -24,14 +24,30 @@
     </el-dropdown>
     <div class="full-screen" @click="openFull">
       <el-tooltip class="item" effect="dark" :content="fullScreen" placement="bottom">
-        <img v-if="!isFull" src="../../assets/img/fullScreen.png" alt="开">
-        <img v-else src="../../assets/img/closeScreen.png" alt="关">
+        <div class="inner">
+          <img v-if="!isFull" src="../../assets/img/fullScreen.png" alt="开">
+          <img v-else src="../../assets/img/closeScreen.png" alt="关">
+        </div>
       </el-tooltip>
     </div>
-  </div>
+    <div class="system-setting" @click="openSet">
+      <i class="el-icon-s-tools"></i>
+    </div>
+    <el-drawer
+      title="设置"
+      size="460px"
+      custom-class="ff-bubble"
+      :lock-scroll=false
+      :visible.sync=drawer
+      :direction=direction>
+      <system-set></system-set>
+    </el-drawer>
+  </header>
 </template>
 
 <script>
+import systemSet from './SystemSet.vue';
+
 export default {
   name: 'Head',
   data() {
@@ -39,10 +55,15 @@ export default {
       activeIndex: '/',
       fullScreen: '开启全屏',
       isFull: false,
+      drawer: false,
+      direction: 'rtl',
     };
   },
   created() {
     this.activeIndex = this.$route.fullPath;
+  },
+  components: {
+    systemSet: systemSet,
   },
   watch: {
     $route() {
@@ -87,6 +108,10 @@ export default {
           wscript.SendKeys('{F11}');
         }
       }
+    },
+    openSet: function () {
+      const vm = this;
+      vm.drawer = !vm.drawer;
     },
   },
 };
@@ -136,25 +161,42 @@ export default {
       float: right;
       height: 50px;
       line-height: 50px;
-      margin-right: 20px;
+      padding: 0 15px;
       cursor: pointer;
-      >img{
-        display: inline-block;
-        width: 20px;
-        margin: 0 auto;
+      .inner{
+        width: 100%;
+        height: 100%;
+        >img{
+          display: inline-block;
+          width: 20px;
+          margin: 0 auto;
+        }
       }
     }
     .user-info{
       float: right;
       height: 50px;
       line-height: 50px;
-      margin-right: 30px;
+      margin-right: 10px;
+      padding: 0 15px;
       color: #fff;
       cursor: pointer;
       span{
         display: block;
         height: 50px;
         line-height: 50px;
+      }
+    }
+    .system-setting{
+      float: right;
+      height: 50px;
+      line-height: 50px;
+      padding: 0 10px;
+      cursor: pointer;
+      >i{
+        display: inline-block;
+        font-size: 20px;
+        margin-top: 16px;
       }
     }
   }

@@ -1,16 +1,19 @@
 <template>
-  <div id="Firefinch">
+  <section id="Firefinch">
     <Head><title></title></Head>
-    <div class="ff-main">
+    <main class="ff-main">
       <transition name="fade" appear mode="out-in">
         <router-view></router-view>
       </transition>
-    </div>
-  </div>
+      <Foot></Foot>
+    </main>
+
+  </section>
 </template>
 
 <script>
 import Head from './views/head/Head.vue';
+import Foot from './views/foot/Foot.vue';
 
 export default {
   name: 'FirefinchInit',
@@ -21,6 +24,7 @@ export default {
   },
   components: {
     Head,
+    Foot,
   },
 };
 </script>
@@ -34,9 +38,10 @@ export default {
       left: 0;
       top: 50px;
       right: 0;
-      bottom: 0;
+      bottom: 40px;
       margin: 0 auto;
       background: #f2f2f2;
+      z-index: 1;
     }
   }
 </style>

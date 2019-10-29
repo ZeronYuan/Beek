@@ -66,7 +66,7 @@ window.onload = () => {
         loadDom.remove();
       }
     });
-  }, 0);
+  }, 1600);
 };
 new Vue({
   router,

@@ -5,6 +5,7 @@ import {
   Dropdown,
   DropdownMenu,
   DropdownItem,
+  Drawer,
   Menu,
   Submenu,
   MenuItem,
@@ -32,7 +33,7 @@ import {
   Tooltip,
   Scrollbar,
   Pagination,
-  // Dialog,
+  Dialog,
   // Autocomplete,
   // Avatar,
   Table,
@@ -60,8 +61,8 @@ import {
   // Rate,
   // Steps,
   // Step,
-  // Carousel,
-  // CarouselItem,
+  Carousel,
+  CarouselItem,
   // Collapse,
   // CollapseItem,
   // Cascader,
@@ -83,6 +84,7 @@ $element.install = function install(vue) {
   Vue.use(Dropdown);
   Vue.use(DropdownMenu);
   Vue.use(DropdownItem);
+  Vue.use(Drawer);
   Vue.use(Menu);
   Vue.use(Submenu);
   Vue.use(MenuItem);
@@ -106,7 +108,7 @@ $element.install = function install(vue) {
   Vue.use(Tooltip);
   Vue.use(Scrollbar);
   Vue.use(Pagination);
-  // Vue.use(Dialog);
+  Vue.use(Dialog);
   // Vue.use(Autocomplete);
   // Vue.use(Avatar);
   Vue.use(Table);
@@ -134,8 +136,8 @@ $element.install = function install(vue) {
   // Vue.use(Rate);
   // Vue.use(Steps);
   // Vue.use(Step);
-  // Vue.use(Carousel);
-  // Vue.use(CarouselItem);
+  Vue.use(Carousel);
+  Vue.use(CarouselItem);
   // Vue.use(Collapse);
   // Vue.use(CollapseItem);
   // Vue.use(Cascader);

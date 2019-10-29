@@ -13,7 +13,10 @@ $--font-path: '~element-ui/lib/theme-chalk/fonts';
 .el-scrollbar{
   height: 100%;
   .el-scrollbar__wrap{
-    overflow-x: hidden;
+    //overflow-x: hidden;
+    .el-scrollbar__view{
+      white-space: nowrap;
+    }
   }
   .is-vertical{
     right: 1px;

@@ -40,6 +40,7 @@ format.date = (date, dateFormat) => {
  * @param decimal - 小数位数
  * @returns {*} - 格式化后数字
  */
+
 format.num = (num, lan, decimal) => {
   const numStr = parseInt(Math.abs(parseFloat(num)), 10).toString();
   const numLength = numStr.length;
@@ -67,6 +68,7 @@ format.num = (num, lan, decimal) => {
   } else {
     result = parseFloat(num).toFixed(decimal);
   }
+  // eslint-disable-next-line no-restricted-globals
   if (typeof result === 'number' && isNaN(result)) {
     result = '-';
   }
