@@ -45,11 +45,14 @@ export default {
 
 <style scoped lang="scss">
 .cloud-set{
+  height: 100%;
   p{
     padding:0 20px;
     height: 50px;
     line-height: 50px;
     font-size: 16px;
+    font-weight: 600;
+    // background-color: #f2f2f2;
   }
   .cloud-form{
     padding: 20px 30px;

@@ -79,20 +79,21 @@ export default {
           show: true,
           showContent: true
         },
-       animation: false,
+       animation: true,
        // animationDuration: 0,
-        dataset: {
-          source: [
-            ['years', '2012', '2013', '2014', '2015', '2016', '2017'],
-            ['A', 11.1, 30.4, 65.1, 53.3, 83.8, 98.7],
-            // ['B', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
-            // ['C', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
-            // ['D', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
-          ]
-        },
+       //  dataset: {
+       //    source: [
+       //      ['years'],
+       //      ['A'],
+       //      // ['B', 86.5, 92.1, 85.7, 83.1, 73.4, 55.1],
+       //      // ['C', 24.1, 67.2, 79.5, 86.4, 65.2, 82.5],
+       //      // ['D', 55.2, 67.1, 69.2, 72.4, 53.9, 39.1]
+       //    ]
+       //  },
         xAxis: {
           type: 'category',
           boundaryGap: false,
+          data: [],
           axisLabel: {
             align: 'center',
           },
@@ -106,7 +107,7 @@ export default {
           nameLocation: 'end',
         },
         series: [
-          {type: 'line', smooth: true, seriesLayoutBy: 'row', symbol: 'none', lineStyle: { width: 1, }},
+          {type: 'line', smooth: true, seriesLayoutBy: 'row', symbol: 'none', lineStyle: { width: 1, },data:[]},
           // {type: 'line', smooth: false, seriesLayoutBy: 'row', symbol: 'none'},
           // {type: 'line', smooth: false, seriesLayoutBy: 'row', symbol: 'none'},
           // {type: 'line', smooth: false, seriesLayoutBy: 'row', symbol: 'none'},
@@ -139,20 +140,33 @@ export default {
   },
   created() {
     const vm = this;
-    const source = vm.option.dataset.source;
+    const source = vm.option;
+    for(let i=0;i<200;i++){
+      source.xAxis.data.push('');
+      source.series[0].data.push('');
+    }
+    console.log(source);
+    let count = 1;
     setInterval(function(){
-      source.forEach(function (el, index) {
-        // el.hideLoading();
-        if (el.length >= 500) {
-          el.splice(1,1);
-        }
-        if (index === 0) {
-          el.push(Number(el[el.length - 1]) + 1);
-        } else {
-          el.push(Math.random() * (100));
-        }
-      });
-    }, 100);
+      count++;
+      if (source.xAxis.data.length>200){
+        source.xAxis.data.splice(0,1);
+        source.series[0].data.splice(0,1);
+      }
+      source.xAxis.data.push(count);
+      source.series[0].data.push(Math.random() * (100 - 10));
+      // source.forEach(function (el, index) {
+      //   // el.hideLoading();
+      //   if (el.length >= 500) {
+      //     el.splice(1,1);
+      //   }
+      //   if (index === 0) {
+      //     el.push(Number(el[el.length - 1]) + 1);
+      //   } else {
+      //     el.push(Math.random() * (100 - 10));
+      //   }
+      // });
+    }, 500);
     // vm.$refs.vchart.showLoading();
     setTimeout(function(){
       // vm.$refs.vchart.forEach(function(el){

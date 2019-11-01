@@ -20,8 +20,16 @@
         <cloud v-if="actItem === 'cloud'"></cloud>
       </transition>
       <transition name="slide-fade">
-        <based v-if="actItem === 'base'">
-        </based>
+        <based v-if="actItem === 'base'"></based>
+      </transition>
+      <transition name="slide-fade">
+        <control v-if="actItem === 'control'"></control>
+      </transition>
+      <transition name="slide-fade">
+        <log v-if="actItem === 'log'"></log>
+      </transition>
+      <transition name="slide-fade">
+        <about v-if="actItem === 'about'"></about>
       </transition>
     </div>
   </div>
@@ -32,6 +40,9 @@ import User from './set-item/User.vue';
 import Net from './set-item/Net.vue';
 import Cloud from './set-item/Cloud.vue';
 import Based from './set-item/Based.vue';
+import Control from './set-item/Control.vue';
+import Log from './set-item/Log.vue';
+import About from './set-item/About.vue';
 import baseUtil from '../../util/baseUtil';
 
 export default {
@@ -70,6 +81,9 @@ export default {
     Net: Net,
     Cloud: Cloud,
     Based: Based,
+    Control: Control,
+    Log: Log,
+    About: About,
   },
   methods: {
     setItem: function (name) {
@@ -89,6 +103,7 @@ export default {
 .set-box{
   width: 100%;
   height: 100%;
+  overflow: hidden;
   .set-list{
     width: 60px;
     height: 100%;
@@ -123,6 +138,6 @@ export default {
 .set-main{
   height: 100%;
   margin-left: 60px;
-  overflow: hidden;
+  overflow: auto;
 }
 </style>

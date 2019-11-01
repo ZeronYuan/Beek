@@ -167,6 +167,8 @@ export default {
       line-height: 50px;
       text-indent: 28px;
       font-size: 16px;
+      font-weight: 600;
+      // background-color: #f2f2f2;
     }
     .net-item{
       li{

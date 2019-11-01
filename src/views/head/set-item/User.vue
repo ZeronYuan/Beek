@@ -94,6 +94,8 @@ export default {
       color: #4d4d4d;
       font-size: 16px;
       padding:0 28px;
+      font-weight: 600;
+      // background-color: #f2f2f2;
       .add-user{
         float: right;
         height: 50px;

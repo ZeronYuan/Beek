@@ -36,7 +36,7 @@
     <el-drawer
       title="设置"
       size="460px"
-      custom-class="ff-bubble"
+      custom-class="ff-bubble systemset-bubble"
       :lock-scroll=false
       :visible.sync=drawer
       :direction=direction>
@@ -117,7 +117,7 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .ff-head{
     height: 51px;
     background-color: #1b2744;
@@ -199,5 +199,8 @@ export default {
         margin-top: 16px;
       }
     }
+  }
+  .systemset-bubble{
+    // color: #C20000;
   }
 </style>
