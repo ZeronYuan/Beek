@@ -30,23 +30,31 @@
         </div>
       </el-tooltip>
     </div>
-    <div class="system-setting" @click="openSet">
+    <div class="system-setting" @click="showSysSet = true">
       <i class="el-icon-s-tools"></i>
     </div>
-    <el-drawer
-      title="设置"
-      size="460px"
-      custom-class="ff-bubble systemset-bubble"
-      :lock-scroll=false
-      :visible.sync=drawer
-      :direction=direction>
-      <system-set></system-set>
-    </el-drawer>
+<!--    <el-drawer-->
+<!--      title="设置"-->
+<!--      size="460px"-->
+<!--      custom-class="ff-bubble systemset-bubble"-->
+<!--      :lock-scroll=false-->
+<!--      :visible.sync=drawer-->
+<!--      :direction=direction>-->
+<!--      <system-set></system-set>-->
+<!--    </el-drawer>-->
+    <transition name="fade">
+    <div class="systemset-bubble" v-if="showSysSet" @click.self="showSysSet = false">
+        <div class="systemset-box">
+          <system-set></system-set>
+        </div>
+    </div>
+    </transition>
   </header>
 </template>
 
 <script>
 import systemSet from './SystemSet.vue';
+import bus from '../../plugins/eventBus/index';
 
 export default {
   name: 'Head',
@@ -57,10 +65,15 @@ export default {
       isFull: false,
       drawer: false,
       direction: 'rtl',
+      showSysSet: false,
     };
   },
   created() {
-    this.activeIndex = this.$route.fullPath;
+    const vm = this;
+    vm.activeIndex = vm.$route.fullPath;
+    bus.$on('closePop', () => { // 监听点击弹窗关闭按钮动作，关闭系统设置窗口
+      vm.showSysSet = false;
+    });
   },
   components: {
     systemSet: systemSet,
@@ -201,6 +214,18 @@ export default {
     }
   }
   .systemset-bubble{
-    // color: #C20000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(0,0,0,.6);
+    z-index: 2;
+    .systemset-box{
+      width: 460px;
+      height: 100%;
+      background: #fff;
+      float: right;
+    }
   }
 </style>

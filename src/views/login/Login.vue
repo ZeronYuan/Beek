@@ -34,15 +34,15 @@ export default {
       loading: false,
       rules: {
         name: [
-          { required: true, message: '请输账户名', trigger: 'blur' },
+          { required: true, message: '请输用户名', trigger: 'blur' },
           {
-            min: 3, max: 12, message: '长度在 3 到 12 个字符', trigger: 'blur',
+            min: 3, max: 12, message: '请输入3到12位数的账号', trigger: 'blur',
           },
         ],
         password: [
           { required: true, message: '请输入密码', trigger: 'blur' },
           {
-            min: 5, message: '请输入至少 5 个字符密码', trigger: 'blur',
+            min: 5, message: '请输入不少于5位数的密码', trigger: 'blur',
           },
         ],
       },
@@ -65,6 +65,7 @@ export default {
   },
   mounted() {
   // Canvas Init
+  /*
     const c = document.getElementById('bubbles');
     const ctx = c.getContext('2d');
     let width = window.innerWidth;
@@ -126,6 +127,7 @@ export default {
       draw();
     }
     resizeCanvas();
+    */
     // window.addEventListener('resize', resizeCanvas, false);
   },
   activated() {
@@ -228,6 +230,17 @@ export default {
                   margin-top: 3px\0;
                 }
               }
+              .el-input__suffix{
+                .el-input__icon{
+                  color: #4da7f5;
+                }
+                .el-icon-circle-close{
+                  display: none;
+                }
+              }
+            }
+            .el-form-item__error{
+              color: #4da7f5;
             }
             .sub{
               width: 100%;
@@ -254,7 +267,8 @@ export default {
       color: #4da7f5;
       text-align: center;
       .time{
-        font-weight: 600;
+        font-size: 12px;
+        // font-weight: 600;
       }
     }
   }

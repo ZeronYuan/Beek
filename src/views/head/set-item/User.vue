@@ -1,14 +1,14 @@
 <template>
   <div class="user-set">
-    <transition name="slide-fade">
-      <div class="user-list" v-show="set">
-        <div class="title">
-          用户设置
-          <el-tooltip effect="dark" content="新建用户" placement="left">
-            <i class="add-user el-icon-circle-plus-outline"></i>
-          </el-tooltip>
+    <transition-group name="slide-fade">
+      <titles :key='1111' v-show="set" name="用户信息"></titles>
+      <div :key='2222' class="user-list" v-show="set">
+        <div class="add-user">
+            <i class="el-icon-plus"></i>
+            添加
         </div>
         <ul class="list">
+          <el-scrollbar :native=false :noresize=false tag="section">
           <li>
             <p>User01</p>
             <p>anan@qq.com</p>
@@ -17,18 +17,259 @@
               <i class="el-icon-arrow-right"></i>
             </div>
           </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          <li>
+            <p>User01</p>
+            <p>anan@qq.com</p>
+            <div class="to-set-user" @click="setUser('name')">
+              <span>管理员</span>
+              <i class="el-icon-arrow-right"></i>
+            </div>
+          </li>
+          </el-scrollbar>
         </ul>
       </div>
-    </transition>
+    </transition-group>
     <transition name="slide-fade">
       <div class="user-dec" v-show="!set">
         <div class="tool"><i @click="setUser" class="el-icon-arrow-left"></i>编辑用户信息<span class="del-user">删除用户</span></div>
         <el-form :model="infoForm" ref="infoForm" label-width="160px" label-position="left" size="small" class="info-form">
           <el-form-item label="用户名">
-            <el-input v-model="infoForm.name" :disabled="true"></el-input>
+            <el-input v-text="infoForm.name" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="账户">
-            <el-input v-model="infoForm.account" :disabled="true"></el-input>
+            <el-input v-text="infoForm.account" :disabled="true"></el-input>
           </el-form-item>
           <el-form-item label="密码">
             <el-input v-model="infoForm.password" :type="inputType">
@@ -49,6 +290,8 @@
 </template>
 
 <script>
+import Titles from './Title.vue';
+
 export default {
   name: 'User',
   data() {
@@ -62,6 +305,9 @@ export default {
       },
       inputType: 'password',
     };
+  },
+  components: {
+    Titles: Titles,
   },
   methods: {
     setUser: function (info) {
@@ -82,49 +328,52 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .user-set{
   height: 100%;
+  overflow: hidden;
   .user-list{
-    height: 100%;
-    .title{
-      width: 100%;
-      height: 50px;
-      line-height: 50px;
-      color: #4d4d4d;
-      font-size: 16px;
-      padding:0 28px;
-      font-weight: 600;
-      // background-color: #f2f2f2;
-      .add-user{
-        float: right;
-        height: 50px;
-        line-height: 52px;
-        cursor: pointer;
-        text-align: center;
-        color: #4d4d4d;
-        font-size: 20px;
-        transition: all .5s;
-        &:hover{
-          color: #FF6700;
-        }
+    height: calc(100% - 56px);
+    .add-user{
+      // width: 100%;
+      padding: 0 20px;
+      text-align: center;
+      height: 32px;
+      line-height: 32px;
+      cursor: pointer;
+      transition: all .5s;
+      border: 1px rgba(0,0,0,.85) dashed;
+      border-radius: 2px;
+      margin: 20px;
+      font-size: 14px;
+      &:hover{
+        color: #FF6700;
+        border-color: #FF6700;
       }
     }
     .list{
+      height: calc(100% - 74px);
+      >.el-scrollbar{
+        >.el-scrollbar__wrap{
+          overflow-x:hidden;
+        }
+      }
       li{
         height: 60px;
         position: relative;
         transition: all .5s;
+        color: rgba(0,0,0,.85);
+        font-size:14px;
         &:hover{
           background: #f2f2f2;
         }
         p{
           height: 30px;
           line-height:40px;
-          text-indent: 30px;
+          text-indent: 20px;
           &:nth-child(2){
             line-height: 20px;
-            color: #999;
+            color: rgba(0,0,0,.65);
           }
         }
         .to-set-user{
@@ -141,16 +390,16 @@ export default {
     }
   }
   .user-dec{
-    height: 100%;
+    height: calc(100% - 56px);
     .tool{
       height: 50px;
       line-height: 50px;
       color: #4d4d4d;
-      padding:0 28px;
+      padding:0 20px;
       padding-left: 0;
       font-size: 16px;
       i{
-        width: 50px;
+       padding: 0 10px 0 20px;
         height: 50px;
         line-height: 50px;
         font-size: 18px;
@@ -163,17 +412,24 @@ export default {
       .del-user{
         font-size: 16px;
         cursor: pointer;
-        color: #C20000;
+        color: #FF6700;
         float: right;
       }
     }
     .info-form{
       padding: 20px;
+      .el-form-item{
+        &:nth-child(1),&:nth-child(2){
+          .el-form-item__content{
+            text-align: right;
+          }
+        }
+      }
       .sub{
         display: block;
         height: 36px;
         line-height: 36px;
-        width: 80%;
+        width: 100%;
         margin: 0 auto;
         margin-top: 35px;
         padding: 0;

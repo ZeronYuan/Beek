@@ -1,6 +1,6 @@
 <template>
   <div class="base-set">
-    <p class="title">基础信息</p>
+    <titles name="基础信息"></titles>
     <div class="item-set">
       <div><span>语言</span>
         <el-select v-model="lang" size="small" placeholder="请选择">
@@ -77,6 +77,7 @@
 
 <script>
 import Clock from './Clock.vue';
+import Titles from './Title.vue';
 
 export default {
   name: 'based',
@@ -90,6 +91,7 @@ export default {
   },
   components: {
     Clock: Clock,
+    Titles: Titles,
   },
 };
 </script>
@@ -98,17 +100,9 @@ export default {
 .base-set{
   height: 100%;
   overflow: hidden;
-  .title{
-    height: 50px;
-    line-height: 50px;
-    text-indent: 28px;
-    font-size: 16px;
-    font-weight: 600;
-    // background-color: #f2f2f2;
-  }
   .item-set{
     padding: 20px 0;
-    margin: 0 28px;
+    margin: 0 20px;
     border-bottom: 1px solid #ccc;
     &:last-child{
       border: none;

@@ -1,6 +1,6 @@
 <template>
     <div class="cloud-set">
-      <p>云设置</p>
+      <titles name="云设置"></titles>
       <el-form :model="cloudForm" ref="cloudForm" label-width="160px" label-position="left" size="small" class="cloud-form">
         <el-form-item label="注册状态">
           <el-input :disabled="true" :class="{ re: cloudForm.status, un: !cloudForm.status }" v-text="cloudForm.status?'已注册':'未注册'"></el-input>
@@ -20,6 +20,8 @@
 </template>
 
 <script>
+import Titles from './Title.vue';
+
 export default {
   name: 'Cloud',
   data() {
@@ -30,6 +32,9 @@ export default {
         port: '80',
       },
     };
+  },
+  components: {
+    Titles: Titles,
   },
   methods: {
     onSubmit() {
@@ -46,27 +51,21 @@ export default {
 <style scoped lang="scss">
 .cloud-set{
   height: 100%;
-  p{
-    padding:0 20px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    // background-color: #f2f2f2;
-  }
   .cloud-form{
-    padding: 20px 30px;
+    padding: 20px;
     .re{
       color: #4F7D21;
+      text-align: right;
     }
     .un{
       color: #FF6700;
+      text-align: right;
     }
     .sub{
       display: block;
       height: 36px;
       line-height: 36px;
-      width: 80%;
+      width: 100%;
       margin: 0 auto;
       margin-top: 35px;
       padding: 0;

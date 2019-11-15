@@ -1,13 +1,13 @@
 <template>
     <div class="control-set">
-      <p class="title">控制</p>
-      <transition name="slide-fade">
-      <ul class="set-box" v-show="!showUpdate && !showReset">
+      <transition-group name="slide-fade">
+      <titles :key="1111" v-show="!showUpdate && !showReset" name="控制"></titles>
+      <ul :key="2222" class="set-box" v-show="!showUpdate && !showReset">
         <li><span>重启</span><i @click="restart" class="el-icon-arrow-right"></i></li>
         <li><span>升级</span><i @click="showUpdate = !showUpdate" class="el-icon-arrow-right"></i><span class="version">12.1254.3</span></li>
         <li><span>恢复出厂设置</span><i @click="showReset = !showReset" class="el-icon-arrow-right"></i></li>
       </ul>
-      </transition>
+      </transition-group>
       <transition name="slide-fade">
       <div class="update" v-show="showUpdate">
         <div class="tool"><i @click="showUpdate = false" class="el-icon-arrow-left"></i>版本信息 <span class="look-up">查看新特性</span></div>
@@ -41,6 +41,8 @@
 </template>
 
 <script>
+import Titles from './Title.vue';
+
 export default {
   name: 'Control',
   data() {
@@ -49,6 +51,9 @@ export default {
       showReset: false,
       checkList: ['1', '2'],
     };
+  },
+  components: {
+    Titles: Titles,
   },
   methods: {
     restart() {
@@ -74,24 +79,17 @@ export default {
 
 <style scoped lang="scss">
 .control-set{
-  .title{
-    padding:0 20px;
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    // background-color: #f2f2f2;
-  }
   .set-box{
     li{
       padding:0 20px;
+      padding-right: 0;
       height: 50px;
       line-height: 50px;
       cursor: default;
       i{
         float: right;
         height: 50px;
-        width: 50px;
+        padding: 0 20px 0 10px;
         line-height: 50px;
         cursor: pointer;
         text-align: center;
@@ -103,18 +101,18 @@ export default {
   }
   .update,.reset{
     .tips{
-      padding:0 28px;
+      padding:0 20px;
       margin: 10px 0;
     }
     .tool{
       height: 50px;
       line-height: 50px;
       color: #4d4d4d;
-      padding:0 28px;
+      padding:0 20px;
       padding-left: 0;
       font-size: 16px;
       i{
-        width: 50px;
+        padding: 0 10px 0 20px;
         height: 50px;
         line-height: 50px;
         font-size: 16px;
@@ -132,7 +130,7 @@ export default {
       }
     }
     .info-item{
-      padding:20px 28px;
+      padding:20px;
       span{
         &:last-child{
           float: right;
@@ -140,16 +138,15 @@ export default {
       }
     }
     .sub-update{
+      width: 360px;
       display: block;
       height: 36px;
       line-height: 36px;
-      width: 80%;
-      margin: 0 auto;
-      margin-top: 35px;
+      margin: 35px auto;
       padding: 0;
     }
     .reset-item-list{
-      padding: 0 28px;
+      padding: 0 20px;
       label{
         display: block;
         margin:15px 0;

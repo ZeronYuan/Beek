@@ -1,6 +1,6 @@
 <template>
   <div class="log">
-    <div class="title">日志</div>
+    <titles name="日志"></titles>
     <ul class="log-list">
       <li>
         <i class="el-icon-warning-outline"></i>
@@ -23,25 +23,22 @@
 </template>
 
 <script>
+import Titles from './Title.vue';
+
 export default {
   name: 'Log',
+  components: {
+    Titles: Titles,
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .log{
-  .title{
-    height: 50px;
-    line-height: 50px;
-    text-indent: 28px;
-    font-size: 16px;
-    font-weight: 600;
-  }
   .log-list{
     >li{
       overflow: hidden;
-      padding: 15px 30px;
-      padding-left: 0;
+      padding: 10px 0;
       &:hover{
         background: #f2f2f2;
       }
@@ -54,7 +51,7 @@ export default {
         }
       }
       i{
-        width: 50px;
+        padding: 0 20px;
         line-height: 50px;
         height: 50px;
         text-align: center;

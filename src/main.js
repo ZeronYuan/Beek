@@ -28,7 +28,7 @@ Vue.use(Element); // 按需加载element-ui组件
 // Vue.locale('zh_CN', baseUtil.merge(elementCn, zh_CN));
 const VueInit = Vue.prototype;
 // 获取单位
-store.dispatch('GET_UNIT');
+// store.dispatch('GET_UNIT');
 // 请求code状态码处理提示
 http.setErrorHandler((dataPacket) => {
   const errorCode = dataPacket.code;

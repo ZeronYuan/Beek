@@ -1,6 +1,6 @@
 <template>
   <div class="about">
-    <div class="title">关于</div>
+    <titles name="关于"></titles>
     <div class="logo">
       <img src="../../../../src/assets/img/cmlogo.png" alt="">
       <p>深圳市思博创科技有限公司</p>
@@ -18,21 +18,20 @@
 </template>
 
 <script>
+import Titles from './Title.vue';
+
 export default {
   name: 'About',
+  components: {
+    Titles: Titles,
+  },
 };
 </script>
 
 <style scoped lang="scss">
 .about{
-  .title{
-    height: 50px;
-    line-height: 50px;
-    text-indent: 28px;
-    font-size: 16px;
-    font-weight: 600;
-  }
   .logo{
+    width: 100%;
     margin: 40px 0;
     img{
       display: block;

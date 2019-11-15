@@ -1,36 +1,26 @@
 <template>
   <div class="set-box">
-    <ul class="set-list">
-      <li v-for="item in setList" :key="item.icon" :class="{active:item.active}" @click="setItem(item.name)">
-        <el-tooltip class="item" effect="dark" :openDelay=200 :content=item.title placement="left">
-          <div class="inner">
-            <i :class=item.icon></i>
-          </div>
-        </el-tooltip>
-      </li>
-    </ul>
+    <div class="set-list-box">
+      <ul class="set-list">
+        <li v-for="item in setList" :key="item.icon" :class="{active:item.active}" @click="setItem(item.name)">
+          <el-tooltip class="item" effect="dark" :openDelay=200 :content=item.title placement="left">
+            <div class="inner">
+              <i :class=item.icon></i>
+            </div>
+          </el-tooltip>
+        </li>
+      </ul>
+    </div>
     <div class="set-main">
-      <transition name="slide-fade">
-        <user v-if="actItem === 'user'"></user>
-      </transition>
-      <transition name="slide-fade">
-        <net v-if="actItem === 'net'"></net>
-      </transition>
-      <transition name="slide-fade">
-        <cloud v-if="actItem === 'cloud'"></cloud>
-      </transition>
-      <transition name="slide-fade">
-        <based v-if="actItem === 'base'"></based>
-      </transition>
-      <transition name="slide-fade">
-        <control v-if="actItem === 'control'"></control>
-      </transition>
-      <transition name="slide-fade">
-        <log v-if="actItem === 'log'"></log>
-      </transition>
-      <transition name="slide-fade">
-        <about v-if="actItem === 'about'"></about>
-      </transition>
+      <transition-group name="slide-fade">
+        <user    v-if="actItem === 'user'"    :key="1"></user>
+        <net     v-if="actItem === 'net'"     :key="2"></net>
+        <cloud   v-if="actItem === 'cloud'"   :key="3"></cloud>
+        <based   v-show="actItem === 'base'"    :key="4"></based>
+        <control v-if="actItem === 'control'" :key="5"></control>
+        <log     v-if="actItem === 'log'"     :key="6"></log>
+        <about   v-if="actItem === 'about'"   :key="7"></about>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -44,7 +34,9 @@ import Control from './set-item/Control.vue';
 import Log from './set-item/Log.vue';
 import About from './set-item/About.vue';
 import baseUtil from '../../util/baseUtil';
-
+// import http from '../../plugins/http/http';
+//
+// const httpList = http.apiList;
 export default {
   name: 'SystemSet',
   data() {
@@ -75,7 +67,8 @@ export default {
     };
   },
   props: {},
-  created() {},
+  created() {
+  },
   components: {
     User: User,
     Net: Net,
@@ -91,7 +84,10 @@ export default {
       baseUtil.each(vm.setList, (el) => {
         el.active = el.name === name;
         if (el.name === name) {
-          vm.actItem = name;
+          vm.actItem = 'default';
+          setTimeout(() => {
+            vm.actItem = name; // 为了重复选择时能重新渲染右侧内容
+          });
         }
       });
     },
@@ -104,34 +100,65 @@ export default {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  .set-list{
+  color: rgba(0,0,0,.85);
+  .set-list-box{
     width: 60px;
     height: 100%;
     float: left;
-    background-color: rgba(228, 228, 228, 1);
-    li{
+    background:#ECECEC;
+    position: relative;
+    .set-list{
       width: 60px;
-      height: 60px;
-      text-align: center;
-      line-height: 60px;
-      cursor: pointer;
-      transition: all .3s;
-      &:hover{
-        background-color: rgba(215, 215, 215, 1);
+      text-align: left;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      li{
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+        cursor: pointer;
+        text-align: center;
+        .inner{
+          width: 100%;
+          height: 100%;
+          line-height: 66px;
+          i{
+            font-size: 18px;
+            color: #F88311;
+          }
+        }
+        &:hover{
+          background-color: rgba(248,131,17,.1);
+          /*color: #fff;*/
+          /*border-bottom: 0.5px solid rgba(236,236,236,1);*/
+          /*border-top: 0.5px solid rgba(236,236,236,1);*/
+          .inner{
+            i{
+             // color: #fff;
+            }
+          }
+        }
+        /*&:first-child{*/
+        /*  &:hover{*/
+        /*    border-top: none;*/
+        /*  }*/
+        /*}*/
       }
-      .inner{
-        width: 100%;
-        height: 100%;
-        line-height: 66px;
-        i{
-          font-size: 18px;
-          font-weight: 600;
-          color: #999;
+      .active{
+        background-color: #F88311;
+        &:hover,.inner{
+          i{
+            color: #fff;
+          }
+        }
+        &:hover{
+          background-color: #F88311;
+          i{
+            color: #fff;
+          }
         }
       }
-    }
-    .active{
-      background-color: rgba(215, 215, 215, 1);
     }
   }
 }
@@ -139,5 +166,6 @@ export default {
   height: 100%;
   margin-left: 60px;
   overflow: auto;
+  text-align: left;
 }
 </style>

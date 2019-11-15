@@ -12,9 +12,11 @@
       trigger="click">
         <div class="title">
           <span class="dec">WLAN</span>
+          <i @click="getWlanList" class="el-icon-refresh-right" :class="{'active-rotate': refresh}"></i>
           <el-switch
+            @change="onOffWlan"
             class="wlan-sw"
-            v-model="wlan"
+            v-model=wlan
             :width=36
             active-color="#13ce66"
             inactive-color="#999">
@@ -22,12 +24,13 @@
         </div>
         <el-scrollbar :native=false :noresize=false tag="section">
         <ul class="wlan-list">
-          <li v-for="item in wlanList" :key="item.id" @click="wlanConnect(item.id)">
+          <li v-for="item in wlanList" :key="item.BSSID" @click="wlanConnect(item.BSSID)">
             <i class="el-icon-connection icon"></i>
             <p class="name">
-              <span :title="item.name">{{item.name}}</span>
+              <span :title="item.SSID">{{item.SSID}}</span>
               <br>
-              <span v-if="item.connect">已连接</span>
+              <span v-if="item.active">已连接</span>
+              <span v-else-if="item.hold && !item.active">已保存</span>
             </p>
             <i class="el-icon-lock icon"></i>
           </li>
@@ -51,15 +54,18 @@
 <script>
 import format from '../../util/format';
 import baseUtil from '../../util/baseUtil';
+import http from '../../plugins/http/http';
 
+const httpList = http.apiList;
 export default {
   name: 'foot',
   data() {
     return {
       visible: false,
       time: format.date(new Date(), 'yyyy/MM/dd hh:mm:ss'),
-      wlan: true,
-      wlanList: [{ name: 'wewerwewerwewerwewerw', connect: false, id: '123sd' }, { name: 'FFFF', connect: true, id: '12334sd' }, { name: 'EEEE', connect: false, id: '12773sd' }, { name: 'GGGG', connect: false, id: '12rr3sd' }, { name: 'GGGG', connect: false, id: '12rr783sd' }, { name: 'GGGG', connect: false, id: '18782rr3sd' }, { name: 'GGGG', connect: false, id: '12rr3878sd' }],
+      wlan: false,
+      wlanList: [],
+      refresh: false,
     };
   },
   created() {
@@ -68,18 +74,19 @@ export default {
       const t = new Date();
       vm.time = format.date(t, 'yyyy/MM/dd hh:mm:ss');
     }, 1000);
+    vm.getWlanList();
   },
   methods: {
     wlanConnect(id) {
       const vm = this;
       baseUtil.each(vm.wlanList, (el) => {
-        if (el.id === id) {
-          this.$prompt('请输入密码', `连接无线网络  ${el.name}`, {
+        if (el.BSSID === id && !el.active && !el.hold) {
+          this.$prompt('请输入密码', `连接无线网络  ${el.SSID}`, {
             confirmButtonText: '确定',
             cancelButtonText: '取消',
             inputType: 'password',
-            inputPattern: /^\w{6,18}$/,
-            inputErrorMessage: '密码太短',
+            inputPattern: /^\w{8,18}$/,
+            inputErrorMessage: '请输入至少8位字符的密码',
           }).then(({ value }) => {
             this.$message({
               type: 'success',
@@ -88,6 +95,47 @@ export default {
           }).catch(() => {});
         }
       });
+    },
+    getWlanList() { // 获取WiFi列表
+      const vm = this;
+      vm.refresh = true;
+      http.api[httpList.IsOpened]({
+        success(response) {
+          vm.wlan = response;
+        },
+      });
+      http.api[httpList.GetScanResult]({
+        method: 'get',
+        success(response) {
+          vm.wlanList = response;
+          vm.GetConnectedHotpad();
+        },
+      });
+    },
+    GetConnectedHotpad() { // 获取已连接WiFi
+      const vm = this;
+      http.api[httpList.GetConnectedHotpad]({
+        method: 'get',
+        success(response) {
+          setTimeout(() => {
+            vm.refresh = false;
+          }, 2600);
+          baseUtil.each(response, (el) => {
+            baseUtil.each(vm.wlanList, (el2) => {
+              el2.active = el.SSID === el2.SSID;
+              if (el.BSSID === el2.BSSID) {
+                el2.hold = el.Selected;
+              } else {
+                el2.hold = false;
+              }
+            });
+          });
+          console.log(vm.wlanList);
+        },
+      });
+    },
+    onOffWlan(status) { // 监听wlan开关
+      console.log(status);
     },
   },
   destroyed() {
@@ -193,6 +241,16 @@ export default {
     .wlan-sw{
       margin-top: -4px;
     }
+    .el-icon-refresh-right{
+      font-size: 18px;
+      margin-right: 20px;
+      cursor: pointer;
+      top: 2px;
+      position: relative;
+    }
+    .active-rotate{
+      animation: rotating 2.6s linear infinite;
+    }
   }
   .wlan-list{
     height: 280px;
@@ -240,4 +298,5 @@ export default {
     overflow-x: hidden;
   }
 }
+
 </style>

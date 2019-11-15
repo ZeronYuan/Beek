@@ -1,7 +1,7 @@
 <template>
     <div class="net-set">
       <div class="net-list" v-show="!setBus && !setEth && !set4g && !setWlan && !wlanDec">
-        <div class="title">网络设置</div>
+        <titles v-show="!setBus && !setEth && !set4g && !setWlan && !wlanDec" name="网络设置"></titles>
         <ul class="net-item">
           <li>
             <div class="open" @click="showBus = !showBus">FF-BUS <i v-if="!showBus" class="el-icon-arrow-down"></i><i v-if="showBus" class="el-icon-arrow-up"></i></div>
@@ -21,7 +21,7 @@
             <div class="bus-list">
               <transition name="slide-fade">
                 <ul v-show="showEth" class="inner-bus">
-                  <li>ETH1<i class="el-icon-arrow-right"></i> <span>已开启</span></li>
+                  <li>ETH1<i class="el-icon-arrow-right" @click="setEth = !setEth"></i> <span>已开启</span></li>
                   <li>ETH2<i class="el-icon-arrow-right"></i> <span>已开启</span></li>
                 </ul>
               </transition>
@@ -65,6 +65,31 @@
               </el-form-item>
             </el-form>
           </div>
+      </div>
+      <div class="set-eth" v-show="setEth">
+        <div class="wlan-list" v-show="!ethInfo">
+          <div class="tool"><i @click="setEth = !setEth" class="el-icon-arrow-left"></i>ETH</div>
+          <div class="status">
+            状态
+            <el-switch
+              v-model="ethStatus">
+            </el-switch>
+          </div>
+          <p class="title" @click="showEthDec = !showEthDec">连接详情<i v-if="!showEthDec" class="el-icon-arrow-down"></i><i v-if="showEthDec" class="el-icon-arrow-up"></i></p>
+          <ul class="item-info" v-show="showEthDec">
+            <li><span>网口状态</span><span class="connect">已连接</span></li>
+            <li><span>物理地址</span><span>--</span></li>
+            <li><span>IP地址</span><span>--</span></li>
+            <li><span>子网掩码</span><span>--</span></li>
+            <li><span>默认网关</span><span>--</span></li>
+            <li><span>附加网关</span><span>--</span></li>
+            <li><span>DNS列表</span><span>--</span></li>
+          </ul>
+          <p class="title" @click="ethInfo = !ethInfo">设置 <i class="el-icon-arrow-right"></i></p>
+        </div>
+        <div class="wlan-list" v-show="ethInfo">
+          <div class="tool"><i @click="setEth = !setEth" class="el-icon-arrow-left"></i>ETH设置</div>
+        </div>
       </div>
       <div class="set-wlan" v-show="setWlan">
         <div class="wlan-list">
@@ -115,6 +140,8 @@
 </template>
 
 <script>
+import Titles from './Title.vue';
+
 export default {
   name: 'Net',
   data: function () {
@@ -129,6 +156,10 @@ export default {
       },
       showEth: false,
       setEth: false,
+      showEthDec: true,
+      ethInfo: false,
+      ethStatus: false,
+      ethModel: 'DHCP',
       setWlan: false,
       setInWlan: false,
       walnStatus: false,
@@ -137,6 +168,9 @@ export default {
       ipModel: '1',
       set4g: false,
     };
+  },
+  components: {
+    Titles: Titles,
   },
   created() {},
   methods: {
@@ -162,19 +196,12 @@ export default {
 <style scoped lang="scss">
 .net-set{
   .net-list{
-    .title{
-      height: 50px;
-      line-height: 50px;
-      text-indent: 28px;
-      font-size: 16px;
-      font-weight: 600;
-      // background-color: #f2f2f2;
-    }
     .net-item{
+      // padding-top: 20px;
       li{
         transition: all .3s;
         cursor: pointer;
-        padding-left: 28px;
+        padding-left: 20px;
         &:hover{
           background: #f2f2f2;
         }
@@ -188,7 +215,6 @@ export default {
             line-height: 53px;
             float: right;
             text-align: center;
-            margin-right: 20px;
           }
         }
         .bus-list{
@@ -202,10 +228,9 @@ export default {
                 line-height: 45px;
               }
               i{
-                width: 45px;
+                padding: 0 20px 0 10px;
                 line-height: 48px;
                 text-align: center;
-                margin-right: 20px;
               }
             }
           }
@@ -219,10 +244,9 @@ export default {
             line-height: 50px;
           }
           i{
-            width: 50px;
+            padding: 0 20px 0 10px;
             line-height: 53px;
             text-align: center;
-            margin-right: 20px;
           }
         }
       }
@@ -236,7 +260,7 @@ export default {
     padding-left: 0;
     font-size: 16px;
     i{
-      width: 50px;
+      padding: 0 10px 0 20px;
       height: 50px;
       line-height: 50px;
       font-size: 18px;
@@ -253,15 +277,44 @@ export default {
       float: right;
     }
   }
-  .set-bus,.set-wlan{
+  .set-bus,.set-wlan,.set-eth{
     .bus-dec,.wlan-list{
       .info-form{
-        padding: 0 20px;
+        padding: 20px;
+        .el-form-item{
+          .el-form-item__content{
+            text-align: right;
+            .el-switch{
+              float: right;
+            }
+          }
+        }
+      }
+      .item-info{
+        li{
+          height: 46px;
+          line-height: 46px;
+          padding: 0 25px;
+          span{
+            &:last-child{
+              float: right;
+              height: 46px;
+              line-height: 46px;
+            }
+          }
+          .connect{
+            color: #42b983;
+          }
+          .el-select{
+            float: right;
+          }
+        }
       }
     }
     .wlan-list{
       .status{
-        padding:0 30px;
+        padding:0 20px;
+        margin-top: 10px;
         height: 50px;
         line-height: 50px;
         .el-switch{
@@ -270,15 +323,14 @@ export default {
         }
       }
       .title{
-        padding:0 30px;
+        padding:0 20px;
         height: 50px;
         line-height: 50px;
-        font-weight: 600;
         font-size: 16px;
       }
       .wlan-item{
         li{
-          padding:10px;
+          padding:10px 20px;
           position: relative;
           cursor: pointer;
           &:hover{
@@ -289,14 +341,16 @@ export default {
             top: 50%;
             transform: translateY(-50%);
           }
+          .el-icon-connection{
+          }
           .el-icon-arrow-right{
             right: 20px;
           }
           .el-icon-lock{
-            right: 40px;
+            right: 45px;
           }
             span{
-              width: calc(100% - 75px);
+              width: calc(100% - 95px);
               margin-left: 25px;
               display: inline-block;
               overflow: hidden;
@@ -307,6 +361,23 @@ export default {
                 margin-top: 3px;
               }
             }
+        }
+      }
+    }
+  }
+  .set-eth{
+    .wlan-list{
+      .title{
+        cursor: pointer;
+        font-weight: 600;
+        i{
+          float: right;
+          margin-top: 22px;
+        }
+      }
+      .item-info{
+        li{
+          padding-left: 40px;
         }
       }
     }

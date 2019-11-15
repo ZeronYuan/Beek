@@ -1,7 +1,9 @@
 import Vue from 'vue';
+// import http from '../http/http';
 
 export const EVENT = {
   SHOW_SEARCH: 'component/showSearch',
 };
 
-export const bus = new Vue();
+const bus = new Vue();
+export default bus;
