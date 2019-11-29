@@ -18,6 +18,7 @@ const axiosConfig = {
   method: 'get',
   baseURL: env === 'production' ? '' : '',
   timeout: 120000,
+  // headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, // 默认json格式传参，此处可改为formData格式
 };
 
 const ajaxMethod = ['get', 'post'];
@@ -25,12 +26,12 @@ const ajaxMethod = ['get', 'post'];
 /**
  * @param {object} response
  * @param {object} response.data - 数据包
- * @param {string} response.data.error_code - 错误编码
+ * @param {string} response.code - 错误编码
  * @param {function} responseHandler
  * @return {object}
  */
 const ResponseHandler = (response, responseHandler) => {
-  if (response && response.data && typeof responseHandler === 'function') { // respond 处理层
+  if (response && 'data' in response && typeof responseHandler === 'function') { // respond 处理层
     responseHandler(response);
     return response.data;
   }
@@ -40,20 +41,20 @@ const ResponseHandler = (response, responseHandler) => {
 const DataPacketHandler = (dataPacket, dataPacketHandler) => { // error_code 处理层
   const errorCode = dataPacket.code;
   const packet = dataPacket.data;
-  if (typeof dataPacketHandler === 'function') {
+  if (typeof dataPacketHandler === 'function' && 'data' in dataPacket) {
     dataPacketHandler(dataPacket);
   }
 
   if (typeof errorHandler === 'function') {
     errorHandler(dataPacket);
   }
-  if (dataPacket && errorCode === '0') { // 修复 complete bug
+  if (errorCode === '0' && 'data' in dataPacket) { // 修复 complete bug
     return packet;
   }
   return false;
 };
 const DataHandler = (data, dataHandler) => { // 数据处理层
-  if (data && typeof dataHandler === 'function') {
+  if (typeof data !== 'boolean' && typeof dataHandler === 'function') {
     dataHandler(data);
   }
 };
@@ -87,7 +88,7 @@ baseUtil.each(ajaxMethod, (method) => {
     const {
       params, responseHandler, dataPacketHandler, dataHandler,
     } = options;
-    axiosInstance[method](url, { params })
+    axiosInstance[method](url, params)
       .then(response => ResponseHandler(response, responseHandler))
       .then(dataPacket => DataPacketHandler(dataPacket, dataPacketHandler))
       .then(data => DataHandler(data, dataHandler))

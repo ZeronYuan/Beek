@@ -24,6 +24,11 @@ export default {
       rem: '',
     };
   },
+  watch: {
+    date: function () {
+      this.draw();
+    },
+  },
   created() {
   },
   mounted() {
@@ -130,7 +135,7 @@ export default {
       const vm = this;
       const { ctx, width, height } = vm;
       ctx.clearRect(0, 0, width, height);
-      const now = new Date();
+      const now = new Date(vm.date * 1000);
       const hour = now.getHours();
       const minutes = now.getMinutes();
       const seconds = now.getSeconds();
@@ -140,9 +145,6 @@ export default {
       vm.drawSecond(seconds);
       vm.drawDot();
       ctx.restore();
-      setTimeout(() => {
-        vm.draw();
-      }, 1000);
     },
   },
 };

@@ -6,6 +6,7 @@ const user = {
   },
   actions: {},
   mutations: {},
+  getter: {},
 };
 
 export default user;

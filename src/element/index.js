@@ -38,9 +38,9 @@ import {
   // Avatar,
   Table,
   TableColumn,
-  // DatePicker,
-  // TimeSelect,
-  // TimePicker,
+  DatePicker,
+  TimeSelect,
+  TimePicker,
   Popover,
   // Tooltip,
   // Breadcrumb,
@@ -113,9 +113,9 @@ $element.install = function install(vue) {
   // Vue.use(Avatar);
   Vue.use(Table);
   Vue.use(TableColumn);
-  // Vue.use(DatePicker);
-  // Vue.use(TimeSelect);
-  // Vue.use(TimePicker);
+  Vue.use(DatePicker);
+  Vue.use(TimeSelect);
+  Vue.use(TimePicker);
   Vue.use(Popover);
   // Vue.use(Tooltip);
   // Vue.use(Breadcrumb);
