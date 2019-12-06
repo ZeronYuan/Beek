@@ -1,14 +1,22 @@
 <template>
     <div class="net-set">
       <div class="net-list" v-show="!bus.show && !eth.show && !wlan.show && !mobile.show">
-        <titles name="网络设置"></titles>
+        <titles name="网络设置"/>
         <ul class="net-item">
           <li>
-            <div class="open" @click="netList.bus = !netList.bus">FF-BUS <i v-if="!netList.bus" class="el-icon-arrow-down"></i><i v-if="netList.bus" class="el-icon-arrow-up"></i></div>
+            <div class="open" @click="netList.bus = !netList.bus">
+              FF-BUS
+              <i v-if="!netList.bus" class="el-icon-arrow-down"/>
+              <i v-if="netList.bus" class="el-icon-arrow-up"/>
+            </div>
             <div class="bus-list">
               <transition name="slide-fade">
                 <ul v-show="netList.bus" class="inner-bus">
-                  <li>FF-BUS1 <i @click="bus.show = !bus.show" class="el-icon-arrow-right"></i> <span>已开启</span></li>
+                  <li>
+                    FF-BUS1
+                    <i @click="bus.show = !bus.show" class="el-icon-arrow-right"/>
+                    <span>已开启</span>
+                  </li>
                   <li>FF-BUS2</li>
                   <li>FF-BUS3</li>
                   <li>FF-BUS4</li>
@@ -17,12 +25,26 @@
             </div>
           </li>
           <li>
-            <div class="open" @click="netList.eth = !netList.eth">有线网络 <i v-if="!netList.eth" class="el-icon-arrow-down"></i><i v-if="netList.eth" class="el-icon-arrow-up"></i></div>
+            <div class="open" @click="netList.eth = !netList.eth">
+              有线网络
+              <i v-if="!netList.eth" class="el-icon-arrow-down"/>
+              <i v-if="netList.eth" class="el-icon-arrow-up"/>
+            </div>
             <div class="bus-list">
               <transition name="slide-fade">
                 <ul v-show="netList.eth" class="inner-bus">
-                  <li>ETH1<i class="el-icon-arrow-right" @click="() => {eth.show = !eth.show;showEthData('eth0')}"></i><span v-if="eth.data.eth0.status">已开启</span><span v-else>已关闭</span></li>
-                  <li>ETH2<i class="el-icon-arrow-right" @click="() => {eth.show = !eth.show;showEthData('eth1')}"></i><span v-if="eth.data.eth1.status">已开启</span><span v-else>已关闭</span></li>
+                  <li>
+                    ETH1
+                    <i class="el-icon-arrow-right" @click="() => {eth.show = !eth.show;showEthData('eth0')}"/>
+                    <span v-if="eth.data.eth0.status">已开启</span>
+                    <span v-else>已关闭</span>
+                  </li>
+                  <li>
+                    ETH2
+                    <i class="el-icon-arrow-right" @click="() => {eth.show = !eth.show;showEthData('eth1')}"/>
+                    <span v-if="eth.data.eth1.status">已开启</span>
+                    <span v-else>已关闭</span>
+                  </li>
                 </ul>
               </transition>
             </div>
@@ -30,37 +52,40 @@
           <li>
             <div class="other-net">
               WLAN
-              <i @click="wlan.show = !wlan.show" class="el-icon-arrow-right"></i>
-              <span>Cybertron-net</span>
+              <i @click="wlan.show = !wlan.show" class="el-icon-arrow-right"/>
+              <span v-text="wlan.activeName"/>
             </div>
           </li>
           <li>
             <div class="other-net">
               4G
-              <i @click="mobile.show = !mobile.show" class="el-icon-arrow-right"></i>
-              <span>已开启</span>
+              <i @click="mobile.show = !mobile.show" class="el-icon-arrow-right"/>
+              <!--<span>已开启</span>-->
             </div>
           </li>
         </ul>
       </div>
       <div class="set-bus" v-show="bus.show">
           <div class="bus-dec">
-            <div class="tool"><i @click="bus.show = !bus.show" class="el-icon-arrow-left"></i>编辑FF-BUS1</div>
+            <div class="tool">
+              <i @click="bus.show = !bus.show" class="el-icon-arrow-left"/>
+              编辑FF-BUS1
+            </div>
             <el-form :model="bus.form" ref="setBusForm" label-width="160px" label-position="left" size="small" class="info-form">
               <el-form-item label="状态">
-                <el-switch v-model="bus.form.status"></el-switch>
+                <el-switch v-model="bus.form.status"/>
               </el-form-item>
               <el-form-item label="电源开关">
-                <el-switch v-model="bus.form.open"></el-switch>
+                <el-switch v-model="bus.form.open"/>
               </el-form-item>
               <el-form-item label="闲时节点自动升级">
-                <el-switch v-model="bus.form.autoUpdate"></el-switch>
+                <el-switch v-model="bus.form.autoUpdate"/>
               </el-form-item>
               <el-form-item label="距离">
                 <el-select v-model="bus.form.distance" placeholder="请选择距离">
-                  <el-option label="100米" value="1"></el-option>
-                  <el-option label="500米" value="2"></el-option>
-                  <el-option label="1000米" value="3"></el-option>
+                  <el-option label="100米" value="1"/>
+                  <el-option label="500米" value="2"/>
+                  <el-option label="1000米" value="3"/>
                 </el-select>
               </el-form-item>
             </el-form>
@@ -133,32 +158,73 @@
           <div class="tool"><i @click="wlan.show = !wlan.show" class="el-icon-arrow-left"/>WLAN</div>
           <div class="status">
             状态
-            <el-switch v-model="wlan.status">
+            <el-switch @change="setWlanStatus" v-model="wlan.status">
             </el-switch>
           </div>
           <p class="title">附近的网络</p>
           <ul class="wlan-item">
-            <li v-for="item in wlan.wlanList" :key="item.id" @click="wlanInfo(item)">
+            <li v-for="item in wlanList" :key="item.BSSID" @click="wlanInfo(item)">
               <i class="el-icon-connection icon"/>
-                <span :title="item.name">{{item.name}}</span>
+                <span :title="item.SSID">{{item.SSID}}</span>
                 <br>
-                <span v-if="item.connect">已连接</span>
+                <span v-if="item.active">已连接</span>
+                <span v-if="item.hold&&!item.active">已保存</span>
               <i class="el-icon-lock icon"/>
               <i class="el-icon-arrow-right icon"/>
             </li>
           </ul>
         </div>
         <div class="wlan-list wlan-dec" v-show="wlan.wlanDecShow">
-          <div class="tool"><i @click="wlan.wlanDecShow = false" class="el-icon-arrow-left"></i>WLAN连接信息 <span class="del-user">删除网络</span></div>
-          <p class="title" @click="wlan.decOpen = !wlan.decOpen">连接详情<i v-if="!wlan.decOpen" class="el-icon-arrow-down"></i><i v-if="wlan.decOpen" class="el-icon-arrow-up"></i></p>
+          <div class="tool"><i @click="wlan.wlanDecShow = false" class="el-icon-arrow-left"/>WLAN连接信息 <span v-if="wlan.decShowData.hold" @click="delWLAN" class="del-wlan">删除网络</span></div>
+          <p class="title" @click="wlan.decOpen = !wlan.decOpen">
+            连接详情
+            <i v-if="!wlan.decOpen" class="el-icon-arrow-down"/>
+            <i v-if="wlan.decOpen" class="el-icon-arrow-up"/>
+          </p>
           <ul class="item-info" v-show="wlan.decOpen">
-            <li><span>连接状态</span><span class="connect">已连接</span></li>
-            <li><span>信号强度</span><span>--</span></li>
-            <li><span>连接速度</span><span>--</span></li>
-            <li><span>频率</span><span>--</span></li>
-            <li><span>加密方式</span><span>--</span></li>
+            <li>
+              <span class="name">名称</span>
+              <span>{{wlan.decShowData.SSID}}</span>
+            </li>
+            <li>
+              <span class="name">连接状态</span>
+              <span v-if="wlan.decShowData.active" class="connect">已连接</span>
+              <span v-else>未连接</span>
+            </li>
+            <li>
+              <span class="name">信号强度</span>
+              <span v-if="wlan.decShowData.SingalStrength === 0">弱</span>
+              <span v-else-if="wlan.decShowData.SingalStrength === 1">中</span>
+              <span v-else-if="wlan.decShowData.SingalStrength === 2">强</span>
+              <span v-else />
+            </li>
+            <li>
+              <span class="name">物理地址</span>
+              <span>{{wlan.decShowData.BSSID}}</span>
+            </li>
+            <li>
+              <span class="name">频率</span>
+              <span v-if="wlan.decShowData.Frequence === 0">未知</span>
+              <span v-else-if="wlan.decShowData.Frequence === 1">2.4G</span>
+              <span v-else-if="wlan.decShowData.Frequence === 2">5G</span>
+              <span v-else />
+            </li>
+            <li>
+              <span class="name">加密方式</span>
+              <span v-if="wlan.decShowData.AuthType === 0">未知</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 1">无</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 2">WPA_PSK</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 3">WPA_EAP</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 4">IEEE8021X</span>
+              <span v-else />
+            </li>
           </ul>
-          <p class="title" @click="()=>{wlan.wlanDecShow = !wlan.wlanDecShow;wlan.decShow=!wlan.decShow}">设置 <i class="el-icon-arrow-right"></i></p>
+          <p v-if="wlan.decShowData.hold" class="title" @click="()=>{wlan.wlanDecShow = !wlan.wlanDecShow;wlan.decShow=!wlan.decShow}">
+            设置
+            <i class="el-icon-arrow-right"/>
+          </p>
+          <el-button v-if="!wlan.decShowData.active" @click="connectWLAN('on')" type="primary">连接</el-button>
+          <el-button v-if="wlan.decShowData.active" @click="connectWLAN('off')" type="primary">断开连接</el-button>
         </div>
         <div class="wlan-list model-select" v-show="wlan.decShow">
           <div class="tool">
@@ -170,7 +236,7 @@
           </div>
           <el-form  label-position="left" class="dec-form" ref="form" size="small" :model="wlan.safeForm" label-width="40%">
             <el-form-item label="加密方式">
-              <el-select v-model="wlan.safeForm.type" @change="ipStatus" size="small" placeholder="请选择">
+              <el-select v-model="wlan.safeForm.type" size="small" placeholder="请选择">
                 <el-option label="WAP" value="1"/>
                 <el-option label="DHCP" value="2"/>
               </el-select>
@@ -181,9 +247,9 @@
           </el-form>
           <div class="select">
             <span>IPV4</span>
-            <el-select v-model="wlan.model" @change="ipStatus" size="small" placeholder="请选择">
-              <el-option label="静态" value="1"></el-option>
-              <el-option label="DHCP" value="2"></el-option>
+            <el-select v-model="wlan.model" size="small" placeholder="请选择">
+              <el-option label="静态" value="1"/>
+              <el-option label="DHCP" value="2"/>
             </el-select>
           </div>
           <el-form v-show="wlan.model === '1'" label-position="left" class="dec-form" ref="form" size="small" :model="wlan.decForm" label-width="41%">
@@ -211,11 +277,63 @@
       </div>
       <div class="set-mobile" v-show="mobile.show">
         <div class="tool"><i @click="mobile.show = !mobile.show" class="el-icon-arrow-left"/>4G</div>
+        <div class="wlan-list wlan-dec">
+          <p class="title" @click="wlan.decOpen = !wlan.decOpen">
+            连接详情
+            <i v-if="!wlan.decOpen" class="el-icon-arrow-down"/>
+            <i v-if="wlan.decOpen" class="el-icon-arrow-up"/>
+          </p>
+          <ul class="item-info" v-show="wlan.decOpen">
+            <li>
+              <span class="name">名称</span>
+              <span>{{wlan.decShowData.SSID}}</span>
+            </li>
+            <li>
+              <span class="name">连接状态</span>
+              <span v-if="wlan.decShowData.active" class="connect">已连接</span>
+              <span v-else>未连接</span>
+            </li>
+            <li>
+              <span class="name">信号强度</span>
+              <span v-if="wlan.decShowData.SingalStrength === 0">弱</span>
+              <span v-else-if="wlan.decShowData.SingalStrength === 1">中</span>
+              <span v-else-if="wlan.decShowData.SingalStrength === 2">强</span>
+              <span v-else />
+            </li>
+            <li>
+              <span class="name">物理地址</span>
+              <span>{{wlan.decShowData.BSSID}}</span>
+            </li>
+            <li>
+              <span class="name">频率</span>
+              <span v-if="wlan.decShowData.Frequence === 0">未知</span>
+              <span v-else-if="wlan.decShowData.Frequence === 1">2.4G</span>
+              <span v-else-if="wlan.decShowData.Frequence === 2">5G</span>
+              <span v-else />
+            </li>
+            <li>
+              <span class="name">加密方式</span>
+              <span v-if="wlan.decShowData.AuthType === 0">未知</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 1">无</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 2">WPA_PSK</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 3">WPA_EAP</span>
+              <span v-else-if="wlan.decShowData.EncryptionType === 4">IEEE8021X</span>
+              <span v-else />
+            </li>
+          </ul>
+          <p v-if="wlan.decShowData.hold" class="title" @click="()=>{wlan.wlanDecShow = !wlan.wlanDecShow;wlan.decShow=!wlan.decShow}">
+            设置
+            <i class="el-icon-arrow-right"/>
+          </p>
+        </div>
       </div>
     </div>
 </template>
 
 <script>
+import {
+  mapState,
+} from 'vuex';
 import http from '../../../plugins/http/http';
 import Titles from './Title.vue';
 import { baseUtil } from '../../../util';
@@ -231,9 +349,9 @@ export default {
   data: function () {
     return {
       rules: {
-        address: [{ validator: checkIP, trigger: 'blur', required: true }],
-        gateway: [{ validator: checkIP, trigger: 'blur', required: true }],
-        netmask: [{ validator: checkNetmask, trigger: 'blur', required: true }],
+        address: [{ validator: checkIP, trigger: 'blur' }],
+        gateway: [{ validator: checkIP, trigger: 'blur' }],
+        netmask: [{ validator: checkNetmask, trigger: 'blur' }],
         primaryDNS: [{ validator: checkIP, trigger: 'blur' }],
         secondaryDNS: [{ validator: checkIP, trigger: 'blur' }],
       },
@@ -307,11 +425,22 @@ export default {
       wlan: {
         show: false,
         status: false,
-        wlanList: [{ name: 'wewerwewerwewerwewerwwewerwewerwewerwewerwwewerwewerwewerwewerw', connect: false, id: '123sd' }, { name: 'FFFF', connect: true, id: '12334sd' }, { name: 'EEEE', connect: false, id: '12773sd' }, { name: 'GGGG', connect: false, id: '12rr3sd' }, { name: 'GGGG', connect: false, id: '12rr783sd' }, { name: 'GGGG', connect: false, id: '18782rr3sd' }, { name: 'GGGG', connect: false, id: '12rr3878sd' }],
+        wlanList: [],
         wlanDecShow: false,
+        activeName: '',
         decOpen: true,
         decShow: false,
-        model: '1',
+        decShowData: {
+          AuthType: '',
+          EncryptionType: '',
+          Frequence: '',
+          SingalStrength: '',
+          SSID: '',
+          active: '',
+          hold: '',
+          BSSID: '',
+          NetID: '',
+        },
         decForm: {
           ip: '',
           mask: '',
@@ -330,12 +459,32 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState({
+      wlanList: (state) => state.common.wlanList,
+      wlanStatus: (state) => state.common.wlanStatus,
+    }),
+  },
+  watch: {
+    wlanStatus: function (value) {
+      this.wlan.status = value;
+    },
+    wlanList: function (value) {
+      const vm = this;
+      baseUtil.each(value, (el) => {
+        if (el.active) {
+          vm.wlan.activeName = el.SSID;
+        }
+      });
+    },
+  },
   components: {
     Titles: Titles,
   },
   created() {
     const vm = this;
     vm.getEthData();
+    vm.getMobileInfo();
   },
   methods: {
     getEthData() {
@@ -421,6 +570,7 @@ export default {
     subEthDec() {
       const vm = this;
       const decp = vm.eth.decForm;
+      console.log(decp);
       const ipv4Param = {
         Name: vm.eth.showData.paramName,
         AutoDHCP: decp.autoDHCP,
@@ -428,6 +578,14 @@ export default {
         Netmask: decp.netmask,
         Gateway: decp.gateway,
       };
+      http.api[httpList.SetDNSAddress]({
+        method: 'post',
+        params: {
+          Name: vm.eth.showData.paramName,
+          Primary: decp.primaryDNS,
+          Secondary: decp.secondaryDNS,
+        },
+      });
       // eslint-disable-next-line consistent-return
       vm.$refs.ethForm.validate((valid) => {
         if (valid) {
@@ -445,26 +603,91 @@ export default {
           return false;
         }
       });
-      /*
-      * autoDHCP: false,
-          address: '',
-          netmask: '',
-          gateway: '',
-          primaryDNS: '',
-          secondaryDNS: '',
-      * */
+    },
+    setWlanStatus(value) {
+      const vm = this;
+      let url = httpList.OpenWLAN;
+      if (!value) {
+        url = httpList.CloseWLAN;
+      }
+      http.api[url]({
+        success() {
+          vm.$store.dispatch('GET_WLANSTATUS');
+        },
+      });
     },
     wlanInfo(info) {
       const vm = this;
       vm.wlan.wlanDecShow = true;
-      console.log(info);
+      vm.wlan.decShowData = { ...info };
     },
-    ipStatus(value) {
-      console.log(value);
-      console.log(this.ipModel);
+    connectWLAN(type) {
+      const vm = this;
+      const param = vm.wlan.decShowData;
+      if (!param.hold) {
+        vm.$prompt('请输入密码', `连接无线网络  ${param.SSID}`, {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputType: 'password',
+          inputPattern: /^\w{8,18}$/,
+          inputErrorMessage: '请输入至少8位字符的密码',
+        }).then(({ value }) => {
+          http.api[httpList.AddNewHotpad]({
+            method: 'post',
+            params: {
+              SSID: param.SSID,
+              BSSID: param.BSSID,
+              Password: value,
+              EncryptionType: param.EncryptionType,
+              Priority: 0,
+            },
+            success() {
+              vm.$store.dispatch('GET_WLANSTATUS');
+              vm.$store.dispatch('GET_WLANLIST');
+            },
+          });
+        }).catch(() => {});
+        return;
+      }
+      let url = httpList.ConnectWLAN;
+      if (type === 'off') {
+        url = httpList.DisconnectWLAN;
+      }
+      http.api[url]({
+        method: 'post',
+        params: {
+          NetID: param.NetID,
+        },
+        success() {
+          vm.$store.dispatch('GET_WLANSTATUS');
+          vm.$store.dispatch('GET_WLANLIST');
+        },
+      });
+      console.log(type);
+    },
+    delWLAN() {
+      const vm = this;
+      http.api[httpList.RemoveAddedHotpad]({
+        method: 'post',
+        params: {
+          NetID: vm.wlan.decShowData.NetID,
+        },
+        success() {
+          vm.$store.dispatch('GET_WLANSTATUS');
+          vm.$store.dispatch('GET_WLANLIST');
+        },
+      });
     },
     subWlanDec() {
       console.log(this);
+    },
+    getMobileInfo() {
+      // const vm = this;
+      http.api[httpList.getMobileInfo]({
+        success(response) {
+          console.log(response);
+        },
+      });
     },
   },
 };
@@ -547,14 +770,14 @@ export default {
         color: #FF6700;
       }
     }
-    .del-user{
+    .del-user, .del-wlan{
       font-size: 16px;
       cursor: pointer;
       color: #C20000;
       float: right;
     }
   }
-  .set-bus,.set-wlan,.set-eth{
+  .set-bus,.set-wlan,.set-eth,.set-mobile{
     .bus-dec,.wlan-list,.wlan-dec{
       .info-form{
         padding: 20px;
@@ -619,6 +842,7 @@ export default {
       .wlan-item{
         li{
           padding:10px 20px;
+          min-height: 54px;
           position: relative;
           cursor: pointer;
           &:hover{
@@ -628,8 +852,6 @@ export default {
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-          }
-          .el-icon-connection{
           }
           .el-icon-arrow-right{
             right: 20px;
@@ -650,6 +872,11 @@ export default {
               }
             }
         }
+      }
+      button{
+        display: block;
+        width: 90%;
+        margin: 20px auto;
       }
     }
     .model-select{
@@ -712,33 +939,6 @@ export default {
             float: right;
           }
         }
-      }
-    }
-  }
-  .set-wlan{
-    .wlan-dec{
-      .item-info,.ip-info{
-        li{
-          height: 46px;
-          line-height: 46px;
-          padding: 0 25px;
-          span{
-            &:last-child{
-              float: right;
-              height: 46px;
-              line-height: 46px;
-            }
-          }
-          .connect{
-            color: #42b983;
-          }
-          .el-select{
-            float: right;
-          }
-        }
-      }
-      .ip-info{
-        padding-left: 30px;
       }
     }
   }

@@ -180,7 +180,7 @@ export default {
   },
   computed: {
     ...mapState({
-      systemTime: state => state.common.systemTime,
+      systemTime: (state) => state.common.systemTime,
     }),
   },
   watch: {

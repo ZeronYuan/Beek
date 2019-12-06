@@ -5,7 +5,7 @@ const checkIP = (rule, value, callback) => {
   if (reg.test(value) || v6reg.test(value)) {
     callback();
   } else {
-    callback(new Error('IP格式错误'));
+    callback(new Error('格式错误'));
   }
 };
 // 子网掩码校验

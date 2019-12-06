@@ -1,27 +1,19 @@
 import http from '../../plugins/http/http';
+import baseUtil from '../../util/baseUtil';
 
 const httpList = http.apiList;
 let timer = '';
 const common = {
   state: {
     lang: 'zh_CN',
-    unit: {},
     systemTime: '',
+    wlanStatus: false,
+    wlanList: [],
   },
   actions: {
-    GET_UNIT({ commit }) {
-      http.api[httpList.getAvaiableUnits]({
-        method: 'post',
-        success(response) {
-          // console.log(response);
-          commit('SET_UNIT', response);
-        },
-      });
-    },
     GET_SYSTEMTIME({ commit }) {
       http.api[httpList.GetDatetime]({
         success(response) {
-          console.log(response);
           let time = response;
           clearInterval(timer);
           commit('SET_SYSTEMTIME', response);
@@ -32,13 +24,51 @@ const common = {
         },
       });
     },
+    GET_WLANLIST({ commit }) {
+      http.api[httpList.GetScanResult]({
+        success(response) {
+          const data = response;
+          http.api[httpList.GetConnectedHotpad]({
+            success(reponse2) {
+              baseUtil.each(data, (el) => {
+                el.active = false;
+                el.hold = false;
+                el.NetID = '';
+                el.Priority = '';
+                el.Selected = '';
+                baseUtil.each(reponse2, (el2) => {
+                  if (el.SSID === el2.SSID) {
+                    el.active = el2.Status;
+                    el.hold = true;
+                    el.NetID = el2.NetID;
+                    el.Priority = el2.Priority;
+                    el.Selected = el2.Selected;
+                  }
+                });
+              });
+              commit('SET_WLANLIST', data);
+            },
+          });
+        },
+      });
+    },
+    GET_WLANSTATUS({ commit }) {
+      http.api[httpList.IsOpened]({
+        success(response) {
+          commit('SET_WLANSTATUS', response);
+        },
+      });
+    },
   },
   mutations: {
-    SET_UNIT: (state, payload) => {
-      state.unit = payload;
-    },
     SET_SYSTEMTIME: (state, payload) => {
       state.systemTime = payload;
+    },
+    SET_WLANLIST: (state, payload) => {
+      state.wlanList = payload;
+    },
+    SET_WLANSTATUS: (state, payload) => {
+      state.wlanStatus = payload;
     },
   },
   getter: {},

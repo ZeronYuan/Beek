@@ -54,7 +54,7 @@ const DataPacketHandler = (dataPacket, dataPacketHandler) => { // error_code 处
   return false;
 };
 const DataHandler = (data, dataHandler) => { // 数据处理层
-  if (typeof data !== 'boolean' && typeof dataHandler === 'function') {
+  if (typeof dataHandler === 'function') {
     dataHandler(data);
   }
 };
@@ -89,9 +89,9 @@ baseUtil.each(ajaxMethod, (method) => {
       params, responseHandler, dataPacketHandler, dataHandler,
     } = options;
     axiosInstance[method](url, params)
-      .then(response => ResponseHandler(response, responseHandler))
-      .then(dataPacket => DataPacketHandler(dataPacket, dataPacketHandler))
-      .then(data => DataHandler(data, dataHandler))
+      .then((response) => ResponseHandler(response, responseHandler))
+      .then((dataPacket) => DataPacketHandler(dataPacket, dataPacketHandler))
+      .then((data) => DataHandler(data, dataHandler))
       .catch(CatchHandler);
   };
 });
@@ -104,7 +104,7 @@ baseUtil.each(apiList, (url) => {
     const fail = options.fail || function fail() {};
     const complete = options.complete || function complete() {};
 
-    const responseHandler = response => respond(response);
+    const responseHandler = (response) => respond(response);
     const dataPacketHandler = (dataPacket) => {
       complete(dataPacket);
       if (dataPacket.code !== '0') {

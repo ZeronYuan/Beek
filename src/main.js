@@ -27,10 +27,11 @@ Vue.use(Element); // 按需加载element-ui组件
 // Vue.locale('en_US', baseUtil.merge(elementEn, en_US));
 // Vue.locale('zh_CN', baseUtil.merge(elementCn, zh_CN));
 const VueInit = Vue.prototype;
-// 获取单位
-// store.dispatch('GET_UNIT');
 // 获取系统时间
 store.dispatch('GET_SYSTEMTIME');
+// 获取WIFI信息
+store.dispatch('GET_WLANLIST');
+store.dispatch('GET_WLANSTATUS');
 // 请求code状态码处理提示
 http.setErrorHandler((dataPacket) => {
   const errorCode = dataPacket.code;
@@ -73,5 +74,5 @@ window.onload = () => {
 new Vue({
   router,
   store,
-  render: h => h(App),
+  render: (h) => h(App),
 }).$mount('#Firefinch');

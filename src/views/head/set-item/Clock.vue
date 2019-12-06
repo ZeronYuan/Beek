@@ -1,6 +1,6 @@
 <template>
   <div class="clock-box">
-    <canvas id="clock" height="200" width="200"></canvas>
+    <canvas id="clock" height="200" width="200"/>
   </div>
 </template>
 
@@ -58,6 +58,7 @@ export default {
       ctx.textBaseline = 'middle';
       // 画出1-12的数字
       hourNumber.forEach((number, i) => {
+        // eslint-disable-next-line no-mixed-operators
         const rad = 2 * Math.PI / 12 * i;
         const x = Math.cos(rad) * (r - 30 * rem);
         const y = Math.sin(rad) * (r - 30 * rem);
@@ -65,6 +66,7 @@ export default {
       });
       // 画出秒针走动的60个点
       for (let i = 0; i < 60; i++) {
+        // eslint-disable-next-line no-mixed-operators
         const rad = 2 * Math.PI / 60 * i;
         const x = Math.cos(rad) * (r - 18 * rem);
         const y = Math.sin(rad) * (r - 18 * rem);
@@ -84,7 +86,9 @@ export default {
       const { ctx, r, rem } = vm;
       ctx.save();
       ctx.beginPath();
+      // eslint-disable-next-line no-mixed-operators
       const rad = 2 * Math.PI / 12 * hour;
+      // eslint-disable-next-line no-mixed-operators
       const mrad = 2 * Math.PI / 12 / 60 * minute;
       ctx.rotate(rad + mrad);
       ctx.lineWidth = 6;
@@ -99,6 +103,7 @@ export default {
       const { ctx, r, rem } = vm;
       ctx.save();
       ctx.beginPath();
+      // eslint-disable-next-line no-mixed-operators
       const rad = 2 * Math.PI / 60 * minute;
       ctx.rotate(rad);
       ctx.lineWidth = 3 * rem;
@@ -114,6 +119,7 @@ export default {
       ctx.save();
       ctx.beginPath();
       ctx.fillStyle = '#c14443';
+      // eslint-disable-next-line no-mixed-operators
       const rad = 2 * Math.PI / 60 * second;
       ctx.rotate(rad);
       ctx.moveTo(-2, 20 * rem);

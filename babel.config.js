@@ -25,5 +25,6 @@ module.exports = {
       }
     ],
     // 'transform-vue-jsx',
+    "transform-object-rest-spread",
   ],
 };

@@ -1,6 +1,6 @@
 <template>
 <footer class="ff-footer">
-  <div class="time line"><span>{{time}}</span></div>
+  <div class="time line"><span>{{systemTime}}</span></div>
   <ul class="net line">
     <li>ETH1</li>
     <li>ETH2</li>
@@ -52,8 +52,9 @@
 </template>
 
 <script>
-import format from '../../util/format';
+import { mapState } from 'vuex';
 import baseUtil from '../../util/baseUtil';
+import format from '../../util/format';
 import http from '../../plugins/http/http';
 
 const httpList = http.apiList;
@@ -62,18 +63,18 @@ export default {
   data() {
     return {
       visible: false,
-      time: format.date(new Date(), 'yyyy/MM/dd hh:mm:ss'),
       wlan: false,
       wlanList: [],
       refresh: false,
     };
   },
+  computed: {
+    ...mapState({
+      systemTime: (state) => format.date(new Date(state.common.systemTime * 1000), 'yyyy/MM/dd hh:mm:ss'),
+    }),
+  },
   created() {
     const vm = this;
-    setInterval(() => {
-      const t = new Date();
-      vm.time = format.date(t, 'yyyy/MM/dd hh:mm:ss');
-    }, 1000);
     vm.getWlanList();
   },
   methods: {

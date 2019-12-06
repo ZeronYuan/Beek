@@ -41,7 +41,7 @@ const each = (obj, cb) => {
   }
   return null;
 };
-const isEmptyObject = obj => Object.keys(obj).length === 0;
+const isEmptyObject = (obj) => Object.keys(obj).length === 0;
 /**
  * 复制
  * @param source - 可以是Object、Array及其他普通类型
@@ -100,11 +100,11 @@ const isObject = (value) => {
   const type = typeof value;
   return type === 'function' || (!!value && type === 'object');
 };
-const isDom = value => typeof value === 'object' && typeof value.nodeType === 'number' && typeof value.ownerDocument === 'object';
+const isDom = (value) => typeof value === 'object' && typeof value.nodeType === 'number' && typeof value.ownerDocument === 'object';
 
-const isArray = value => objToString.call(value) === '[object Array]';
+const isArray = (value) => objToString.call(value) === '[object Array]';
 
-const isBuildInObject = value => !!BUILTIN_OBJECT[objToString.call(value)];
+const isBuildInObject = (value) => !!BUILTIN_OBJECT[objToString.call(value)];
 /**
  * 合并
  * @param target - 目标
@@ -169,7 +169,6 @@ const defaults = (target, source, overlay) => {
 const mixin = (target, source, overlay) => {
   const t = 'prototype' in target ? target.prototype : target;
   const s = 'prototype' in source ? source.prototype : source;
-
   defaults(t, s, overlay);
 };
 

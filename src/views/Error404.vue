@@ -29,6 +29,7 @@ export default {
   left: 0;
   right: 0;
   margin: 0 auto;
+  z-index: 100;
   background-color: #1b2744;
   .text{
     margin-top: 10%;

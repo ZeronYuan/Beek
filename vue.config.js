@@ -93,9 +93,9 @@ module.exports = {
       .end();
   },
   css: {
-    extract: false, // 开发时设为false，打包前设为true
-    modules: false,
-    sourceMap: false,
+    // extract: false, // 开发时设为false，打包前设为true
+    requireModuleExtension: true,
+    // sourceMap: false,
   },
   // configureWebpack:config=>{
   //   if(progress.env.NODE_ENV === 'production'){

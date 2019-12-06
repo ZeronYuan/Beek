@@ -7,13 +7,20 @@ export default {
    */
   GetSystemInformation: '/Settings/About/GetSystemInformation', // 获取系统信息
   /**
-  * 系统设置
+  * 网络设置
   */
   // WLAN
   AddNewHotpad: '/Settings/Network/WLAN/AddNewHotpad', // 连接新的热点
+  RemoveAddedHotpad: '/Settings/Network/WLAN/RemoveAddedHotpad', // 移除已连接的热点
   GetScanResult: '/Settings/Network/WLAN/GetScanResult', // 获取扫描结果
   GetConnectedHotpad: '/Settings/Network/WLAN/GetConnectedHotpad', // 获取已连接热点列表
   IsOpened: '/Settings/Network/WLAN/IsOpened', // 查询网络状态（打开/关闭）
+  OpenWLAN: '/Settings/Network/WLAN/Open', // 打开网络
+  CloseWLAN: '/Settings/Network/WLAN/Close', // 关闭网络
+  ConnectWLAN: '/Settings/Network/WLAN/Connect', // 连接热点
+  DisconnectWLAN: '/Settings/Network/WLAN/Disconnect', // 断开热点
+  // 4G
+  getMobileInfo: '/Settings/Network/Mobile/getMobileInfo', // 获取连接详情
   // ETH
   GetConnectDetailed: '/Settings/Network/ETH/GetConnectDetailed', // 获取连接详情
   GetIPV4Address: '/Settings/Network/ETH/GetIPV4Address', // 获取IPV4地址
