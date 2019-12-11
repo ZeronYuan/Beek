@@ -1,4 +1,4 @@
-import Vue from 'vue';
+// import Vue from 'vue';
 import axios from 'axios';
 import baseUtil from '../../util/baseUtil';
 import logger from '../../util/logger';
@@ -59,16 +59,16 @@ const DataHandler = (data, dataHandler) => { // 数据处理层
   }
 };
 const CatchHandler = (error) => {
-  const VueInit = Vue.prototype;
-  const { response } = error;
+  // const VueInit = Vue.prototype;
+  // const { response } = error;
   logger.error(error);
   // console.log(response);
-  VueInit.$notify.error({
-    title: response.statusText,
-    dangerouslyUseHTMLString: true,
-    message: `<p style="width:250px;display:inline-block;color: #C20000;font-size: 14px;word-wrap:break-word;">${response.config.url}</p><br><p>接口请求失败，请联系管理员</p>`,
-    duration: 0,
-  });
+  // VueInit.$notify.error({
+  //   title: response.statusText,
+  //   dangerouslyUseHTMLString: true,
+  //   message: `<p style="width:250px;display:inline-block;color: #C20000;font-size: 14px;word-wrap:break-word;">${response.config.url}</p><br><p>接口请求失败，请联系管理员</p>`,
+  //   duration: 0,
+  // });
 };
 
 const axiosInstance = axios.create(axiosConfig);
@@ -132,6 +132,8 @@ baseUtil.each(apiList, (url) => {
     if (method === 'post') {
       http.post(url, postOptions);
     } else if (method === 'get') {
+      postOptions.params = { params: params };
+      console.log(postOptions);
       http.get(url, postOptions);
     }
   };

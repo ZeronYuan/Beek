@@ -21,6 +21,8 @@ export default {
   DisconnectWLAN: '/Settings/Network/WLAN/Disconnect', // 断开热点
   // 4G
   getMobileInfo: '/Settings/Network/Mobile/getMobileInfo', // 获取连接详情
+  dataOpen: '/Settings/Network/Mobile/dataOpen', // 设置连接状态
+  sendMessage: '/Settings/Network/Mobile/sendMessage', // 发送短信
   // ETH
   GetConnectDetailed: '/Settings/Network/ETH/GetConnectDetailed', // 获取连接详情
   GetIPV4Address: '/Settings/Network/ETH/GetIPV4Address', // 获取IPV4地址

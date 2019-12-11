@@ -43,8 +43,8 @@ import {
   TimePicker,
   Popover,
   // Tooltip,
-  // Breadcrumb,
-  // BreadcrumbItem,
+  Breadcrumb,
+  BreadcrumbItem,
   // Tabs,
   // TabPane,
   Tag,
@@ -118,8 +118,8 @@ $element.install = function install(vue) {
   Vue.use(TimePicker);
   Vue.use(Popover);
   // Vue.use(Tooltip);
-  // Vue.use(Breadcrumb);
-  // Vue.use(BreadcrumbItem);
+  Vue.use(Breadcrumb);
+  Vue.use(BreadcrumbItem);
   // Vue.use(Tabs);
   // Vue.use(TabPane);
   Vue.use(Tag);

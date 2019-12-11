@@ -4,6 +4,10 @@ import Router from 'vue-router';
 // import Home from '../views/Home.vue';
 import Dashboard from '../views/dashboard/Dashboard.vue';
 
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch((err) => err);
+};
 Vue.use(Router);
 
 const router = new Router({
@@ -12,7 +16,7 @@ const router = new Router({
     {
       path: '/',
       redirect: {
-        name: 'Dashboard',
+        name: 'ToPo',
       },
       // children: [
       //   {
@@ -44,9 +48,9 @@ const router = new Router({
       component: () => import(/* webpackChunkName: "topo" */ '../views/topology/Topo.vue'),
     },
     {
-      path: '/Device',
-      name: 'Device',
-      component: () => import(/* webpackChunkName: "device" */ '../views/device/Device.vue'),
+      path: '/Pool',
+      name: 'Pool',
+      component: () => import(/* webpackChunkName: "Pool" */ '../views/pool/Pool.vue'),
     },
     {
       path: '/Login',

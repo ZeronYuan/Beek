@@ -204,9 +204,9 @@
             </li>
             <li>
               <span class="name">频率</span>
-              <span v-if="wlan.decShowData.Frequence === 0">未知</span>
-              <span v-else-if="wlan.decShowData.Frequence === 1">2.4G</span>
-              <span v-else-if="wlan.decShowData.Frequence === 2">5G</span>
+              <span v-if="wlan.decShowData.Freq === 0">未知</span>
+              <span v-else-if="wlan.decShowData.Freq === 1">2.4G</span>
+              <span v-else-if="wlan.decShowData.Freq === 2">5G</span>
               <span v-else />
             </li>
             <li>
@@ -278,53 +278,74 @@
       <div class="set-mobile" v-show="mobile.show">
         <div class="tool"><i @click="mobile.show = !mobile.show" class="el-icon-arrow-left"/>4G</div>
         <div class="wlan-list wlan-dec">
-          <p class="title" @click="wlan.decOpen = !wlan.decOpen">
-            连接详情
-            <i v-if="!wlan.decOpen" class="el-icon-arrow-down"/>
-            <i v-if="wlan.decOpen" class="el-icon-arrow-up"/>
-          </p>
-          <ul class="item-info" v-show="wlan.decOpen">
+          <div class="status">
+            连接状态
+            <el-switch @change="changeMobileStatus"  v-model="mobile.decData.ConnectStatus"/>
+          </div>
+          <ul class="item-info">
             <li>
-              <span class="name">名称</span>
-              <span>{{wlan.decShowData.SSID}}</span>
-            </li>
-            <li>
-              <span class="name">连接状态</span>
-              <span v-if="wlan.decShowData.active" class="connect">已连接</span>
+              <span class="name">SIM卡状态</span>
+              <span v-if="mobile.decData.SIMStatus" class="connect">已连接</span>
               <span v-else>未连接</span>
             </li>
             <li>
+              <span class="name">网口状态</span>
+              <span v-if="mobile.decData.IsPlugin">已插入</span>
+              <span v-else>未插入</span>
+            </li>
+            <li>
+              <span class="name">GPRS网络状态</span>
+              <span v-if="mobile.decData.GPRSStatus === 0">异常</span>
+              <span v-else-if="mobile.decData.GPRSStatus === 1">正常</span>
+              <span v-else />
+            </li>
+            <li>
+              <span class="name">网络类型</span>
+              <span v-if="mobile.decData.DataCap === 'LTE'">4G</span>
+              <span v-else-if="mobile.decData.DataCap === 'UTM'">3G</span>
+              <span v-else />
+            </li>
+            <li>
               <span class="name">信号强度</span>
-              <span v-if="wlan.decShowData.SingalStrength === 0">弱</span>
-              <span v-else-if="wlan.decShowData.SingalStrength === 1">中</span>
-              <span v-else-if="wlan.decShowData.SingalStrength === 2">强</span>
+              <span v-if="mobile.decData.SignalStrength === 0">无信号</span>
+              <span v-else-if="mobile.decData.SignalStrength === 1">差</span>
+              <span v-else-if="mobile.decData.SignalStrength === 2">一般</span>
+              <span v-else-if="mobile.decData.SignalStrength === 3">好</span>
+              <span v-else-if="mobile.decData.SignalStrength === 4">非常好</span>
               <span v-else />
             </li>
             <li>
-              <span class="name">物理地址</span>
-              <span>{{wlan.decShowData.BSSID}}</span>
+              <span class="name">IP</span>
+              <span>{{mobile.decData.Address}}</span>
             </li>
             <li>
-              <span class="name">频率</span>
-              <span v-if="wlan.decShowData.Frequence === 0">未知</span>
-              <span v-else-if="wlan.decShowData.Frequence === 1">2.4G</span>
-              <span v-else-if="wlan.decShowData.Frequence === 2">5G</span>
-              <span v-else />
+              <span class="name">子网掩码</span>
+              <span>{{mobile.decData.Netmask}}</span>
             </li>
             <li>
-              <span class="name">加密方式</span>
-              <span v-if="wlan.decShowData.AuthType === 0">未知</span>
-              <span v-else-if="wlan.decShowData.EncryptionType === 1">无</span>
-              <span v-else-if="wlan.decShowData.EncryptionType === 2">WPA_PSK</span>
-              <span v-else-if="wlan.decShowData.EncryptionType === 3">WPA_EAP</span>
-              <span v-else-if="wlan.decShowData.EncryptionType === 4">IEEE8021X</span>
-              <span v-else />
+              <span class="name">默认网关</span>
+              <span>{{mobile.decData.Gateway}}</span>
+            </li>
+            <li>
+              <span class="name">DNS</span>
+              <div class="dns-list">
+                <p v-for="(item,index) in mobile.decData.DNS" :key=index>{{item}}</p>
+              </div>
+            </li>
+            <li>
+              <span class="name">默认网关</span>
+              <span>{{mobile.decData.MacAddress}}</span>
             </li>
           </ul>
-          <p v-if="wlan.decShowData.hold" class="title" @click="()=>{wlan.wlanDecShow = !wlan.wlanDecShow;wlan.decShow=!wlan.decShow}">
-            设置
-            <i class="el-icon-arrow-right"/>
-          </p>
+<!--          <el-form ref="mobileForm" label-position='left' :model="mobile.msg" class="mobileForm" label-width="120px">-->
+<!--            <el-form-item label="短信内容">-->
+<!--              <el-input type="textarea" v-model="mobile.msg.Message"/>-->
+<!--            </el-form-item>-->
+<!--            <el-form-item label="手机号码">-->
+<!--              <el-input v-model="mobile.msg.PhoneNumber"/>-->
+<!--            </el-form-item>-->
+<!--            <el-button type="primary" @click="sendMsg">发送</el-button>-->
+<!--          </el-form>-->
         </div>
       </div>
     </div>
@@ -456,6 +477,23 @@ export default {
       },
       mobile: {
         show: false,
+        msg: {
+          Message: '',
+          PhoneNumber: '',
+        },
+        decData: {
+          DNS: [],
+          Address: '',
+          GateWay: '',
+          Netmask: '',
+          MacAddress: '',
+          IsPlugin: '',
+          GPRSStatus: '',
+          DataCap: '',
+          SignalStrength: '',
+          SIMStatus: '',
+          ConnectStatus: '',
+        },
       },
     };
   },
@@ -682,11 +720,29 @@ export default {
       console.log(this);
     },
     getMobileInfo() {
-      // const vm = this;
+      const vm = this;
       http.api[httpList.getMobileInfo]({
         success(response) {
+          vm.mobile.decData = { ...response };
+          vm.mobile.decData.ConnectStatus = response.ConnectStatus !== 1;
           console.log(response);
         },
+      });
+    },
+    changeMobileStatus(value) {
+      console.log(value);
+      http.api[httpList.dataOpen]({
+        method: 'post',
+        params: {
+          enable: value,
+        },
+      });
+    },
+    sendMsg() {
+      const vm = this;
+      http.api[httpList.sendMessage]({
+        method: 'post',
+        params: { ...vm.mobile.msg },
       });
     },
   },
@@ -813,6 +869,15 @@ export default {
           }
         }
       }
+      .mobileForm{
+        padding: 0 28px;
+        button{
+          width: 100%;
+          height: 40px;
+          line-height: 40px;
+          padding: 0;
+        }
+      }
     }
     .wlan-list,.wlan-dec{
       .status{
@@ -919,7 +984,7 @@ export default {
       }
     }
   }
-  .set-eth{
+  .set-eth,.set-mobile{
     .wlan-list{
       .title{
         cursor: pointer;

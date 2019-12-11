@@ -21,41 +21,21 @@
 
 <script>
 /* eslint-disable */
-let { Raphael } = window; // SVG插件Raphael
 let scale = 1;// 缩放尺寸
 let speed = 0.05;// 缩放速度
 export default {
   name: 'ToPo',
   data() {
     return {
-      // eslint-disable-next-line global-require
       mImgSrc: require('../../assets/img/topo/M1.png'),
     };
   },
   mounted() {},
   methods: {
     init() {
-      const node = document.querySelector('#notepad');
-      const cube = document.querySelector('#cube');
-      const paper = Raphael(node, '100%', '100%');
-      let width = node.clientWidth;
-      let height = node.clientHeight;
-      let x = 0;
-      let y = 0;
-      paper.setViewBox(x, y, width * scale, height * scale, true);
-      if (node.addEventListener) {
-        // Ie9+和chrome下 绑定鼠标滚轮事件
-        node.addEventListener('mousewheel', fnscroll, false);
-        // firefox下 绑定鼠标滚轮事件
-        node.addEventListener('DOMMouseScroll',  fnscroll, false);
-      } else {
-        // Ie8以下
-        node.attachEvent('onmousewheel',  fnscroll);
-      }
     },
   },
   beforeDestroy() {
-    Raphael = null;
   },
 };
 </script>

@@ -1,5 +1,6 @@
 <template>
   <div class="test">
+    TEST
     <div class="ip" v-for="item in ip" :key="item.id">
       <p>{{ item.alisa }}</p>
       <p>{{ item.uuid }}</p>
@@ -9,7 +10,6 @@
 </template>
 
 <script>
-import http from '../plugins/http/http';
 
 export default {
   name: 'Test',
@@ -24,19 +24,6 @@ export default {
   },
   methods: {
     init() {
-      const vm = this;
-      const httpList = http.apiList;
-      http.api[httpList.GETNODELISTINFO]({
-        method: 'get',
-        params: {
-          action: 'getNodeListInfo',
-          busID: 0,
-        },
-        success(response) {
-          console.log(response);
-          vm.ip = response;
-        },
-      });
     },
   },
   destroyed() {
@@ -46,6 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .test{
+  height: 100%;
   // background: #4d4d4d;
   .ip{
     border-bottom: #4d4d4d 1px solid;

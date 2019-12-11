@@ -2,6 +2,7 @@
 const os = require('os');
 // const CompressionPlugin = require("compression-webpack-plugin");
 const proxy_url = 'http://192.168.200.201:80'; // 代理目标服务器地址
+// const proxy_url = 'http://192.168.200.222:80';
 const interfaces = os.networkInterfaces(); // 在开发环境中获取局域网中的本机iP地址
 let IPAdress = '';
 for(let devName in interfaces){
@@ -93,7 +94,7 @@ module.exports = {
       .end();
   },
   css: {
-    // extract: false, // 开发时设为false，打包前设为true
+    // extract: false, // 开发时为false，打包前为true
     requireModuleExtension: true,
     // sourceMap: false,
   },

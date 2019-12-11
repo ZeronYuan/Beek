@@ -10,13 +10,15 @@
       text-color="#fff"
       :router="true"
       active-text-color="#f88311">
-      <el-menu-item index="/Dashboard"><i class="el-icon-s-grid"></i>主页</el-menu-item>
-      <el-menu-item index="/ToPo"><i class="el-icon-share"></i>设备拓扑</el-menu-item>
-      <el-menu-item index="/Device"><i class="el-icon-s-help"></i>设备库</el-menu-item>
+<!--      <el-menu-item index="/Dashboard"><i class="el-icon-s-grid"/>主页</el-menu-item>-->
+      <el-menu-item index="/ToPo"><i class="el-icon-share"/>设备拓扑</el-menu-item>
+      <el-menu-item index="/Pool"><i class="el-icon-s-help"/>设备库</el-menu-item>
     </el-menu>
     <el-dropdown placement="bottom-start" class="user-info" :hide-timeout=666 @command="exitOut">
       <span class="el-dropdown-link">
-        <i class="el-icon-s-custom"></i>&nbsp;&nbsp;Admin&nbsp;<i class="el-icon-caret-bottom el-icon--right"></i>
+        <i class="el-icon-s-custom"/>
+        &nbsp;&nbsp;Admin&nbsp;
+        <i class="el-icon-caret-bottom el-icon--right"/>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item command="exitOut">退出登录</el-dropdown-item>
@@ -31,7 +33,7 @@
       </el-tooltip>
     </div>
     <div class="system-setting" @click="showSysSet = true">
-      <i class="el-icon-s-tools"></i>
+      <i class="el-icon-s-tools"/>
     </div>
 <!--    <el-drawer-->
 <!--      title="设置"-->
@@ -45,7 +47,7 @@
     <transition name="fade">
     <div class="systemset-bubble" v-if="showSysSet" @click.self="showSysSet = false">
         <div class="systemset-box">
-          <system-set></system-set>
+          <system-set/>
         </div>
     </div>
     </transition>
@@ -143,8 +145,10 @@ export default {
       text-align: center;
       margin-right: 10px;
       img{
-        display: inline-block;
-        width: 80%;
+        display: block;
+        width: 85%;
+        margin: 0 auto;
+        margin-top: 3px;
       }
     }
     .router-list{
