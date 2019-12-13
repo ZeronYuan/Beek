@@ -19,6 +19,8 @@ export default {
   CloseWLAN: '/Settings/Network/WLAN/Close', // 关闭网络
   ConnectWLAN: '/Settings/Network/WLAN/Connect', // 连接热点
   DisconnectWLAN: '/Settings/Network/WLAN/Disconnect', // 断开热点
+  GetWLANConfigure: '/Settings/Network/WLAN/GetConfigure', // 获取热点配置
+  SetWLANConfigure: 'Settings/Network/WLAN/SetConfigure', // 设置热点配置
   // 4G
   getMobileInfo: '/Settings/Network/Mobile/getMobileInfo', // 获取连接详情
   dataOpen: '/Settings/Network/Mobile/dataOpen', // 设置连接状态

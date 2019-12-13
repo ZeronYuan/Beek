@@ -31,15 +31,15 @@ const common = {
           http.api[httpList.GetConnectedHotpad]({
             success(reponse2) {
               baseUtil.each(data, (el) => {
-                el.active = false;
-                el.hold = false;
+                el.Status = 0;
+                el.Hold = false;
                 el.NetID = '';
                 el.Priority = '';
                 el.Selected = '';
                 baseUtil.each(reponse2, (el2) => {
                   if (el.SSID === el2.SSID) {
-                    el.active = el2.Status;
-                    el.hold = true;
+                    el.Status = el2.Status;
+                    el.Hold = true;
                     el.NetID = el2.NetID;
                     el.Priority = el2.Priority;
                     el.Selected = el2.Selected;

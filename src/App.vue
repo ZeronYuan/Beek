@@ -1,13 +1,12 @@
 <template>
   <section id="Firefinch">
-    <Head><title></title></Head>
+    <Head><title/></Head>
     <main class="ff-main">
       <transition name="fade" appear mode="out-in">
-        <router-view></router-view>
+        <router-view/>
       </transition>
-      <Foot></Foot>
+      <Foot/>
     </main>
-
   </section>
 </template>
 

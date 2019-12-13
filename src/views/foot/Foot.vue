@@ -12,11 +12,11 @@
       trigger="click">
         <div class="title">
           <span class="dec">WLAN</span>
-          <i @click="getWlanList" class="el-icon-refresh-right" :class="{'active-rotate': refresh}"></i>
+          <i @click="getWlanList" class="el-icon-refresh-right" :class="{'active-rotate': refresh}"/>
           <el-switch
             @change="onOffWlan"
             class="wlan-sw"
-            v-model=wlan
+            v-model=status
             :width=36
             active-color="#13ce66"
             inactive-color="#999">
@@ -24,15 +24,15 @@
         </div>
         <el-scrollbar :native=false :noresize=false tag="section">
         <ul class="wlan-list">
-          <li v-for="item in wlanList" :key="item.BSSID" @click="wlanConnect(item.BSSID)">
-            <i class="el-icon-connection icon"></i>
+          <li v-for="item in wlanList" :key="item.BSSID" @click="wlanConnect(item)">
+            <i class="el-icon-connection icon"/>
             <p class="name">
               <span :title="item.SSID">{{item.SSID}}</span>
               <br>
-              <span v-if="item.active">已连接</span>
-              <span v-else-if="item.hold && !item.active">已保存</span>
+              <span v-if="item.Status===7">已连接</span>
+              <span v-else-if="item.Hold&&item.Status!==7">已保存</span>
             </p>
-            <i class="el-icon-lock icon"></i>
+            <i class="el-icon-lock icon"/>
           </li>
         </ul>
         </el-scrollbar>
@@ -43,17 +43,17 @@
   </ul>
   <ul class="bus">
     <li>FF-BUS</li>
-    <li><span></span></li>
-    <li><span></span></li>
-    <li><span></span></li>
-    <li><span></span></li>
+    <li><span/></li>
+    <li><span/></li>
+    <li><span/></li>
+    <li><span/></li>
   </ul>
 </footer>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-import baseUtil from '../../util/baseUtil';
+// import baseUtil from '../../util/baseUtil';
 import format from '../../util/format';
 import http from '../../plugins/http/http';
 
@@ -63,80 +63,79 @@ export default {
   data() {
     return {
       visible: false,
-      wlan: false,
-      wlanList: [],
+      status: false,
       refresh: false,
     };
   },
   computed: {
     ...mapState({
       systemTime: (state) => format.date(new Date(state.common.systemTime * 1000), 'yyyy/MM/dd hh:mm:ss'),
+      wlanList: (state) => state.common.wlanList,
+      wlanStatus: (state) => state.common.wlanStatus,
     }),
   },
   created() {
-    const vm = this;
-    vm.getWlanList();
+    this.status = this.wlanStatus;
+  },
+  watch: {
+    wlanStatus(value) {
+      this.status = value;
+    },
   },
   methods: {
-    wlanConnect(id) {
+    wlanConnect(param) {
       const vm = this;
-      baseUtil.each(vm.wlanList, (el) => {
-        if (el.BSSID === id && !el.active && !el.hold) {
-          this.$prompt('请输入密码', `连接无线网络  ${el.SSID}`, {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
-            inputType: 'password',
-            inputPattern: /^\w{8,18}$/,
-            inputErrorMessage: '请输入至少8位字符的密码',
-          }).then(({ value }) => {
-            this.$message({
-              type: 'success',
-              message: `密码: ${value}`,
-            });
-          }).catch(() => {});
-        }
-      });
-    },
-    getWlanList() { // 获取WiFi列表
-      const vm = this;
-      vm.refresh = true;
-      http.api[httpList.IsOpened]({
-        success(response) {
-          vm.wlan = response;
-        },
-      });
-      http.api[httpList.GetScanResult]({
-        method: 'get',
-        success(response) {
-          vm.wlanList = response;
-          vm.GetConnectedHotpad();
-        },
-      });
-    },
-    GetConnectedHotpad() { // 获取已连接WiFi
-      const vm = this;
-      http.api[httpList.GetConnectedHotpad]({
-        method: 'get',
-        success(response) {
-          setTimeout(() => {
-            vm.refresh = false;
-          }, 2600);
-          baseUtil.each(response, (el) => {
-            baseUtil.each(vm.wlanList, (el2) => {
-              el2.active = el.SSID === el2.SSID;
-              if (el.BSSID === el2.BSSID) {
-                el2.hold = el.Selected;
-              } else {
-                el2.hold = false;
-              }
-            });
+      if (param.Status !== 7 && !param.Hold) {
+        vm.$prompt('请输入密码', `连接无线网络  ${param.SSID}`, {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputType: 'password',
+          inputPattern: /^\w{8,18}$/,
+          inputErrorMessage: '请输入至少8位字符的密码',
+        }).then(({ value }) => {
+          vm.connect({
+            Password: value,
+            ...param,
           });
-          console.log(vm.wlanList);
+        }).catch(() => {});
+      }
+    },
+    connect(param) {
+      const vm = this;
+      http.api[httpList.AddNewHotpad]({
+        method: 'post',
+        params: param,
+        success() {
+          vm.$message({
+            type: 'success',
+            message: '正在连接......',
+          });
         },
       });
+    },
+    getWlanList() {
+      const vm = this;
+      vm.$store.dispatch('GET_WLANLIST');
+      vm.refresh = true;
+      setTimeout(() => {
+        vm.refresh = false;
+      }, 3000);
     },
     onOffWlan(status) { // 监听wlan开关
-      console.log(status);
+      const vm = this;
+      let url = httpList.OpenWLAN;
+      if (!status) {
+        url = httpList.CloseWLAN;
+      }
+      http.api[url]({
+        success() {
+          vm.$store.dispatch('GET_WLANSTATUS');
+          vm.$message({
+            message: '修改成功',
+            type: 'success',
+          });
+        },
+      });
     },
   },
   destroyed() {

@@ -44,17 +44,16 @@ const DataPacketHandler = (dataPacket, dataPacketHandler) => { // error_code 处
   if (typeof dataPacketHandler === 'function' && 'data' in dataPacket) {
     dataPacketHandler(dataPacket);
   }
-
   if (typeof errorHandler === 'function') {
     errorHandler(dataPacket);
   }
   if (errorCode === '0' && 'data' in dataPacket) { // 修复 complete bug
     return packet;
   }
-  return false;
+  return 'AxiosOtherCode';
 };
 const DataHandler = (data, dataHandler) => { // 数据处理层
-  if (typeof dataHandler === 'function') {
+  if (data !== 'AxiosOtherCode' && typeof dataHandler === 'function') {
     dataHandler(data);
   }
 };
@@ -88,6 +87,7 @@ baseUtil.each(ajaxMethod, (method) => {
     const {
       params, responseHandler, dataPacketHandler, dataHandler,
     } = options;
+    console.log(options);
     axiosInstance[method](url, params)
       .then((response) => ResponseHandler(response, responseHandler))
       .then((dataPacket) => DataPacketHandler(dataPacket, dataPacketHandler))
@@ -133,7 +133,6 @@ baseUtil.each(apiList, (url) => {
       http.post(url, postOptions);
     } else if (method === 'get') {
       postOptions.params = { params: params };
-      console.log(postOptions);
       http.get(url, postOptions);
     }
   };
