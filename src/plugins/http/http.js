@@ -87,7 +87,6 @@ baseUtil.each(ajaxMethod, (method) => {
     const {
       params, responseHandler, dataPacketHandler, dataHandler,
     } = options;
-    console.log(options);
     axiosInstance[method](url, params)
       .then((response) => ResponseHandler(response, responseHandler))
       .then((dataPacket) => DataPacketHandler(dataPacket, dataPacketHandler))
