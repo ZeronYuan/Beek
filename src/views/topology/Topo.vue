@@ -2,12 +2,18 @@
   <div class="topo-warp">
     <div id='info-cube'>
       <p class="title">设备信息</p>
-      <p><span>名称：</span></p>
-      <p><span>序列号：</span></p>
-      <p><span>UUID：</span></p>
-      <p><span>软件版本：</span></p>
-      <p><span>硬件版本：</span></p>
-      <p><span>最近升级时间：</span>2019年12月12日12:22:22</p>
+      <p><span>名称：</span>{{cubeInfo.serial_number}}{{cubeInfo.id}}</p>
+      <p>
+        <span>设备状态：</span>
+        <span v-if="cubeInfo.status === 0">离线</span>
+        <span v-else-if="cubeInfo.status === 1">在线</span>
+        <span v-else-if="cubeInfo.status === 2">升级中</span>
+      </p>
+      <p><span>序列号：</span>{{cubeInfo.serial_number}}</p>
+      <p class="uuid"><span>UUID：</span><span>{{cubeInfo.uuid}}</span></p>
+      <p><span>软件版本：</span>{{cubeInfo.soft_version}}</p>
+      <p><span>硬件版本：</span>{{cubeInfo.hard_version}}</p>
+      <p><span>最近升级时间：</span>{{cubeInfo.last_upgrade_time}}</p>
       <p class="title">当前插卡信息</p>
       <p><span>序列号：</span></p>
       <p><span>版本号：</span></p>
@@ -22,6 +28,10 @@
 </template>
 
 <script>
+import http from '../../plugins/http/http';
+import baseUtil from '../../util/baseUtil';
+
+const httpList = http.apiList;
 const { zrender } = window;
 export default {
   name: 'ToPo',
@@ -31,10 +41,21 @@ export default {
       // mImgSrc: require('../../assets/img/topo/M1.png'),
       // eslint-disable-next-line global-require
       // rImgSrc: require('../../assets/img/topo/R1.png'),
+      topoData: {},
       cube: '',
       ZR: '',
       allGroup: '',
       R1: '',
+      cubeInfo: {
+        status: '',
+        soft_version: '',
+        hard_version: '',
+        boot_version: '',
+        serial_number: '',
+        id: '',
+        uuid: '',
+        last_upgrade_time: '',
+      },
     };
   },
   mounted() {
@@ -46,6 +67,7 @@ export default {
       const vm = this;
       vm.init();
       vm.drawR();
+      vm.listDataHandler();
       vm.initEnd();
     },
     init() {
@@ -110,13 +132,252 @@ export default {
         style: {
           image: r1,
           x: width / 2 - 39,
-          y: height / 2 - 80,
+          y: height / 2 - 120,
           width: 78 * 1.2,
           height: 102 * 1.2,
         },
       });
       vm.allGroup.add(vm.R1);
-      vm.ZR.add(vm.allGroup);
+    },
+    drawMainNode(x, y, name) {
+      const vm = this;
+      const t = new zrender.Rect({
+        cursor: 'default',
+        shape: {
+          r: 2,
+          x: x,
+          y: y,
+          width: 108,
+          height: 30,
+        },
+        zlevel: 1,
+        style: {
+          fill: '#ddd',
+          text: name,
+          textWidth: 108,
+          textHeight: 30,
+          textLineHeight: 30,
+          textOffset: [0, 0],
+          textFill: '#555',
+          transformText: true,
+        },
+      });
+      vm.drawMainLine(t, vm.R1);
+      vm.allGroup.add(t);
+      return t;
+    },
+    drawMainLine(from, to) {
+      const vm = this;
+      const f_rect = from.getBoundingRect();
+      const t_rect = to.getBoundingRect();
+      const star_y = f_rect.y + f_rect.height / 2;
+      const star_x = f_rect.x + f_rect.width / 2;
+      const end_y = t_rect.y + t_rect.height / 2;
+      const end_x = t_rect.x + t_rect.width / 2;
+      const line = new zrender.Polyline({
+        shape: {
+          points: [
+            [star_x, star_y],
+            [star_x + (end_x - star_x) / 2, star_y],
+            [star_x + (end_x - star_x) / 2, end_y],
+            [end_x, end_y]],
+        },
+        zlevel: 0,
+        style: {
+          lineWidth: 1.5,
+          stroke: '#222',
+        },
+      });
+      vm.allGroup.add(line);
+      return line;
+    },
+    drawDeviceM(x, y, name, index, id, key) {
+      const vm = this;
+      const n = new zrender.Image({
+        zlevel: 1,
+        style: {
+          image: document.querySelector('#m1'),
+          x: x,
+          y: y,
+          width: 38 * 1.5,
+          height: 56 * 1.5,
+        },
+      });
+      const n_box = n.getBoundingRect();
+      let points = [
+        [x + n_box.width / 2 + 10, n_box.y],
+        [x + n_box.width / 2 + 10, n_box.y - 35],
+        [x + n_box.width / 2 + 110, n_box.y - 35],
+        [x + n_box.width / 2 + 110, n_box.y]];
+      if (index === 0) {
+        points = points.slice(0, 3);
+      }
+      const line = new zrender.Polyline({
+        shape: {
+          points: points,
+        },
+        zlevel: 0,
+        style: {
+          lineWidth: 1,
+          stroke: '#222',
+        },
+      });
+      const text = new zrender.Text({
+        zlevel: 1,
+        style: {
+          x: n_box.x + n_box.width / 2,
+          y: n_box.y + n_box.height + 20,
+          text: name,
+          textWidth: 120,
+          textHeight: 36,
+          textLineHeight: 36,
+          textAlign: 'center',
+          textVerticalAlign: 'middle',
+          truncate: {
+            outerWidth: 100,
+          },
+        },
+      });
+      vm.allGroup.add(line);
+      vm.allGroup.add(text);
+      vm.allGroup.add(n);
+      n.on('mousemove', (e) => {
+        vm.infoCubeMove(e, id, key);
+      });
+      n.on('mouseout', (e) => {
+        vm.infoCubeMove(e);
+      });
+      return n;
+    },
+    infoCubeMove(e, id, key) {
+      const vm = this;
+      const info_cube = document.querySelector('#info-cube');
+      const cube_style = getComputedStyle(vm.cube);
+      if (e.type === 'mousemove') {
+        info_cube.style.display = 'block';
+        const styles = getComputedStyle(info_cube);
+        const h = Number(styles.height.replace('px', ''));
+        const w = Number(styles.width.replace('px', ''));
+        const c_h = Number(cube_style.height.replace('px', ''));
+        const c_w = Number(cube_style.width.replace('px', ''));
+        if (h + e.offsetY + 20 >= c_h) {
+          info_cube.style.top = `${e.offsetY - h}px`;
+        } else {
+          info_cube.style.top = `${e.offsetY + 20}px`;
+        }
+        if (h + e.offsetX + 20 >= c_w) {
+          info_cube.style.left = `${e.offsetX - w}px`;
+        } else {
+          info_cube.style.left = `${e.offsetX + 20}px`;
+        }
+        baseUtil.each(vm.topoData[key], (el) => {
+          if (el.systemInfo.id === id) {
+            vm.cubeInfo = { ...el.systemInfo };
+          }
+        });
+      } else if (e.type === 'mouseout') {
+        info_cube.style.display = 'none';
+      }
+    },
+    drawDeviceO(x, y, name, node) {
+      const vm = this;
+      const n = new zrender.Image({
+        zlevel: 1,
+        style: {
+          image: document.querySelector('#o'),
+          x: x,
+          y: y,
+          width: 38 * 1.5,
+          height: 56 * 1.5,
+        },
+      });
+      const n_box = n.getBoundingRect();
+      const main = node.getBoundingRect();
+      const star_y = main.y + main.height / 2;
+      const star_x = main.x + main.width / 2;
+      const end_y = n_box.y + n_box.height / 2;
+      const end_x = n_box.x + n_box.width / 2;
+      const line = new zrender.Polyline({
+        shape: {
+          points: [
+            [star_x, star_y],
+            [star_x, star_y + 40],
+            [end_x, star_y + 40],
+            [end_x, end_y],
+          ],
+        },
+        zlevel: 0,
+        style: {
+          lineWidth: 1.5,
+          stroke: '#222',
+        },
+      });
+      const text = new zrender.Text({
+        zlevel: 10,
+        style: {
+          x: end_x,
+          y: n_box.y + n_box.height + 20,
+          text: name,
+          textWidth: 120,
+          textHeight: 36,
+          textLineHeight: 36,
+          textAlign: 'center',
+          textVerticalAlign: 'middle',
+          truncate: {
+            outerWidth: 100,
+          },
+        },
+      });
+      vm.allGroup.add(line);
+      vm.allGroup.add(text);
+      vm.allGroup.add(n);
+      return n;
+    },
+    listDataHandler() {
+      const vm = this;
+      http.api[httpList.getPhysicList]({
+        success(response) {
+          vm.topoData = response;
+          const reg = /FF/gim;
+          let ff_num = 0; // FF-BUS数量
+          let o_num = 0; // 其他线路数量
+          baseUtil.each(response, (el, key) => {
+            reg.lastIndex = '';
+            if (reg.test(key.toString())) {
+              ff_num++;
+            } else {
+              o_num++;
+            }
+          });
+          const c_p = vm.R1.getBoundingRect();
+          const c_x = c_p.x + c_p.width / 2;
+          const c_y = c_p.y + c_p.height / 2;
+          let l_y = c_y - (220 * ff_num) / 2 - 125;
+          let r_y = c_y - (220 * o_num) / 2 - 125;
+          baseUtil.each(response, (el, key) => {
+            if (reg.test(key.toString())) {
+              reg.lastIndex = '';
+              l_y += 220;
+              const node = vm.drawMainNode(c_x - 260, l_y, key);
+              const n_box = node.getBoundingRect();
+              el.forEach((item, index) => {
+                const el_x = n_box.x - (index + 0.5) * 120;
+                const el_y = n_box.y + 50;
+                vm.drawDeviceM(el_x, el_y, `${item.systemInfo.serial_number}${item.systemInfo.id}`, index, item.systemInfo.id, key);
+              });
+            } else {
+              r_y += 220;
+              const node = vm.drawMainNode(c_x + 150, r_y, key);
+              const n_box = node.getBoundingRect();
+              el.forEach((item, index) => {
+                const el_x = n_box.x + (index + 0.5) * 120;
+                const el_y = n_box.y + 70;
+                vm.drawDeviceO(el_x, el_y, item.name, node);
+              });
+            }
+          });
+        },
+      });
     },
   },
   beforeDestroy() {
@@ -148,16 +409,18 @@ export default {
     top: 0;
     left: 0;
     z-index: 100;
-    width: 266px;
+    width: 306px;
     min-height: 380px;
-    box-shadow: #ddd 1px 1px 6px;
+    box-shadow: #aaa 1px 1px 6px;
     background: #fff;
     border-radius: 4px;
     padding:20px;
     display: none;
+    transition: all .2s;
     p{
+      text-align: left;
       font-size: 14px;
-      color: #bbb;
+      color: #666;
       line-height: 1.5;
       padding: 5px 0;
       word-break: break-all;
@@ -167,6 +430,16 @@ export default {
       line-height: 36px;
       padding: 0;
       color: #333;
+    }
+    .uuid{
+      overflow: hidden;
+      span{
+        float: left;
+        width: 20%;
+        &:last-child{
+          width: 80%;
+        }
+      }
     }
   }
 }

@@ -23,30 +23,24 @@ for(let devName in interfaces){
   }
 }
 /*反向代理服务*/
-const api_list = [{
-    api:'/firefinch-api',                      // 代理接口
-    option:{
-        target: t_url,                         // 目标主机
-        changeOrigin: true,                    // 需要虚拟主机站点
-        ws: true                               // 是否代理websocket
-    }
-  },
+const api_list = [
   {
-    api:'/images',
-    option:{
-        target: t_url,
-        changeOrigin: true,
-        ws: true
-    }
-  },
-  {
-    api: '/defalut',
+    api:'/DeviceTopology',
     option: {
-        target: t_url,
-        changeOrigin: true,
-        ws: true
-    }
-}];
+      target: t_url,
+      ws: true,
+      changeOrigin: true,
+    },
+  },
+  {
+    api:'/Settings',
+    option: {
+      target: t_url,
+      ws: true,
+      changeOrigin: true,
+    },
+  },
+ ];
 api_list.forEach(function(el){
     let exampleProxy = proxy(el.option);  //代理配置.
     app.use(el.api, exampleProxy);        //开启代理功能，并加载配置

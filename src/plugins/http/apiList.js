@@ -44,4 +44,8 @@ export default {
   SetTimeZone: '/Settings/Datetime/SetTimeZone', // 设置时区
   GetNTP: '/Settings/Datetime/GetNTP', // 获取NTP配置
   SetNTP: '/Settings/Datetime/SetNTP', // 设置NTP
+  /**
+   * 拓扑图
+   * */
+  getPhysicList: '/DeviceTopology/TopView/getPhysicList', // 获取顶层物理视图
 };

@@ -48,6 +48,11 @@ module.exports = {
         ws: true,
         changeOrigin: true,
       },
+      '/DeviceTopology': {
+        target: proxy_url,
+        ws: true,
+        changeOrigin: true,
+      },
     },
   },
   chainWebpack: (config) => {
