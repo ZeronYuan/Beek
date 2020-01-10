@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "dev": "vue-cli-service serve",
+    "serve dev": "vue-cli-service serve",
     "serve dist ajax": "node serve.js",
     "serve dist simple": "serve -s dist",
     "serve ui": "vue ui",

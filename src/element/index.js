@@ -11,6 +11,7 @@ import {
   MenuItem,
   MenuItemGroup,
   Input,
+  Image,
   InputNumber,
   Radio,
   RadioGroup,
@@ -45,8 +46,8 @@ import {
   // Tooltip,
   Breadcrumb,
   BreadcrumbItem,
-  // Tabs,
-  // TabPane,
+  Tabs,
+  TabPane,
   Tag,
   // Tree,
   // Alert,
@@ -82,6 +83,7 @@ const $element = {};
 $element.install = function install(vue) {
   const Vue = vue;
   Vue.use(Dropdown);
+  Vue.use(Image);
   Vue.use(DropdownMenu);
   Vue.use(DropdownItem);
   Vue.use(Drawer);
@@ -120,8 +122,8 @@ $element.install = function install(vue) {
   // Vue.use(Tooltip);
   Vue.use(Breadcrumb);
   Vue.use(BreadcrumbItem);
-  // Vue.use(Tabs);
-  // Vue.use(TabPane);
+  Vue.use(Tabs);
+  Vue.use(TabPane);
   Vue.use(Tag);
   // Vue.use(Tree);
   // Vue.use(Alert);

@@ -33,6 +33,14 @@ const api_list = [
     },
   },
   {
+    api:'/Resource',
+    option: {
+      target: t_url,
+      ws: true,
+      changeOrigin: true,
+    },
+  },
+  {
     api:'/Settings',
     option: {
       target: t_url,

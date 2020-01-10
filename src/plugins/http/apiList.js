@@ -46,6 +46,12 @@ export default {
   SetNTP: '/Settings/Datetime/SetNTP', // 设置NTP
   /**
    * 拓扑图
-   * */
+   */
   getPhysicList: '/DeviceTopology/TopView/getPhysicList', // 获取顶层物理视图
+  /**
+   * 资源库
+   */
+  getDeviceList: '/Resource/DeviceView/getDeviceList', // 获取设备列表
+  getClassList: '/Resource/PropertiesView/getClassList', // 获取属性项类别列表
+  getPropertyList: '/Resource/PropertiesView/getPropertyList', // 获取属性项列表
 };

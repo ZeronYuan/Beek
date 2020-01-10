@@ -83,6 +83,9 @@ export default {
     initEnd() {
       const vm = this;
       let resize_time = null;
+      vm.ZR.scale = 1.0;
+      const zr_w = vm.ZR.getWidth();
+      const zr_h = vm.ZR.getHeight();
       window.onresize = function () {
         clearTimeout(resize_time);
         resize_time = setTimeout(() => {
@@ -98,17 +101,17 @@ export default {
         vm.ZR.dragData.drag = false;
       });
       vm.ZR.on('mousemove', (e) => {
+        console.log(e.offsetX, e.offsetY);
+        console.log(e.event.zrX, e.event.zrY);
         if (!vm.ZR.dragData.drag) return;
         const new_pos = [e.event.zrX, e.event.zrY];
         const pos = [new_pos[0] - vm.ZR.dragData.pos[0], new_pos[1] - vm.ZR.dragData.pos[1]];
+        console.log(pos);
         vm.allGroup.attr({
           position: [vm.allGroup.position[0] + pos[0], vm.allGroup.position[1] + pos[1]],
         });
         vm.ZR.dragData.pos = [e.event.zrX, e.event.zrY];
       });
-      vm.ZR.scale = 1.0;
-      const zr_w = vm.ZR.getWidth();
-      const zr_h = vm.ZR.getHeight();
       vm.ZR.on('mousewheel', (e) => {
         const newScale = vm.ZR.scale + e.wheelDelta / 10;
         if (newScale < 0.1 || newScale > 5) return;
@@ -117,7 +120,7 @@ export default {
           scale: [vm.ZR.scale, vm.ZR.scale],
           origin: [zr_w / 2, zr_h / 2],
         });
-        vm.ZR.refresh();
+        // vm.ZR.refresh();
       });
       vm.ZR.add(vm.allGroup);
       vm.ZR.refreshImmediately();
@@ -137,6 +140,25 @@ export default {
           height: 102 * 1.2,
         },
       });
+      const n_box = vm.R1.getBoundingRect();
+      const text = new zrender.Text({
+        zlevel: 1,
+        style: {
+          x: n_box.x + n_box.width / 2,
+          y: n_box.y + n_box.height + 20,
+          text: 'FireFinch R1',
+          textWidth: 120,
+          textHeight: 36,
+          fontSize: 16,
+          textLineHeight: 36,
+          textAlign: 'center',
+          textVerticalAlign: 'middle',
+          truncate: {
+            outerWidth: 120,
+          },
+        },
+      });
+      vm.allGroup.add(text);
       vm.allGroup.add(vm.R1);
     },
     drawMainNode(x, y, name) {

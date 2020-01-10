@@ -50,7 +50,19 @@ const router = new Router({
     {
       path: '/Pool',
       name: 'Pool',
-      component: () => import(/* webpackChunkName: "Pool" */ '../views/pool/Pool.vue'),
+      component: () => import(/* webpackChunkName: "pool" */ '../views/pool/Pool.vue'),
+      children: [
+        {
+          path: 'Index',
+          name: 'Index',
+          component: () => import(/* webpackChunkName: "poolSub" */ '../views/pool/subpages/Index.vue'),
+        },
+        {
+          path: 'ItemInfo',
+          name: 'ItemInfo',
+          component: () => import(/* webpackChunkName: "poolSub" */ '../views/pool/subpages/ItemInfo.vue'),
+        },
+      ],
     },
     {
       path: '/Login',

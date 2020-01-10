@@ -12,7 +12,7 @@
       active-text-color="#f88311">
 <!--      <el-menu-item index="/Dashboard"><i class="el-icon-s-grid"/>主页</el-menu-item>-->
       <el-menu-item index="/ToPo"><i class="el-icon-share"/>设备拓扑</el-menu-item>
-      <el-menu-item index="/Pool"><i class="el-icon-s-help"/>资源库</el-menu-item>
+      <el-menu-item index="/Pool/Index"><i class="el-icon-s-help"/>资源库</el-menu-item>
     </el-menu>
     <el-dropdown placement="bottom-start" class="user-info" :hide-timeout=666 @command="exitOut">
       <span class="el-dropdown-link">
@@ -24,14 +24,14 @@
         <el-dropdown-item command="exitOut">退出登录</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-    <div class="full-screen" @click="openFull">
-      <el-tooltip class="item" effect="dark" :content="fullScreen" placement="bottom">
-        <div class="inner">
-          <img v-if="!isFull" src="../../assets/img/fullScreen.png" alt="开">
-          <img v-else src="../../assets/img/closeScreen.png" alt="关">
-        </div>
-      </el-tooltip>
-    </div>
+<!--    <div class="full-screen" @click="openFull">-->
+<!--      <el-tooltip class="item" effect="dark" :content="fullScreen" placement="bottom">-->
+<!--        <div class="inner">-->
+<!--          <img v-if="!isFull" src="../../assets/img/fullScreen.png" alt="开">-->
+<!--          <img v-else src="../../assets/img/closeScreen.png" alt="关">-->
+<!--        </div>-->
+<!--      </el-tooltip>-->
+<!--    </div>-->
     <div class="system-setting" @click="showSysSet = true">
       <i class="el-icon-s-tools"/>
     </div>

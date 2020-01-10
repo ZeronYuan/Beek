@@ -53,6 +53,11 @@ module.exports = {
         ws: true,
         changeOrigin: true,
       },
+      '/Resource': {
+        target: proxy_url,
+        ws: true,
+        changeOrigin: true,
+      },
     },
   },
   chainWebpack: (config) => {
