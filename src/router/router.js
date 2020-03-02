@@ -18,21 +18,6 @@ const router = new Router({
       redirect: {
         name: 'ToPo',
       },
-      // children: [
-      //   {
-      //     path: '/about',
-      //     name: 'about',
-      //     // route level code-splitting
-      //     // this generates a separate chunk (about.[hash].js) for this route
-      //     // which is lazy-loaded when the route is visited.
-      //     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
-      //   },
-      //   {
-      //     path: '/test',
-      //     name: 'test',
-      //     component: () => import(/* webpackChunkName: "test" */ '../views/Test.vue'),
-      //   },
-      // ],
     },
     {
       path: '/Dashboard',
@@ -48,18 +33,35 @@ const router = new Router({
       component: () => import(/* webpackChunkName: "topo" */ '../views/topology/Topo.vue'),
     },
     {
+      path: '/Temp1',
+      name: 'Temp1',
+      component: () => import(/* webpackChunkName: "topo" */ '../views/topology/Temp1.vue'),
+    },
+    {
       path: '/Pool',
       name: 'Pool',
+      meta: {
+        title: '资源库',
+      },
+      redirect: {
+        name: 'PoolIndex',
+      },
       component: () => import(/* webpackChunkName: "pool" */ '../views/pool/Pool.vue'),
       children: [
         {
-          path: 'Index',
-          name: 'Index',
+          path: 'PoolIndex',
+          name: 'PoolIndex',
+          meta: {
+            title: '资源库',
+          },
           component: () => import(/* webpackChunkName: "poolSub" */ '../views/pool/subpages/Index.vue'),
         },
         {
-          path: 'ItemInfo',
-          name: 'ItemInfo',
+          path: 'PoolItemInfo',
+          name: 'PoolItemInfo',
+          meta: {
+            title: '属性信息',
+          },
           component: () => import(/* webpackChunkName: "poolSub" */ '../views/pool/subpages/ItemInfo.vue'),
         },
       ],
@@ -68,11 +70,6 @@ const router = new Router({
       path: '/Login',
       name: 'Login',
       component: () => import(/* webpackChunkName: "home" */ '../views/login/Login.vue'),
-    },
-    {
-      path: '/test',
-      name: 'test',
-      component: () => import(/* webpackChunkName: "test" */ '../views/Test.vue'),
     },
     {
       path: '*',

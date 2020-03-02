@@ -117,14 +117,14 @@ export default {
     };
   },
   created() {
-    const vm = this;
-    vm.getPoolData();
+    // const vm = this;
   },
   mounted() {
     const vm = this;
     setTimeout(() => {
       const tableBox = document.querySelector('.table');
       vm.tableHeight = getComputedStyle(tableBox).height.toString();
+      vm.getPoolData();
     });
   },
   methods: {
@@ -172,7 +172,7 @@ export default {
       console.log(row);
       const vm = this;
       vm.$router.push({
-        name: 'ItemInfo',
+        name: 'PoolItemInfo',
         query: {
           id: row.id,
           name: row.name,

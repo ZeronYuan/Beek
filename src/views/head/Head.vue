@@ -12,7 +12,7 @@
       active-text-color="#f88311">
 <!--      <el-menu-item index="/Dashboard"><i class="el-icon-s-grid"/>主页</el-menu-item>-->
       <el-menu-item index="/ToPo"><i class="el-icon-share"/>设备拓扑</el-menu-item>
-      <el-menu-item index="/Pool/Index"><i class="el-icon-s-help"/>资源库</el-menu-item>
+      <el-menu-item index="/Pool/PoolIndex"><i class="el-icon-s-help"/>资源库</el-menu-item>
     </el-menu>
     <el-dropdown placement="bottom-start" class="user-info" :hide-timeout=666 @command="exitOut">
       <span class="el-dropdown-link">

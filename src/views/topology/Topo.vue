@@ -158,6 +158,9 @@ export default {
           },
         },
       });
+      vm.R1.on('click', () => {
+        vm.$router.push('/Temp1');
+      });
       vm.allGroup.add(text);
       vm.allGroup.add(vm.R1);
     },
@@ -364,7 +367,7 @@ export default {
           let ff_num = 0; // FF-BUS数量
           let o_num = 0; // 其他线路数量
           baseUtil.each(response, (el, key) => {
-            reg.lastIndex = '';
+            reg.lastIndex = ''; // 清除正则式上一次匹配的结果
             if (reg.test(key.toString())) {
               ff_num++;
             } else {
@@ -415,8 +418,8 @@ export default {
   position: relative;
   #r1,#m1,#o{
     position: absolute;
-    left: -2018px;
-    top: -2018px;
+    left: -2020px;
+    top: -2020px;
     width:175px;
     height:231px;
     transform: scale(3);

@@ -17,7 +17,9 @@ module.exports = {
     'plugin:vue/essential',
     '@vue/airbnb',
   ],
-
+  plugins: [
+    'vue'
+  ],
   rules: {
     'no-console': 'off',
     'no-plusplus': 'off',

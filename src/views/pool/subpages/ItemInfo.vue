@@ -2,7 +2,7 @@
   <div class="pool-attr-info-inner">
     <div class="back">
       <i class="icon el-icon-arrow-left"/>
-      <router-link :to="'/Pool/Index'">设备{{$route.query.name}}</router-link>
+      <router-link :to="'/Pool/PoolIndex'">设备{{$route.query.name}}</router-link>
     </div>
     <el-tabs class="tag" v-model="activeName" @tab-click="tagChange">
       <el-tab-pane label="属性项" name="attrItem">
@@ -65,6 +65,14 @@
                 prop="data_type"
                 align="center"
                 label="数据类型">
+                <template slot-scope="scope">
+                  <span v-if="scope.data_type === 0">布尔</span>
+                  <span v-else-if="scope.data_type === 1">整型</span>
+                  <span v-else-if="scope.data_type === 2">浮点型</span>
+                  <span v-else-if="scope.data_type === 3">字符型</span>
+                  <span v-else-if="scope.data_type === 4">音频</span>
+                  <span v-else-if="scope.data_type === 5">视频</span>
+                </template>
               </el-table-column>
               <el-table-column
                 prop="alert_temp_num"
@@ -153,6 +161,7 @@ export default {
           class_id_list: vm.attrItem.activeOption,
         },
         success(response) {
+          vm.total = response.length;
           vm.attrItem.tableData = response;
         },
       });
@@ -229,7 +238,7 @@ export default {
           height: 100%;
           position: relative;
           .attr-info,.control-info{
-            padding: 20px;
+            padding:15px 20px;
             position: absolute;
             top: 20px;
             left: 20px;
@@ -274,7 +283,7 @@ export default {
       color: #6C696F;
     }
     .table{
-      height: calc(100% - 115px);
+      height: calc(100% - 125px);
     }
     .page{
       margin-top: 10px;

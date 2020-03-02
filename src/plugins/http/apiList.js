@@ -45,9 +45,13 @@ export default {
   GetNTP: '/Settings/Datetime/GetNTP', // 获取NTP配置
   SetNTP: '/Settings/Datetime/SetNTP', // 设置NTP
   /**
-   * 拓扑图
+   * 顶层视图
    */
   getPhysicList: '/DeviceTopology/TopView/getPhysicList', // 获取顶层物理视图
+  /*
+  * 网关视图
+  * */
+  GatewayViewGetDeviceList: '/DeviceTopology/GatewayView/getDeviceList', // 获取设备列表
   /**
    * 资源库
    */
