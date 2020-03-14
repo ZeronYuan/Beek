@@ -10,8 +10,10 @@
       text-color="#fff"
       :router="true"
       active-text-color="#f88311">
-<!--      <el-menu-item index="/Dashboard"><i class="el-icon-s-grid"/>主页</el-menu-item>-->
-      <el-menu-item index="/ToPo"><i class="el-icon-share"/>设备拓扑</el-menu-item>
+      <el-menu-item index="/Dashboard"><i class="el-icon-s-grid"/>主页</el-menu-item>
+      <el-menu-item index="/ToPo"><i class="el-icon-share"/>设备部署</el-menu-item>
+      <el-menu-item index="/KK"><i class="el-icon-share"/>应用组</el-menu-item>
+      <el-menu-item index="/KS"><i class="el-icon-share"/>告警</el-menu-item>
       <el-menu-item index="/Pool/PoolIndex"><i class="el-icon-s-help"/>资源库</el-menu-item>
     </el-menu>
     <el-dropdown placement="bottom-start" class="user-info" :hide-timeout=666 @command="exitOut">
@@ -44,12 +46,12 @@
 <!--      :direction=direction>-->
 <!--      <system-set></system-set>-->
 <!--    </el-drawer>-->
-    <transition name="fade">
-    <div class="systemset-bubble" v-if="showSysSet" @click.self="showSysSet = false">
+    <transition name="slide2-fade">
+      <div class="systemset-bubble" v-if="showSysSet" @click.self="showSysSet = false">
         <div class="systemset-box">
           <system-set/>
         </div>
-    </div>
+      </div>
     </transition>
   </header>
 </template>
@@ -220,7 +222,7 @@ export default {
   .systemset-bubble{
     position: fixed;
     top: 0;
-    left: 0;
+    left: -1000px;
     bottom: 0;
     right: 0;
     background: rgba(0,0,0,.6);

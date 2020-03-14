@@ -33,9 +33,14 @@ const router = new Router({
       component: () => import(/* webpackChunkName: "topo" */ '../views/topology/Topo.vue'),
     },
     {
-      path: '/Temp1',
-      name: 'Temp1',
-      component: () => import(/* webpackChunkName: "topo" */ '../views/topology/Temp1.vue'),
+      path: '/Device',
+      name: 'Device',
+      component: () => import(/* webpackChunkName: "device" */ '../views/device/Device.vue'),
+    },
+    {
+      path: '/MonitorItems',
+      name: 'MonitorItems',
+      component: () => import(/* webpackChunkName: "device" */ '../views/device/MonitorItems.vue'),
     },
     {
       path: '/Pool',

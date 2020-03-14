@@ -6,6 +6,7 @@ import {
   DropdownMenu,
   DropdownItem,
   Drawer,
+  Divider,
   Menu,
   Submenu,
   MenuItem,
@@ -66,7 +67,7 @@ import {
   CarouselItem,
   // Collapse,
   // CollapseItem,
-  // Cascader,
+  Cascader,
   // ColorPicker,
   // Transfer,
   // Container,
@@ -84,6 +85,7 @@ $element.install = function install(vue) {
   const Vue = vue;
   Vue.use(Dropdown);
   Vue.use(Image);
+  Vue.use(Divider);
   Vue.use(DropdownMenu);
   Vue.use(DropdownItem);
   Vue.use(Drawer);
@@ -142,7 +144,7 @@ $element.install = function install(vue) {
   Vue.use(CarouselItem);
   // Vue.use(Collapse);
   // Vue.use(CollapseItem);
-  // Vue.use(Cascader);
+  Vue.use(Cascader);
   // Vue.use(ColorPicker);
   // Vue.use(Transfer);
   // Vue.use(Container);

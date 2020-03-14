@@ -1,5 +1,5 @@
 <template>
-  <div class="set-box">
+  <div class="head-set-box">
     <div class="set-list-box">
       <ul class="set-list">
         <li v-for="item in setList" :key="item.icon" :class="{active:item.active}" @click="setItem(item.name)">
@@ -96,7 +96,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.set-box{
+.head-set-box{
   width: 100%;
   height: 100%;
   overflow: hidden;
@@ -161,11 +161,12 @@ export default {
       }
     }
   }
-}
-.set-main{
-  height: 100%;
-  margin-left: 60px;
-  overflow: auto;
-  text-align: left;
+  .set-main{
+    height: 100%;
+    margin-left: 60px;
+    overflow: auto;
+    overflow-x: hidden;
+    text-align: left;
+  }
 }
 </style>

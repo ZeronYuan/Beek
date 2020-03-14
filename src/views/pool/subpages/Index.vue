@@ -1,5 +1,5 @@
 <template>
-  <div class="inner">
+  <div class="pool-inner">
     <div class="type-list">
       <span class="title">协议类型：</span>
       <el-checkbox size="mini" :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange" border>全选</el-checkbox>
@@ -184,7 +184,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.inner{
+.pool-inner{
   // width: 100%;
   height: calc(100% - 40px);
   background: #fff;

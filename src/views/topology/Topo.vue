@@ -1,8 +1,8 @@
 <template>
-  <div class="topo-warp">
+  <div class="topo">
     <div id='info-cube'>
       <p class="title">设备信息</p>
-      <p><span>名称：</span>{{cubeInfo.serial_number}}{{cubeInfo.id}}</p>
+      <p><span>名称：</span>{{cubeInfo.name}}</p>
       <p>
         <span>设备状态：</span>
         <span v-if="cubeInfo.status === 0">离线</span>
@@ -30,6 +30,7 @@
 <script>
 import http from '../../plugins/http/http';
 import baseUtil from '../../util/baseUtil';
+import format from '../../util/format';
 
 const httpList = http.apiList;
 const { zrender } = window;
@@ -101,8 +102,8 @@ export default {
         vm.ZR.dragData.drag = false;
       });
       vm.ZR.on('mousemove', (e) => {
-        console.log(e.offsetX, e.offsetY);
-        console.log(e.event.zrX, e.event.zrY);
+        // console.log(e.offsetX, e.offsetY);
+        // console.log(e.event.zrX, e.event.zrY);
         if (!vm.ZR.dragData.drag) return;
         const new_pos = [e.event.zrX, e.event.zrY];
         const pos = [new_pos[0] - vm.ZR.dragData.pos[0], new_pos[1] - vm.ZR.dragData.pos[1]];
@@ -159,7 +160,7 @@ export default {
         },
       });
       vm.R1.on('click', () => {
-        vm.$router.push('/Temp1');
+        vm.$router.push('/Device');
       });
       vm.allGroup.add(text);
       vm.allGroup.add(vm.R1);
@@ -216,18 +217,24 @@ export default {
       vm.allGroup.add(line);
       return line;
     },
-    drawDeviceM(x, y, name, index, id, key) {
+    drawDeviceM(x, y, index, key, obj) {
+      console.log(obj);
       const vm = this;
-      const n = new zrender.Image({
+      const imgOpts = {
         zlevel: 1,
         style: {
           image: document.querySelector('#m1'),
           x: x,
           y: y,
+          opacity: 1,
           width: 38 * 1.5,
           height: 56 * 1.5,
         },
-      });
+      };
+      if (obj.systemInfo.status === 0) {
+        imgOpts.style.opacity = 0.5;
+      }
+      const n = new zrender.Image(imgOpts);
       const n_box = n.getBoundingRect();
       let points = [
         [x + n_box.width / 2 + 10, n_box.y],
@@ -252,7 +259,7 @@ export default {
         style: {
           x: n_box.x + n_box.width / 2,
           y: n_box.y + n_box.height + 20,
-          text: name,
+          text: obj.systemInfo.name,
           textWidth: 120,
           textHeight: 36,
           textLineHeight: 36,
@@ -267,7 +274,7 @@ export default {
       vm.allGroup.add(text);
       vm.allGroup.add(n);
       n.on('mousemove', (e) => {
-        vm.infoCubeMove(e, id, key);
+        vm.infoCubeMove(e, obj.systemInfo.id, key);
       });
       n.on('mouseout', (e) => {
         vm.infoCubeMove(e);
@@ -297,7 +304,9 @@ export default {
         }
         baseUtil.each(vm.topoData[key], (el) => {
           if (el.systemInfo.id === id) {
-            vm.cubeInfo = { ...el.systemInfo };
+            const info = baseUtil.copy(el);
+            info.systemInfo.last_upgrade_time = format.date(new Date(el.systemInfo.last_upgrade_time * 1000), 'yyyy/MM/dd hh:mm:ss');
+            vm.cubeInfo = { ...info.systemInfo };
           }
         });
       } else if (e.type === 'mouseout') {
@@ -388,7 +397,7 @@ export default {
               el.forEach((item, index) => {
                 const el_x = n_box.x - (index + 0.5) * 120;
                 const el_y = n_box.y + 50;
-                vm.drawDeviceM(el_x, el_y, `${item.systemInfo.serial_number}${item.systemInfo.id}`, index, item.systemInfo.id, key);
+                vm.drawDeviceM(el_x, el_y, index, key, item);
               });
             } else {
               r_y += 220;
@@ -411,7 +420,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.topo-warp{
+.topo{
   width: 100%;
   height: 100%;
   overflow: hidden;

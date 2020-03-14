@@ -28,6 +28,7 @@ module.exports = {
     'vue/html-quotes': 'off',
     'func-names': 'off',
     camelcase: 'off',
+    'consistent-return': 'off',
     'object-shorthand': 'off',
     'no-else-return': 'off',
     'linebreak-style': [0, 'error', 'windows'],

@@ -3,12 +3,12 @@
   "version": "2.0.0",
   "private": true,
   "scripts": {
-    "serve dev": "vue-cli-service serve",
-    "serve dist ajax": "node serve.js",
-    "serve dist simple": "serve -s dist",
-    "serve ui": "vue ui",
-    "build modern": "vue-cli-service build --modern",
-    "build report": "npm run build --report",
+    "serve_dev": "vue-cli-service serve",
+    "serve_dist_ajax": "node serve.js",
+    "serve_dist_simple": "serve -s dist",
+    "serve_ui": "vue ui",
+    "build_modern": "vue-cli-service build --modern",
+    "build_report": "npm run build --report",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },

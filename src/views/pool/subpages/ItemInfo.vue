@@ -262,10 +262,6 @@ export default {
             padding-right: 0;
             line-height: 30px;
           }
-          .el-select .el-tag__close.el-icon-close {
-            right: -5px;
-            top: -2px;
-          }
         }
       }
     }

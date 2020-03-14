@@ -51,11 +51,24 @@ export default {
   /*
   * 网关视图
   * */
-  GatewayViewGetDeviceList: '/DeviceTopology/GatewayView/getDeviceList', // 获取设备列表
+  GatewayViewGetDeviceList: '/DeviceTopology/GatewayView/GetDeviceList', // 获取设备列表
+  GetM1CollectorNumber: '/DeviceTopology/GatewayView/GetM1CollectorNumber', // 获取M1采集器总数量
+  GetDeviceStatisticSpecify: '/DeviceTopology/GatewayView/GetDeviceStatisticSpecify', // 获取设备统计详情（故障数、总数量）
+  GetDeviceItemsCount: '/DeviceTopology/GatewayView/GetDeviceItemsCount', // 获取总监控项数量
+  GetInterfacePositionInfoList: '/DeviceTopology/GatewayView/GetInterfacePositionInfoList', // 获取接口位置信息列表
+  AddDevice: '/DeviceTopology/GatewayView/AddDevice', // 添加设备
+  DeleteDevice: '/DeviceTopology/GatewayView/DeleteDevice', // 删除设备
+  EditDeviceInfo: '/DeviceTopology/GatewayView/EditDeviceInfo', // 编辑设备
+  GetResourceClassList: '/DeviceTopology/GatewayView/GetResourceClassList', // 获取资源类别列表
+  CloneDevice: '/DeviceTopology/GatewayView/CloneDevice', // 克隆设备
+  GetMonitorItemList: '/DeviceTopology/GatewayView/GetMonitorItemList', // 获取监控项列表
+  EditMonitorItemList: '/DeviceTopology/GatewayView/EditMonitorItemList', // 编辑监控项列表
+  DeleteMonitorItemList: '/DeviceTopology/GatewayView/DeleteMonitorItemList', // 删除监控项列表
   /**
    * 资源库
    */
   getDeviceList: '/Resource/DeviceView/getDeviceList', // 获取设备列表
   getClassList: '/Resource/PropertiesView/getClassList', // 获取属性项类别列表
   getPropertyList: '/Resource/PropertiesView/getPropertyList', // 获取属性项列表
+  checkResourceInfoByProtocol: '/Resource/Common/checkResourceInfoByProtocol', // 通过协议查询设备型号
 };

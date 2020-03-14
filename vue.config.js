@@ -43,6 +43,11 @@ module.exports = {
         ws: true,
         changeOrigin: true,
       },
+      '/deviceType': {
+        target: proxy_url,
+        ws: true,
+        changeOrigin: true,
+      },
       '/Settings': {
         target: proxy_url,
         ws: true,

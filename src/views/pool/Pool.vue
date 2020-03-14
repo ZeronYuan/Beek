@@ -1,5 +1,5 @@
 <template>
-  <section id="pool">
+  <section class="pool">
    <div class="index">
      <div class="nav">
        <el-breadcrumb separator="/">
@@ -60,7 +60,7 @@ export default {
 </script>
 
 <style lang="scss">
-#pool{
+.pool{
   background: #f0f0f0;
   height: 100%;
   .index{

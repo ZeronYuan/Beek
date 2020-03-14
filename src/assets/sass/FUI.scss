@@ -3,22 +3,46 @@
 */
 @import "reset";
 @import "common";
-
-.ff-bubble{
-  >.el-drawer__header{
-    padding-top: 0;
-    background-color: #1b2744;
-    color: #fff;
-    height: 50px;
-    line-height: 50px;
-    font-size: 16px;
-    font-weight: 600;
+.el-form .el-form-item .el-select .el-tag__close.el-icon-close {
+  right: -5px;
+  top: -2px;
+}
+.ff-dialog{
+  >.el-dialog__header{
+    height: 56px;
+    line-height: 56px;
     margin-bottom: 0;
-    .el-drawer__close-btn{
-      font-size: 14px;
+    padding: 0;
+    .el-dialog__title{
+      font-size: 16px;
+      color: black;
+    }
+    .el-dialog__headerbtn{
+      top: 16px;
+      .el-dialog__close{
+        color: #333;
+        font-size: 16px;
+      }
     }
   }
 }
 .el-dialog__wrapper{
   overflow-x: hidden;
+}
+.ff-drawer{
+  .el-drawer__header{
+    height: 56px;
+    line-height: 56px;
+    margin-bottom: 0;
+    padding: 0 20px;
+    span{
+      font-size: 16px;
+    }
+    .el-drawer__close-btn{
+      .el-dialog__close{
+        font-size: 16px;
+        color: #333;
+      }
+    }
+  }
 }
