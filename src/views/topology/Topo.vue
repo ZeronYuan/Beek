@@ -14,34 +14,44 @@
       <p><span>软件版本：</span>{{cubeInfo.soft_version}}</p>
       <p><span>硬件版本：</span>{{cubeInfo.hard_version}}</p>
       <p><span>最近升级时间：</span>{{cubeInfo.last_upgrade_time}}</p>
-      <p class="title">当前插卡信息</p>
-      <p><span>序列号：</span></p>
-      <p><span>版本号：</span></p>
-      <p><span>批次：</span></p>
-      <p><span>功能：</span></p>
+<!--      <p class="title">当前插卡信息</p>-->
+<!--      <p><span>序列号：</span></p>-->
+<!--      <p><span>版本号：</span></p>-->
+<!--      <p><span>批次：</span></p>-->
+<!--      <p><span>功能：</span></p>-->
     </div>
     <div id="cube"></div>
     <img id="m1" src="../../assets/img/topo/M1.png" alt=""/>
     <img id="o" src="../../assets/img/topo/o.png" alt=""/>
     <img id="r1" @load="loaded" src="../../assets/img/topo/R1.png" alt=""/>
+    <el-drawer
+      :visible.sync="detailDrawer"
+      :direction="'rtl'"
+      :wrapperClosable=true
+      :with-header=false
+      custom-class="ff-drawer"
+      size="450px"
+      :destroy-on-close=true
+      :modal-append-to-body=false
+    >
+      <m-detail @closeDrawer="closeDrawer" :cubeInfo="cubeInfo"></m-detail>
+    </el-drawer>
   </div>
 </template>
 
 <script>
+import mDetail from './subfunction/MDetail.vue';
 import http from '../../plugins/http/http';
 import baseUtil from '../../util/baseUtil';
 import format from '../../util/format';
 
 const httpList = http.apiList;
 const { zrender } = window;
+
 export default {
   name: 'ToPo',
   data() {
     return {
-      // eslint-disable-next-line global-require
-      // mImgSrc: require('../../assets/img/topo/M1.png'),
-      // eslint-disable-next-line global-require
-      // rImgSrc: require('../../assets/img/topo/R1.png'),
       topoData: {},
       cube: '',
       ZR: '',
@@ -57,11 +67,15 @@ export default {
         uuid: '',
         last_upgrade_time: '',
       },
+      detailDrawer: false,
     };
   },
   mounted() {
   },
   created() {
+  },
+  components: {
+    mDetail: mDetail,
   },
   methods: {
     loaded() {
@@ -107,7 +121,7 @@ export default {
         if (!vm.ZR.dragData.drag) return;
         const new_pos = [e.event.zrX, e.event.zrY];
         const pos = [new_pos[0] - vm.ZR.dragData.pos[0], new_pos[1] - vm.ZR.dragData.pos[1]];
-        console.log(pos);
+        // console.log(pos);
         vm.allGroup.attr({
           position: [vm.allGroup.position[0] + pos[0], vm.allGroup.position[1] + pos[1]],
         });
@@ -160,7 +174,7 @@ export default {
         },
       });
       vm.R1.on('click', () => {
-        vm.$router.push('/Device');
+        vm.$router.push('/RDevice');
       });
       vm.allGroup.add(text);
       vm.allGroup.add(vm.R1);
@@ -218,8 +232,10 @@ export default {
       return line;
     },
     drawDeviceM(x, y, index, key, obj) {
-      console.log(obj);
+      // console.log(obj);
       const vm = this;
+      let timer;
+      const mBox = new zrender.Group();
       const imgOpts = {
         zlevel: 1,
         style: {
@@ -270,16 +286,62 @@ export default {
           },
         },
       });
-      vm.allGroup.add(line);
-      vm.allGroup.add(text);
-      vm.allGroup.add(n);
+      const but = vm.drawMButton(x, y);
+      mBox.add(line);
+      mBox.add(text);
+      mBox.add(n);
+      mBox.add(but);
+      but.on('click', () => {
+        vm.detailDrawer = true;
+      });
+      vm.allGroup.add(mBox);
       n.on('mousemove', (e) => {
         vm.infoCubeMove(e, obj.systemInfo.id, key);
       });
       n.on('mouseout', (e) => {
         vm.infoCubeMove(e);
       });
+      n.on('click', () => {
+        vm.$router.push('/MDevice');
+      });
+      mBox.on('mousemove', () => {
+        but.show();
+        clearTimeout(timer);
+      });
+      mBox.on('mouseout', () => {
+        timer = setTimeout(() => {
+          but.hide();
+        }, 500);
+      });
       return n;
+    },
+    drawMButton(x, y) {
+      // const vm = this;
+      const button = new zrender.Group();
+      const t = new zrender.Rect({
+        cursor: 'pointer',
+        shape: {
+          r: 2,
+          x: x - 55,
+          y: y,
+          width: 50,
+          height: 26,
+        },
+        zlevel: 1,
+        style: {
+          fill: '#ddd',
+          text: '配置',
+          textWidth: 108,
+          textHeight: 24,
+          textLineHeight: 24,
+          textOffset: [0, 0],
+          textFill: '#444',
+          transformText: true,
+        },
+      });
+      button.add(t);
+      button.hide();
+      return button;
     },
     infoCubeMove(e, id, key) {
       const vm = this;
@@ -412,6 +474,9 @@ export default {
           });
         },
       });
+    },
+    closeDrawer() {
+      this.detailDrawer = false;
     },
   },
   beforeDestroy() {

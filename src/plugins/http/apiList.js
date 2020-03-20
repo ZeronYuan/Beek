@@ -32,6 +32,12 @@ export default {
   SetIPV4Address: '/Settings/Network/ETH/SetIPV4Address', // 设置IPV4地址
   SetDNSAddress: '/Settings/Network/ETH/SetDNSAddress', // 设置DNS地址
   SetStatus: '/Settings/Network/ETH/SetStatus', // 设置状态
+  // FF-BUS
+  GetBusConfigure: '/Settings/Network/FFBUS/GetBusConfigure', // 获取总线配置
+  SetSwitchStatus: '/Settings/Network/FFBUS/SetSwitchStatus', // 设置开启状态
+  SetPowerStatus: '/Settings/Network/FFBUS/SetPowerStatus', // 设置电源状态
+  SetAutoUpgprade: '/Settings/Network/FFBUS/SetAutoUpgprade', // 设置自动升级状态
+  SetDistance: '/Settings/Network/FFBUS/SetDistance', // 设置距离
   /**
    * 基本设置
    */
@@ -48,6 +54,7 @@ export default {
    * 顶层视图
    */
   getPhysicList: '/DeviceTopology/TopView/getPhysicList', // 获取顶层物理视图
+  GetInterfaceCard: '/DeviceTopology/TopView/GetInterfaceCard', // 获取插卡信息
   /*
   * 网关视图
   * */
@@ -64,6 +71,8 @@ export default {
   GetMonitorItemList: '/DeviceTopology/GatewayView/GetMonitorItemList', // 获取监控项列表
   EditMonitorItemList: '/DeviceTopology/GatewayView/EditMonitorItemList', // 编辑监控项列表
   DeleteMonitorItemList: '/DeviceTopology/GatewayView/DeleteMonitorItemList', // 删除监控项列表
+  GetAvailableMonitorItemList: '/DeviceTopology/GatewayView/GetAvailableMonitorItemList', // 获取可添加的监控项列表
+  AddMonitorItemList: '/DeviceTopology/GatewayView/AddMonitorItemList', // 添加监控项列表
   /**
    * 资源库
    */

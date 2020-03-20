@@ -160,9 +160,58 @@
         width="49%">
         <div class="main">
           <ul class="classify-list">
-            <li>全部类别 <span>100000</span></li>
-            <li v-for="(item, key) in categoryList" :key="key">{{ item.name }}</li>
+            <li @click="filterOpt(allMarchId)">全部类别<span>{{actOptSum}}</span></li>
+            <li v-for="(item, key) in categoryList" :key="key" @click="filterOpt([{id: item.id}])">{{ item.name }}<span>{{item.act_num}}</span></li>
           </ul>
+          <div class="table-area">
+            <el-table
+              :data="curOptList"
+              border
+              ref="add-ops-table"
+              :lazy="true"
+              :height="450"
+              @select-all="selectOptTable"
+              @select="selectOptTable"
+              style="width: 100%">
+              <el-table-column
+                type="selection"
+                align="center"
+                width="48.3">
+              </el-table-column>
+              <el-table-column
+                type="index"
+                label="序号"
+                align="center"
+                width="50">
+              </el-table-column>
+              <el-table-column
+                label="名称"
+                prop="name"
+                align="center"
+                width="180">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                width="80"
+                label="状态">
+                <template slot-scope="scope">
+                  <el-checkbox v-model="scope.row.use_status">打开</el-checkbox>
+                </template>
+              </el-table-column>
+              <el-table-column
+                prop="description"
+                align="center"
+                label="描述">
+              </el-table-column>
+              <el-table-column
+                align="center"
+                label="备注">
+                <template slot-scope="scope">
+                  <el-input size="mini" v-model="scope.row.description" placeholder="可编辑"></el-input>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
         <span slot="footer" class="dialog-footer">
         <el-button @click="addItemdialogVisible = false">取 消</el-button>
@@ -183,13 +232,14 @@ export default {
   name: 'MonitorItems',
   data() {
     return {
+      deviceId: Number(this.$route.query.id), // 地址栏device_id参数
       categoryList: [], // 类别
+      allMarchId: [], // 所有类别的ID
       editDrawerVisible: false,
       direction: 'rtl',
       addItemdialogVisible: false,
       total: 0,
-      tableData: [],
-      checkAll: false,
+      tableData: [], // 监控项列表
       pageSize: 20,
       tableHeight: 0,
       seachForm: {
@@ -203,6 +253,9 @@ export default {
         description: '',
         usage_status: false,
       },
+      allOptList: [], // 全部可添加监控项
+      curOptList: [], // 当前可添加监控项列表
+      actOptSum: 0,
     };
   },
   created() {
@@ -218,7 +271,6 @@ export default {
   },
   methods: {
     resetForm(refName) {
-      console.log(refName);
       this.$refs[refName].resetFields();
     },
     getCategoryList() {
@@ -226,12 +278,14 @@ export default {
       http.api[httpList.GetResourceClassList]({
         method: 'post',
         params: {
-          device_id: vm.$route.query.id,
+          device_id: vm.deviceId,
         },
         success(response) {
           baseUtil.each(response, (el) => {
-            console.log(el.id);
             vm.seachForm.resource_class_march_id_list.push(el.id);
+            vm.allMarchId.push({
+              id: el.id,
+            });
           });
           vm.categoryList = response;
           vm.getItemList();
@@ -243,7 +297,7 @@ export default {
       http.api[httpList.GetMonitorItemList]({
         method: 'post',
         params: {
-          device_id: Number(vm.$route.query.id),
+          device_id: vm.deviceId,
           resource_class_march_id_list: vm.seachForm.resource_class_march_id_list,
           page_index: index,
           page_size: size,
@@ -263,14 +317,13 @@ export default {
       const vm = this;
       vm.getItemList(val, vm.pageSize);
     },
-    chooseOption() {
+    chooseOption() { // 类别切换重新请求监控项列表
       const vm = this;
       vm.getItemList();
     },
     // 添加/编辑监控项
     setItemForm(obj) {
       const vm = this;
-      console.log(obj);
       vm.$nextTick(() => {
         vm.itemInfoForm = { ...vm.itemInfoForm, ...obj };
         vm.itemInfoForm.usage_status = !!obj.usage_status;
@@ -309,8 +362,98 @@ export default {
       });
     },
     addItemDialog() {
+      const vm = this;
+      http.api[httpList.GetAvailableMonitorItemList]({
+        method: 'post',
+        params: {
+          device_id: vm.deviceId,
+          resource_class_march_list: vm.allMarchId,
+        },
+        success(response) {
+          vm.allOptList = response;
+          vm.filterOpt(vm.allMarchId);
+          vm.selectOptTable([]);
+        },
+      });
+    },
+    selectOptTable(seletion) { // 可添加监控项列表选中操作
+      const vm = this;
+      baseUtil.each(vm.curOptList, (el) => {
+        el.active = 0;
+      });
+      baseUtil.each(seletion, (el) => {
+        el.active = 1;
+      });
+      vm.actOptSum = 0;
+      baseUtil.each(vm.allOptList, (el) => {
+        baseUtil.each(vm.categoryList, (ele) => {
+          if (el.id === ele.id) {
+            ele.act_num = 0;
+            baseUtil.each(el.item_list, (cl) => {
+              ele.act_num += cl.active;
+              vm.actOptSum += ele.act_num;
+            });
+          }
+        });
+      });
+    },
+    filterOpt(idList) { // 根据类别过滤可添加监控项列表
+      const vm = this;
+      const cur = [];
+      baseUtil.each(vm.categoryList, (el) => {
+        if (!('act_num' in el)) {
+          vm.$set(el, 'act_num', 0);
+        }
+      });
+      baseUtil.each(idList, (el) => {
+        baseUtil.each(vm.allOptList, (ele) => {
+          if (el.id === ele.id) {
+            baseUtil.each(ele.item_list, (eles) => {
+              if (!('active' in eles)) {
+                vm.$set(eles, 'use_status', false);
+                vm.$set(eles, 'active', 0);
+                vm.$set(eles, 'note', '');
+              }
+              cur.push(eles);
+            });
+          }
+        });
+      });
+      vm.curOptList = cur;
+      vm.$nextTick(() => {
+        baseUtil.each(vm.curOptList, (el) => {
+          if (el.active) {
+            vm.$refs['add-ops-table'].toggleRowSelection(el, true);
+          }
+        });
+      });
     },
     subAddItem() {
+      const vm = this;
+      const param = [];
+      baseUtil.each(vm.allOptList, (el) => {
+        baseUtil.each(el.item_list, (val) => {
+          if (val.active) {
+            param.push({
+              ...val,
+              device_id: vm.deviceId,
+            });
+          }
+        });
+      });
+      http.api[httpList.AddMonitorItemList]({
+        method: 'post',
+        params: {
+          add_items: param,
+        },
+        success() {
+          vm.$message({
+            type: 'success',
+            message: '添加成功',
+          });
+          vm.getItemList(1, 20);
+        },
+      });
     },
   },
 };
@@ -318,7 +461,6 @@ export default {
 
 <style lang="scss" scoped>
   .monitor-items{
-    // width: 100%;
     height: 100%;
     background: #f0f0f0;
     .nav{
@@ -442,70 +584,73 @@ export default {
         }
       }
     }
-    .pop{
-    }
-  }
-</style>
-<style lang="scss">
-.edit-item-drawer{
- .el-drawer__body{
-   padding: 0 20px;
-   overflow-y: auto;
-   >.info{
-     .el-form{
-       margin-top: 10px;
-       .form-title{
-         font-size: 14px;
-         margin-bottom: 20px;
-       }
-       .el-form-item__content{
-         .el-select,.el-cascader{
-           width: 100%;
-         }
-       }
-     }
-   }
- }
-}
-.add-item-dialog{
-  .el-dialog__body{
-    padding: 0 20px;
-    overflow-y: auto;
-    .main{
-      margin: 0;
-      .classify-list{
-        height: 450px;
-        width: 25%;
-        border: 1px solid #eee;
-        border-right: 0;
+    & /deep/ .add-item-dialog{
+      .el-dialog__body{
+        padding: 0 20px;
         overflow-y: auto;
-        >li{
-          height: 48px;
-          line-height: 48px;
-          color: #333;
-          border-bottom: 1px solid #eee;
-          cursor: pointer;
-          position: relative;
-          >span{
-            display: block;
-            margin-left: 10px;
-            color: #fff;
-            height: 22px;
-            line-height: 22px;
-            padding: 0 6px;
-            background: #F88311;
-            border-radius: 24px;
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-11px);
+        .main{
+          margin: 0;
+          margin-bottom: 10px;
+          overflow: hidden;
+          .classify-list{
+            float: left;
+            height: 450px;
+            width: 20%;
+            border: 1px solid #eee;
+            border-right: 0;
+            overflow-y: auto;
+            >li{
+              height: 48.3px;
+              line-height: 48.3px;
+              color: #333;
+              border-bottom: 1px solid #eee;
+              cursor: pointer;
+              position: relative;
+              >span{
+                display: block;
+                margin-left: 10px;
+                color: #fff;
+                height: 22px;
+                line-height: 22px;
+                padding: 0 6px;
+                background: #F88311;
+                border-radius: 24px;
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-11px);
+              }
+            }
+            .active{
+              background: #F88311;
+            }
           }
-        }
-        .active{
-          background: #F88311;
+          .table-area{
+            float: left;
+            width: 80%;
+          }
         }
       }
     }
   }
-}
+  /deep/ .edit-item-drawer{
+    .el-drawer__body{
+      padding: 0 20px;
+      overflow-y: auto;
+      >.info{
+        .el-form{
+          margin-top: 10px;
+          .form-title{
+            font-size: 14px;
+            margin-bottom: 20px;
+          }
+          .el-form-item__content{
+            .el-select,.el-cascader{
+              width: 100%;
+            }
+          }
+        }
+      }
+    }
+  }
 </style>

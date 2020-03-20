@@ -27,20 +27,22 @@ const router = new Router({
     {
       path: '/ToPo',
       name: 'ToPo',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () => import(/* webpackChunkName: "topo" */ '../views/topology/Topo.vue'),
     },
     {
-      path: '/Device',
-      name: 'Device',
-      component: () => import(/* webpackChunkName: "device" */ '../views/device/Device.vue'),
+      path: '/RDevice',
+      name: 'RDevice',
+      component: () => import(/* webpackChunkName: "r-device" */ '../views/r-device/RDevice.vue'),
     },
     {
       path: '/MonitorItems',
       name: 'MonitorItems',
-      component: () => import(/* webpackChunkName: "device" */ '../views/device/MonitorItems.vue'),
+      component: () => import(/* webpackChunkName: "r-device" */ '../views/r-device/MonitorItems.vue'),
+    },
+    {
+      path: '/MDevice',
+      name: 'MDevice',
+      component: () => import(/* webpackChunkName: "m-device" */ '../views/m-device/MDevice.vue'),
     },
     {
       path: '/Pool',
@@ -59,7 +61,7 @@ const router = new Router({
           meta: {
             title: '资源库',
           },
-          component: () => import(/* webpackChunkName: "poolSub" */ '../views/pool/subpages/Index.vue'),
+          component: () => import(/* webpackChunkName: "pool-sub" */ '../views/pool/subpages/Index.vue'),
         },
         {
           path: 'PoolItemInfo',
@@ -67,7 +69,7 @@ const router = new Router({
           meta: {
             title: '属性信息',
           },
-          component: () => import(/* webpackChunkName: "poolSub" */ '../views/pool/subpages/ItemInfo.vue'),
+          component: () => import(/* webpackChunkName: "pool-sub" */ '../views/pool/subpages/ItemInfo.vue'),
         },
       ],
     },

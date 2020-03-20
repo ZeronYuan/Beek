@@ -328,7 +328,7 @@ import baseUtil from '../../util/baseUtil';
 const httpList = http.apiList;
 
 export default {
-  name: 'Device',
+  name: 'RDevice',
   data() {
     return {
       drawer: false,
@@ -612,7 +612,7 @@ export default {
       // vm.dialogVisible = false;
       vm.$refs['copy-device-form'].validate((valid) => {
         if (valid) {
-          console.log(vm.copyDeviceForm, vm.copyDeviceTable);
+          // console.log(vm.copyDeviceForm, vm.copyDeviceTable);
           const class_item_content_list = [];
           baseUtil.each(vm.copyDeviceTable, (el) => {
             if (el.active) {
@@ -646,7 +646,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .device{
     background: #f0f0f0;
     height: 100%;
@@ -829,7 +829,7 @@ export default {
       }
     }
   }
-  .is-watch{
+  /deep/ .is-watch{
     >.el-form-item__content{
       .el-input{
         width: 85%;
@@ -845,7 +845,7 @@ export default {
       }
     }
   }
-  .device-add-edit-device{
+  /deep/ .device-add-edit-device{
     .el-drawer__body{
       padding: 0 20px;
       overflow-y: auto;
@@ -866,7 +866,7 @@ export default {
       }
     }
   }
-  .copy-device{
+  /deep/ .copy-device{
     .el-dialog__body{
       padding: 10px;
       .main{
@@ -896,7 +896,7 @@ export default {
       }
     }
   }
-  .error-image-slot{
+  /deep/ .error-image-slot{
     height: 100%;
     background: #eee;
     line-height: 222px;

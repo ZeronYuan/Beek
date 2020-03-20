@@ -12,14 +12,12 @@
             <div class="bus-list">
               <transition name="slide-fade">
                 <ul v-show="netList.bus" class="inner-bus">
-                  <li>
-                    FF-BUS1
-                    <i @click="bus.show = !bus.show" class="el-icon-arrow-right"/>
-                    <span>已开启</span>
+                  <li v-for="(val, name, index) in bus.busList" :key="index">
+                    {{name}}
+                    <i @click="getBusInfo(val.id),bus.show = !bus.show" class="el-icon-arrow-right"/>
+                    <span v-if="val.status">已开启</span>
+                    <span v-else>关闭</span>
                   </li>
-                  <li>FF-BUS2</li>
-                  <li>FF-BUS3</li>
-                  <li>FF-BUS4</li>
                 </ul>
               </transition>
             </div>
@@ -73,19 +71,20 @@
             </div>
             <el-form :model="bus.form" ref="setBusForm" label-width="160px" label-position="left" size="small" class="info-form">
               <el-form-item label="状态">
-                <el-switch v-model="bus.form.status"/>
+                <el-switch @change="setBusInfo('SetSwitchStatus', 'status')" v-model="bus.form.status"/>
               </el-form-item>
               <el-form-item label="电源开关">
-                <el-switch v-model="bus.form.open"/>
+                <el-switch @change="setBusInfo('SetPowerStatus', 'power_status')" v-model="bus.form.power_status"/>
               </el-form-item>
               <el-form-item label="闲时节点自动升级">
-                <el-switch v-model="bus.form.autoUpdate"/>
+                <el-switch @change="setBusInfo('SetAutoUpgprade', 'auto_upgrade')" v-model="bus.form.auto_upgrade"/>
               </el-form-item>
               <el-form-item label="距离">
-                <el-select v-model="bus.form.distance" placeholder="请选择距离">
-                  <el-option label="100米" value="1"/>
-                  <el-option label="500米" value="2"/>
-                  <el-option label="1000米" value="3"/>
+                <el-select @change="setBusInfo('SetDistance', 'distance')" v-model="bus.form.distance" placeholder="请选择距离">
+                  <el-option label="40米" value="40"/>
+                  <el-option label="100米" value="100"/>
+                  <el-option label="250米" value="250"/>
+                  <el-option label="500米" value="500"/>
                 </el-select>
               </el-form-item>
             </el-form>
@@ -387,12 +386,31 @@ export default {
         eth: false,
       },
       bus: {
+        busList: {
+          'FF-BUS1': {
+            id: 1,
+            status: false,
+          },
+          'FF-BUS2': {
+            id: 2,
+            status: false,
+          },
+          'FF-BUS3': {
+            id: 3,
+            status: false,
+          },
+          'FF-BUS4': {
+            id: 4,
+            status: false,
+          },
+        },
         show: false,
         editBus: false,
         form: {
+          bus_id: '',
           status: false,
-          open: false,
-          autoUpdate: false,
+          power_status: false,
+          auto_upgrade: false,
           distance: '1',
         },
       },
@@ -649,6 +667,36 @@ export default {
         } else {
           return false;
         }
+      });
+    },
+    getBusInfo(id) {
+      const vm = this;
+      http.api[httpList.GetBusConfigure]({
+        method: 'post',
+        params: {
+          bus_id: id,
+        },
+        success(response) {
+          vm.bus.form = response;
+          vm.bus.form.id = id;
+        },
+      });
+    },
+    setBusInfo(action, type) {
+      const vm = this;
+      console.log(type, vm.bus.form);
+      http.api[httpList[action]]({
+        method: 'post',
+        params: {
+          bus_id: vm.bus.form.id,
+          value: vm.bus.form[type],
+        },
+        success() {
+          vm.$message({
+            type: 'success',
+            message: '修改成功',
+          });
+        },
       });
     },
     setWlanStatus(value) {
