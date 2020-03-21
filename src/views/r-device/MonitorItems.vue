@@ -7,7 +7,7 @@
         <el-breadcrumb-item :to="{ path: '/Device' }">统计列表</el-breadcrumb-item>
         <el-breadcrumb-item :to="{ path: '/Device' }">属性列表</el-breadcrumb-item>
       </el-breadcrumb>
-      <div class="nav-back"><router-link to="Device"><i class="el-icon-arrow-left"></i> {{ $route.query.name }}</router-link></div>
+      <div class="nav-back"><router-link to="RDevice"><i class="el-icon-arrow-left"></i> {{ $route.query.name }}</router-link></div>
     </div>
     <div class="main">
       <div class="seach-form">

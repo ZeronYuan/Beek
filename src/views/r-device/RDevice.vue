@@ -7,7 +7,7 @@
           <el-breadcrumb-item :to="{ path: '/ToPo' }">设备拓扑</el-breadcrumb-item>
           <el-breadcrumb-item :to="{ path: '/ToPo' }">统计列表</el-breadcrumb-item>
         </el-breadcrumb>
-        <div class="nav-back"><i class="el-icon-arrow-left"></i> 统计列表</div>
+        <div class="nav-back"><router-link to="ToPo"><i class="el-icon-arrow-left"></i> 统计列表</router-link></div>
       </div>
       <div class="main">
         <ul class="device-count">

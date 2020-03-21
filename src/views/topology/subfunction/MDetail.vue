@@ -47,7 +47,7 @@
           插卡信息
           <i class="el-icon-close" @click="closeDrawer"></i>
         </div>
-        <div class="card">
+        <div v-show="cardList.length" class="card">
           <el-image
             style="width: 100%; height: 200px;padding: 0 20px;"
             :src= cardInfo.image_url
@@ -56,6 +56,19 @@
               <i class="el-icon-picture-outline"></i>
             </div>
           </el-image>
+          <el-carousel @change="changeImg" :autoplay="false" indicator-position="none" arrow="always" type="card" height="80px">
+            <el-carousel-item v-for="item in cardList" :key="item.serial_number">
+              <div class="mask-gray" v-if="!item.is_installed"></div>
+              <el-image
+                style="width: 100%; height: 100%;"
+                :src= item.image_url
+                fit="cover">
+                <div slot="error" class="error-image-slot">
+                  <i class="el-icon-picture-outline"></i>
+                </div>
+              </el-image>
+            </el-carousel-item>
+          </el-carousel>
           <div class="info-list">
             <p><span>型号：</span>{{cardInfo.name}}</p>
             <p><span>序列号：</span>{{cardInfo.serial_number}}</p>
@@ -64,6 +77,9 @@
             <p><span>出厂时间：</span>{{cardInfo.burn_time}}</p>
             <p><span>接口详情：</span></p>
           </div>
+        </div>
+        <div v-show="!cardList.length" class="none-card">
+          暂无插卡信息
         </div>
       </li>
       </transition-group>
@@ -106,6 +122,7 @@ export default {
         version: '',
         burn_time: '',
       },
+      cardList: [],
     };
   },
   methods: {
@@ -136,11 +153,16 @@ export default {
         },
         success(response) {
           // console.log(response);
+          vm.cardList = response;
           vm.cardInfo = { ...vm.cardInfo, ...response[0] };
           vm.cardInfo.burn_time = format.date(new Date(vm.cardInfo.burn_time * 1000), 'yyyy/MM/dd hh:mm:ss');
           // console.log(vm.cardInfo);
         },
       });
+    },
+    changeImg(index) {
+      const vm = this;
+      vm.cardInfo = { ...vm.cardInfo, ...vm.cardList[index] };
     },
   },
 };
@@ -233,11 +255,6 @@ export default {
         }
       }
       .sys, .card{
-        /*.img-title{*/
-        /*  width: 100%;*/
-        /*  padding: 0 20px;*/
-        /*  height: 200px;*/
-        /*}*/
         .info-list{
           padding: 0 20px;
           p{
@@ -250,17 +267,44 @@ export default {
           }
         }
       }
+      .card{
+        .el-carousel{
+          .el-carousel__item{
+            .mask-gray{
+              width: 100%;
+              height: 100%;
+              position: absolute;
+              top: 0;
+              left: 0;
+              z-index: 1;
+              background: rgba(119, 119, 119, 0.6);
+            }
+          }
+        }
+      }
+      .none-card{
+        height: 200px;
+        line-height: 200px;
+        font-size: 28px;
+        color: #6C696F;
+        text-align: center;
+      }
     }
   }
 }
 /deep/ .error-image-slot{
   height: 100%;
   background: #eee;
-  line-height: 222px;
   text-align: center;
+  position: relative;
   i{
-    font-size: 40px;
+    font-size: 36px;
     color: #6C696F;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -18px;
+    margin-left: -18px;
   }
 }
 </style>
